@@ -1,0 +1,73 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/25.0.2 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="25.0.2">
+  <diagram name="1 oldal" id="3VMZHdyAMSpXFTm0nXOi">
+    <mxGraphModel dx="2074" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DhRclS34hHsgzHxHvdbL-3" value="" style="html=1;whiteSpace=wrap;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="40" width="290" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-19" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-1" target="DhRclS34hHsgzHxHvdbL-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-20" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-1" target="DhRclS34hHsgzHxHvdbL-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-21" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-1" target="DhRclS34hHsgzHxHvdbL-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-22" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-1" target="DhRclS34hHsgzHxHvdbL-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-1" target="DhRclS34hHsgzHxHvdbL-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-1" value="Általálnos felhasználó" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="50" y="295" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-24" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-2" target="DhRclS34hHsgzHxHvdbL-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-25" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-2" target="DhRclS34hHsgzHxHvdbL-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-26" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-2" target="DhRclS34hHsgzHxHvdbL-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-27" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-2" target="DhRclS34hHsgzHxHvdbL-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-28" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-2" target="DhRclS34hHsgzHxHvdbL-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-29" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="DhRclS34hHsgzHxHvdbL-2" target="DhRclS34hHsgzHxHvdbL-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-2" value="Adminisztrátor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="580" y="295" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-4" value="Állatok kezelése" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="270" y="50" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-9" value="UC_P_List Állatok listázása" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="250" y="110" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-12" value="UC_P_Create Állat rögzítése" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="255" y="200" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-13" value="UC_P_Read Állat megtekintése" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="255" y="290" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-14" value="UC_P_Update Állat módosítása" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="255" y="380" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-17" value="UC_P_Delete Állat törlése" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="255" y="470" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DhRclS34hHsgzHxHvdbL-18" value="UC_P_Patch Állat átnevezése vagy súlyváltozása" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="255" y="560" width="140" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

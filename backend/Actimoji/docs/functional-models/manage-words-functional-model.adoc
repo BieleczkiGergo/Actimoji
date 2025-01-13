@@ -1,0 +1,142 @@
+= Szavak kezelése - Funkcionális modell
+
+== Leírás
+
+A nem bejeletkezett felhasználó is meg tudja nézni az adatbázisban eltárolt szavakat.
+
+A bejelentkezett felhasználó tehet javaslatot új szó létrehozására illetve meglévő szavak módosítására és törlésére.
+
+== Használati esetek
+
+=== Használati eset diagram
+image::../static/UC_diagrams/managePetsUseCases.drawio.png[Használati eset diagram]
+
+=== Használati esetek rövid leírása
+[cols="1h,4"]
+|===
+| Használati eset
+| Szavak listázása
+
+| Azonosító
+| UC_W_List
+
+| Kiváltó esemény
+| A felhasználó listázni kívánja a szavakat
+
+| Felhasználók
+| Általános felhasználó, Bejelentkezett felhasználó, Moderátor
+
+| Elsődleges lefutás
+|
+1. A felhasználó a szavak listázása menüpontra kattint,
+
+2. A rendszerben kiválogatásra kerülnek a szavak
+
+| Kivételek és alternatívák
+| -
+
+| Utófeltétel
+| A rendszerben a szavak listája előállt
+
+| Eredmény
+| A felhasználó látja a szavak listáját, kiválaszthat egyet közülük.
+
+| Használati eset realizáció
+| Technikai modell
+
+|===
+
+[cols="1h,4"]
+|===
+| Használati eset
+| Új szó javaslata
+
+| Azonosító
+| UC_W_Create
+
+| Kiváltó esemény
+| A felhasználó új szó létrehozását szeretné létrehozni
+
+| Felhasználók
+| Bejelentkezett felhasználó, moderátor
+
+| Elsődleges lefutás
+|
+1. A felhasználó a javaslat tétele menüpontra kattint
+
+2. A felhaszáló a felugró ablakban kiválasztja az új szó létrehozását
+
+3. A felhasználó beírja az új szót, a hozzá tartozó tiltott szimbólumokat, és opcionálisan egy rövid indoklást a szó létrehozására
+
+4. A felhasználó a javaslat küldése gombra kattint
+
+5. A javaslat eltárolásra kerül az adatbázisban, majd a moderátorok azt elfogadhatják vagy elutasíthatják.
+
+| Kivételek és alternatívák
+| -
+
+| Utófeltétel
+| Az adatbázisban rögzül a javaslat
+
+| Eredmény
+| A moderátorok láthatják a javaslatot, majd elfogadhatják illetve elutasíthatják azt.
+
+| Használati eset realizáció
+| Technikai modell
+
+|===
+// táblázat: szó módasítása, szó törlése, javaslatok megtekintése, javaslatok elfogadása vagy elutasítása (külön)
+[cols="1h,4"]
+|===
+| Használati eset
+| Javaslat szó, vagy az ahhoz tartozó tiltott szimbólumok módosítására
+
+| Azonosító
+| UC_W_Modify
+
+| Kiváltó esemény
+| A felhasználó új szó létrehozását szeretné létrehozni
+
+| Felhasználók
+| Bejelentkezett felhasználó, moderátor
+
+| Elsődleges lefutás
+|
+1. A felhasználó a javaslat tétele menüpontra kattint
+
+2. A felhaszáló a felugró ablakban kiválasztja az új szó létrehozását
+
+3. A felhasználó beírja az új szót, a hozzá tartozó tiltott szimbólumokat, és opcionálisan egy rövid indoklást a szó létrehozására
+
+4. A felhasználó a javaslat küldése gombra kattint
+
+5. A javaslat eltárolásra kerül az adatbázisban, majd a moderátorok azt elfogadhatják vagy elutasíthatják.
+
+| Kivételek és alternatívák
+| -
+
+| Utófeltétel
+| Az adatbázisban rögzül a javaslat
+
+| Eredmény
+| A moderátorok láthatják a javaslatot, majd elfogadhatják illetve elutasíthatják azt.
+
+| Használati eset realizáció
+| Technikai modell
+
+|===
+
+
+== Jogosultságok
+
+készül...
+
+== Felületi terv
+
+=== Arculat
+
+=== A felületen lévő mezők
+
+=== A felületről elérhető műveletek
+
+link:../functional-models.adoc[Vissza]
