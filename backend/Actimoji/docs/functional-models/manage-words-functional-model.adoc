@@ -9,7 +9,7 @@ A bejelentkezett felhasználó tehet javaslatot új szó létrehozására illetv
 == Használati esetek
 
 === Használati eset diagram
-image::../static/UC_diagrams/managePetsUseCases.drawio.png[Használati eset diagram]
+image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 
 === Használati esetek rövid leírása
 [cols="1h,4"]
@@ -55,7 +55,7 @@ image::../static/UC_diagrams/managePetsUseCases.drawio.png[Használati eset diag
 | UC_W_Create
 
 | Kiváltó esemény
-| A felhasználó új szó létrehozását szeretné létrehozni
+| A bejelentkezett felhasználó létre szeretne hozni egy új szót
 
 | Felhasználók
 | Bejelentkezett felhasználó, moderátor
@@ -85,17 +85,17 @@ image::../static/UC_diagrams/managePetsUseCases.drawio.png[Használati eset diag
 | Technikai modell
 
 |===
-// táblázat: szó módasítása, szó törlése, javaslatok megtekintése, javaslatok elfogadása vagy elutasítása (külön)
+
 [cols="1h,4"]
 |===
 | Használati eset
 | Javaslat szó, vagy az ahhoz tartozó tiltott szimbólumok módosítására
 
 | Azonosító
-| UC_W_Modify
+| UC_W_Update
 
 | Kiváltó esemény
-| A felhasználó új szó létrehozását szeretné létrehozni
+| A bejelentkezett felhasználó módosítani szeretne egy szót vagy az ahhoz tartozó tiltott szimbólumokat.
 
 | Felhasználók
 | Bejelentkezett felhasználó, moderátor
@@ -104,9 +104,9 @@ image::../static/UC_diagrams/managePetsUseCases.drawio.png[Használati eset diag
 |
 1. A felhasználó a javaslat tétele menüpontra kattint
 
-2. A felhaszáló a felugró ablakban kiválasztja az új szó létrehozását
+2. A felhaszáló a felugró ablakban kiválasztja a szó módosítását
 
-3. A felhasználó beírja az új szót, a hozzá tartozó tiltott szimbólumokat, és opcionálisan egy rövid indoklást a szó létrehozására
+3. A felhasználó kiválasztja a már meglévő szavak közül a módosítani kívánt szót, beírja az új szót és/vagy a hozzá tartozó tiltott szimbólumokat, valamint egy rövid indoklást a szó és/vagy a tiltott szimbólumok módosítására
 
 4. A felhasználó a javaslat küldése gombra kattint
 
@@ -126,6 +126,147 @@ image::../static/UC_diagrams/managePetsUseCases.drawio.png[Használati eset diag
 
 |===
 
+[cols="1h,4"]
+|===
+| Használati eset
+| Javaslat szó törlésére
+
+| Azonosító
+| UC_W_Delete
+
+| Kiváltó esemény
+| A bejelentkezett felhasználó törölni szeretne egy szót.
+
+| Felhasználók
+| Bejelentkezett felhasználó, moderátor
+
+| Elsődleges lefutás
+|
+1. A felhasználó a javaslat tétele menüpontra kattint
+
+2. A felhaszáló a felugró ablakban kiválasztja a szó törlését
+
+3. A felhasználó kiválasztja a már meglévő szavak közül a törölni kívánt szót, valamint egy rövid indoklást a szó törlésére
+
+4. A felhasználó a javaslat küldése gombra kattint
+
+5. A javaslat eltárolásra kerül az adatbázisban, majd a moderátorok azt elfogadhatják vagy elutasíthatják.
+
+| Kivételek és alternatívák
+| -
+
+| Utófeltétel
+| Az adatbázisban rögzül a javaslat
+
+| Eredmény
+| A moderátorok láthatják a javaslatot, majd elfogadhatják illetve elutasíthatják azt.
+
+| Használati eset realizáció
+| Technikai modell
+
+|===
+
+[cols="1h,4"]
+|===
+| Használati eset
+| Javaslatok listázása
+
+| Azonosító
+| UC_S_List
+
+| Kiváltó esemény
+| A moderátor listázni kívánja a javaslatokat
+
+| Felhasználók
+| Moderátor
+
+| Elsődleges lefutás
+|
+1. A moderátor a javaslatok menüpontra kattint,
+
+2. A rendszerben kiválogatásra kerülnek a javaslatok
+
+| Kivételek és alternatívák
+| -
+
+| Utófeltétel
+| A rendszerben a javaslatok listája előállt
+
+| Eredmény
+| A moderátor látja a javaslatok listáját, melyeket elfogadhat, illetve elutasíthat.
+
+| Használati eset realizáció
+| Technikai modell
+
+|===
+
+[cols="1h,4"]
+|===
+| Használati eset
+| Javaslatok elfogadása
+
+| Azonosító
+| UC_S_Accept
+
+| Kiváltó esemény
+| A moderátor jóvá akar hagyni egy javaslatot
+
+| Felhasználók
+| Moderátor
+
+| Elsődleges lefutás
+|
+1. A moderátor az általa kiválasztott javaslat mellett található 'elfogadás' ikonra kattint,
+
+2. A rendszerben a javaslat típusának megfelelő esemény megy végbe (create,update,delete).
+
+| Kivételek és alternatívák
+| -
+
+| Utófeltétel
+| A rendszerben létrejött, módosult vagy törlődött egy szó.
+
+| Eredmény
+| A szavak listázásakor megjelenik az új vagy a módosított szó, vagy már nem jelenik meg a törölt szó.
+
+| Használati eset realizáció
+| Technikai modell
+
+|===
+
+[cols="1h,4"]
+|===
+| Használati eset
+| Javaslatok elutasítása
+
+| Azonosító
+| UC_S_Reject
+
+| Kiváltó esemény
+| A moderátor el akar utasítani egy javaslatot
+
+| Felhasználók
+| Moderátor
+
+| Elsődleges lefutás
+|
+1. A moderátor az általa kiválasztott javaslat mellett található 'elutasítás' ikonra kattint,
+
+2. A rendszerben eltűnik a javaslatok közül az elutasított javaslat.
+
+| Kivételek és alternatívák
+| -
+
+| Utófeltétel
+| A rendszerben eltűnik a javaslatok közül az elutasított javaslat.
+
+| Eredmény
+| A szavak listázásakor minden a régi marad.
+
+| Használati eset realizáció
+| Technikai modell
+
+|===
 
 == Jogosultságok
 
