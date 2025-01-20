@@ -58,7 +58,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 | A bejelentkezett felhasználó létre szeretne hozni egy új szót
 
 | Felhasználók
-| Bejelentkezett felhasználó, moderátor
+| Bejelentkezett felhasználó, Moderátor
 
 | Elsődleges lefutás
 |
@@ -98,7 +98,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 | A bejelentkezett felhasználó módosítani szeretne egy szót vagy az ahhoz tartozó tiltott szimbólumokat.
 
 | Felhasználók
-| Bejelentkezett felhasználó, moderátor
+| Bejelentkezett felhasználó, Moderátor
 
 | Elsődleges lefutás
 |
@@ -138,7 +138,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 | A bejelentkezett felhasználó törölni szeretne egy szót.
 
 | Felhasználók
-| Bejelentkezett felhasználó, moderátor
+| Bejelentkezett felhasználó, Moderátor
 
 | Elsődleges lefutás
 |
@@ -270,13 +270,51 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 
 == Jogosultságok
 
-készül...
+[cols="1,1,1"]
+|===
+| Használati eset | Jogosultság | Szerepkörök
+
+| Szavak listázása
+| WORD_LIST
+| Általános felhasználó, Bejelentkezett felhasználó, Moderátor
+
+| Új szó javaslata
+| WORD_CREATE
+| Bejelentkezett felhasználó, Moderátor
+
+| Javaslat szó, vagy az ahhoz tartozó tiltott szimbólumok módosítására
+| WORD_UPDATE
+| Bejelentkezett felhasználó, Moderátor
+
+| Javaslat szó törlésére
+| WORD_DELETE
+| Bejelentkezett felhasználó, Moderátor
+
+| Javaslatok listázása
+| SUGGESTION_LIST
+| Moderátor
+
+| Javaslatok elfogadása
+| SUGGESTION_ACCEPT
+| Moderátor
+
+| Javaslatok elutasítása
+| SUGGESTION_REJECT
+| Moderátor
+
+|===
 
 == Felületi terv
 
-=== Arculat
+=== Szavak listázása felület
+
+==== Arculat
+
+
 
 === A felületen lévő mezők
+
+
 
 === A felületről elérhető műveletek
 
