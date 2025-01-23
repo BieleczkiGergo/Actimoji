@@ -310,12 +310,143 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 
 ==== Arculat
 
+==== A felületen lévő mezők
 
 
-=== A felületen lévő mezők
+
+
+==== A felületről elérhető műveletek
+
+
+=== Új szó javaslata felület
+
+==== Arculat
+
+==== A felületen lévő mezők
+
+[cols="1,1,1,1"]
+
+|===
+| Név | Típus | Kötelező? | Szerkeszthető?
+
+| Szó
+| Szöveges input mező
+| I
+| I
+
+| Szimbólum
+| Input mező
+| I
+| I
+
+| Indoklás
+| Szöveges input mező
+| I
+| I
+
+|===
+
+==== A felületről elérhető műveletek
+
+[cols="1,1,1"]
+|===
+| Esemény | Leírás | Jogosultság
+
+| A Send gombra kattintás
+| Az új szó bevezetésére való javaslat elküldésre kerül. A moderátorok láthatják a javaslatot a javaslatok listázásakor.
+| WORD_CREATE
+|===
+
+=== Szavak módosítására javaslat felület
+
+==== Arculat
+
+==== A felületen lévő mezők
+
+[cols="1,1,1,1"]
+
+|===
+| Név | Típus | Kötelező? | Szerkeszthető?
+
+| Módosítani kívánt szó az adatbázisból kiválasztva
+| Objektum
+| I
+| I
+
+| Új szó
+| Szöveges input mező
+| N
+| I
+
+| Szimbólum
+| Input mező
+| N
+| I
+
+| Indoklás
+| Szöveges input mező
+| I
+| I
+
+|===
+
+==== A felületről elérhető műveletek
+
+[cols="1,1,1"]
+|===
+| Esemény | Leírás | Jogosultság
+
+| A Send gombra kattintás
+| A szó módosítására való javaslat elküldésre kerül. A moderátorok láthatják a javaslatot a javaslatok listázásakor.
+| WORD_UPDATE
+|===
+
+=== Szavak törlésére javaslat felület
+
+==== Arculat
+
+==== A felületen lévő mezők
+
+[cols="1,1,1,1"]
+
+|===
+| Név | Típus | Kötelező? | Szerkeszthető?
+
+| Törölni kívánt szó az adatbázisból kiválasztva
+| Objektum
+| I
+| I
+
+
+| Indoklás
+| Szöveges input mező
+| I
+| I
+
+|===
+
+
+==== A felületről elérhető műveletek
+
+[cols="1,1,1"]
+|===
+| Esemény | Leírás | Jogosultság
+
+| A Send gombra kattintás
+| A szó törlésére való javaslat elküldésre kerül. A moderátorok láthatják a javaslatot a javaslatok listázásakor.
+| WORD_DELETE
+|===
+
+=== Javaslatok listázása felület
+
+==== Arculat
+
+==== A felületen lévő mezők
 
 
 
-=== A felületről elérhető műveletek
+==== A felületről elérhető műveletek
+
+
 
 link:../functional-models.adoc[Vissza]
