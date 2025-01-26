@@ -309,9 +309,57 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 === Szavak listázása felület
 
 ==== Arculat
+image::../static/frontend_plans/list_words.png[Szavak listázása arculati terv]
+
 
 ==== A felületen lévő mezők
 
+[cols="1,1,1,1"]
+
+|===
+| Név | Típus | Kötelező? | Szerkeszthető?
+
+| Keresés
+| Szöveges input mező
+| N
+| I
+
+| Szavak fejléc
+| Szöveg mező
+| N
+| N
+
+| Tiltott ikonok fejléc
+| Szöveges mező
+| N
+| N
+
+| Akciók fejléc
+| Szöveges mező
+| N
+| N
+
+| Szó
+| Szöveges mező
+| N
+| N
+
+| Ikonok
+| Szöveges mező
+| N
+| N
+
+| Szerkesztés javaslat
+| Gomb
+| N
+| N
+
+| Törlés javaslat
+| Gomb
+| N
+| N
+
+|===
 
 
 
@@ -321,6 +369,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 === Új szó javaslata felület
 
 ==== Arculat
+image::../static/frontend_plans/create_word_suggest.png[Új szó javaslata arculati terv]
 
 ==== A felületen lévő mezők
 
@@ -360,6 +409,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 === Szavak módosítására javaslat felület
 
 ==== Arculat
+image::../static/frontend_plans/modify_word_suggest.png[meglévő szó módosítási javaslata arculati terv]
 
 ==== A felületen lévő mezők
 
@@ -404,6 +454,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 === Szavak törlésére javaslat felület
 
 ==== Arculat
+image::../static/frontend_plans/delete_word_suggest.png[Meglévő szó törlésének javaslata arculati terv]
 
 ==== A felületen lévő mezők
 
@@ -439,14 +490,88 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
 
 === Javaslatok listázása felület
 
+A felületen megjelenő kék, zöld és piros dobozok valójában mind egy objektumot reprezentálnak, a "suggestion" azaz javaslat objektumot. A kék változtatást, a zöld létrehozást, a piros pedig törlést jelent. Ezeken az objektumokon 2 közös műveletet értelmezünk, az elfogadást és az elutasítást.
+
 ==== Arculat
+image::../static/frontend_plans/list_suggestions.png[javaslatok megtekintése arculati terv]
 
 ==== A felületen lévő mezők
 
+[cols="1,1,1,1"]
 
+|===
+| Név | Típus | Kötelező? | Szerkeszthető?
+
+| Fiók
+| Gomb
+| I
+| N
+
+| Vissza a játékba
+| Gomb
+| I
+| N
+
+| Eredeti szó
+| Szöveges mező
+| N
+| N
+
+
+| Új szó
+| Szöveges mező
+| N
+| N
+
+| Eredeti tiltott ikonok
+| Szöveges mező
+| N
+| N
+
+| Új tiltott ikonok
+| Szöveges mező
+| N
+| N
+
+| Indoklás
+| Szöveges mező
+| N
+| N
+
+| Jóváhagyás
+| Gomb
+| N
+| N
+
+| Elutasítás
+| Gomb
+| N
+| N
+
+|===
 
 ==== A felületről elérhető műveletek
 
+[cols="1,1,1"]
+|===
+| Esemény | Leírás | Jogosultság
 
+| A "play" gombra kattintás
+| Visszakerülünk a főoldalra, ahol játszhatunk tovább.
+|
+
+| Az "Accept" (pipa) gombra kattintás
+| A javaslat elfogadásra kerül. Létrehozási javaslat esetén az új szó megjelenik a rendszerben, módosítási javaslat esetén a módosított szó lesz elérhető a rendszerben, az új tiltott ikonokkal, illetve törlési javaslat esetén a szó törlődik a rendszerből.
+| MODERATOR
+
+| A "Reject" ( X ) gombra kattintás
+| A javaslat elutasításra kerül. A rendszerben minden marad a régi.
+| MODERATOR
+
+| A "name" gombra kattintás
+| Megjelenik a "login" felugró ablak és fiókot válthatunk ( illetve bejelentkezhetünk ha eddig nem tettük meg ).
+|
+
+|===
 
 link:../functional-models.adoc[Vissza]
