@@ -1,0 +1,20 @@
+.select {
+    margin: 20px;
+    padding: 40px;
+    background-color: brown;
+}
+
+.create {
+    border: 10px solid green;
+
+}
+
+.modify {
+    border: 10px solid blue;
+    
+}
+
+.delete {
+    border: 10px solid red;
+    
+}

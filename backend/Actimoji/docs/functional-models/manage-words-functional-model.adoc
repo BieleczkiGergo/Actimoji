@@ -1,5 +1,6 @@
 = Szavak kezelése - Funkcionális modell
 
+====== készítették: Kocsis Álkos, Molnár Dávid, Bieleczki Gergő Péter
 == Leírás
 
 A nem bejeletkezett felhasználó is meg tudja nézni az adatbázisban eltárolt szavakat.
@@ -334,8 +335,8 @@ image::../static/frontend_plans/list_words.png[Szavak listázása arculati terv]
 | N
 | N
 
-| Akciók fejléc
-| Szöveges mező
+| Szó listaelem
+| Gomb
 | N
 | N
 
@@ -349,22 +350,19 @@ image::../static/frontend_plans/list_words.png[Szavak listázása arculati terv]
 | N
 | N
 
-| Szerkesztés javaslat
-| Gomb
-| N
-| N
-
-| Törlés javaslat
-| Gomb
-| N
-| N
-
 |===
 
 
 
 ==== A felületről elérhető műveletek
+[cols="1,1,1"]
+|===
+| Esemény | Leírás | Jogosultság
 
+| Szó listaelemre kattintás
+| A felugró ablakban kiválasztásra kerül a szó. A javaslat tétele ablakokban a szó adatait láthatjuk.
+| WORD_LIST
+|===
 
 === Új szó javaslata felület
 
@@ -390,7 +388,7 @@ image::../static/frontend_plans/create_word_suggest.png[Új szó javaslata arcul
 
 | Indoklás
 | Szöveges input mező
-| I
+| N
 | I
 
 |===
@@ -425,17 +423,17 @@ image::../static/frontend_plans/modify_word_suggest.png[meglévő szó módosít
 
 | Új szó
 | Szöveges input mező
-| N
+| Igen, de automatikusan kitölttődik szó választása után
 | I
 
 | Szimbólum
 | Input mező
-| N
+| Igen, de automatikusan kitölttődik szó választása után
 | I
 
 | Indoklás
 | Szöveges input mező
-| I
+| N
 | I
 
 |===
@@ -465,13 +463,13 @@ image::../static/frontend_plans/delete_word_suggest.png[Meglévő szó törlés�
 
 | Törölni kívánt szó az adatbázisból kiválasztva
 | Objektum
-| I
+| Igen, de automatikusan kitölttődik szó választása után
 | I
 
 
 | Indoklás
 | Szöveges input mező
-| I
+| N
 | I
 
 |===
@@ -511,6 +509,17 @@ image::../static/frontend_plans/list_suggestions.png[javaslatok megtekintése ar
 | Gomb
 | I
 | N
+
+| Javaslat tétele
+| Gomb
+| N
+| N
+
+| Jelentkezés moderátornak
+| Gomb
+| N
+| N
+
 
 | Eredeti szó
 | Szöveges mező
@@ -560,13 +569,21 @@ image::../static/frontend_plans/list_suggestions.png[javaslatok megtekintése ar
 | Visszakerülünk a főoldalra, ahol játszhatunk tovább.
 |
 
+| "Javaslat tétele gombra" kattintás
+| Megjelenik az új szó javaslata felület. Javaslatot tehetünk Új szó tételére.
+| WORD_CREATE
+
+| "Jelentkezés Moderátornak" gombra kattintás
+| Megjelenik a "jelentkezés moderátornak" felugró ablak
+| SUGGESTION_LIST
+
 | Az "Accept" (pipa) gombra kattintás
 | A javaslat elfogadásra kerül. Létrehozási javaslat esetén az új szó megjelenik a rendszerben, módosítási javaslat esetén a módosított szó lesz elérhető a rendszerben, az új tiltott ikonokkal, illetve törlési javaslat esetén a szó törlődik a rendszerből.
-| MODERATOR
+| SUGGESTION_ACCEPT
 
 | A "Reject" ( X ) gombra kattintás
 | A javaslat elutasításra kerül. A rendszerben minden marad a régi.
-| MODERATOR
+| SUGGESTION_REJECT
 
 | A "name" gombra kattintás
 | Megjelenik a "login" felugró ablak és fiókot válthatunk ( illetve bejelentkezhetünk ha eddig nem tettük meg ).
