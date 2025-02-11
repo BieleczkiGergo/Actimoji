@@ -10,19 +10,25 @@ function MakeSuggestion () {
             case "Create":
                 return (
                     <>
-                        <p className={styles.select + ' ' + styles.create}>Create</p>
+                        <input className={styles.wordInput} type="text" placeholder="Word"></input>
+                        <input className={styles.emojiInput} type="text" placeholder="Emoji"></input>
+                        <input className={styles.textField} type="text" placeholder="Reason for ..."></input>
+                        <button className={styles.sendButton}>Create</button>
                     </>
                 )
             case "Modify":
                 return (
                     <>
-                        <p className={styles.select + ' ' + styles.modify}>Modify</p>
+                        <input className={styles.wordInput} type="text" placeholder="Word"></input>
+                        <input className={styles.emojiInput} type="text" placeholder="Emoji"></input>
+                        <input className={styles.textField} type="text" placeholder="Reason for ..."></input>
+                        <button className={styles.sendButton}>Modify</button>
                     </>
                 )
             case "Delete":
                 return (
                     <>
-                        <p className={styles.select + ' ' + styles.delete}>Delete</p>
+                        <input className={styles.wordInput} type="text" placeholder="Word"></input>
                     </>
                 )
         }
@@ -31,12 +37,11 @@ function MakeSuggestion () {
     return (
         <>
             <div>
-                <button onClick={() => {setActiveTab("Create")}}>Create</button>
-                <button onClick={() => {setActiveTab("Modify")}}>Modify</button>
-                <button onClick={() => {setActiveTab("Delete")}}>Delete</button>
+                <button className={styles.mainButtons} onClick={() => {setActiveTab("Create")}}>Create</button>
+                <button className={styles.mainButtons} onClick={() => {setActiveTab("Modify")}}>Modify</button>
+                <button className={styles.mainButtons} onClick={() => {setActiveTab("Delete")}}>Delete</button>
             </div> 
-        
-            <h2>Teszt</h2>
+    
             {renderContent()}
 
         </>

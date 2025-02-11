@@ -4,17 +4,59 @@
     background-color: brown;
 }
 
-.create {
-    border: 10px solid green;
-
+.inputsContainer { 
+    display: flex; /* Flexbox elrendezés a gyerekek számára */
+    margin-bottom: 20px; /* Ha szükséges */
 }
 
-.modify {
-    border: 10px solid blue;
-    
+.wordInput {
+    border: 2px solid #3B7080;
+    border-radius: 10px;
+    padding: 10px;
+    flex: 1; /* Igazodik a rendelkezésre álló helyhez */
+    max-width: 48%; /* Maximális szélesség, hogy ne nyúljanak el túlzottan */
 }
 
-.delete {
-    border: 10px solid red;
-    
+.emojiInput {
+    border: 2px solid #3B7080;
+    border-radius: 10px;
+    padding: 10px;
+    flex: 1; /* Igazodik a rendelkezésre álló helyhez */
+    max-width: 48%; /* Maximális szélesség, hogy ne nyúljanak el túlzottan */
+    margin-bottom: 20px; /* Ha szükséges */
 }
+
+.mainButtons {
+    margin: 8%;
+    border-radius: 20%;
+    border: 5px solid white;
+    padding: 10px;
+    background-color: #FF6B35;
+    color: #FFFFFF;
+}
+
+.textField {
+    height: 100px;
+    width: 370px;
+    border: 2px solid #3B7080;
+    border-radius: 10px;
+}
+
+.sendButton {
+    margin-left: 40%;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #FF6B35;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.sendButton:hover {
+    background-color: #E85B2C;
+}
+ 
