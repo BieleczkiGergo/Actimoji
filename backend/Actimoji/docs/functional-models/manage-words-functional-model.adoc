@@ -1,352 +1,361 @@
-= Szavak kezelése - Funkcionális modell
+= Word Management - Functional Model
 
-====== készítették: Kocsis Álkos, Molnár Dávid, Bieleczki Gergő Péter
-== Leírás
+====== Created by: Kocsis Álkos, Molnár Dávid, Bieleczki Gergő Péter
 
-A nem bejeletkezett felhasználó is meg tudja nézni az adatbázisban eltárolt szavakat.
+== Description
 
-A bejelentkezett felhasználó tehet javaslatot új szó létrehozására illetve meglévő szavak módosítására és törlésére.
+An unauthenticated user can view the words stored in the database.
 
-== Használati esetek
+An authenticated user can propose the creation of new words, as well as modify or delete existing words.
 
-=== Használati eset diagram
-image::../static/UC_diagrams/manageWordsUseCases.jpg[Használati eset diagram]
+== Use Cases
 
-=== Használati esetek rövid leírása
+=== Use Case Diagram
+image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
+
+=== Use Case Descriptions
+
 [cols="1h,4"]
 |===
-| Használati eset
-| Szavak listázása
+| Use Case
+| Listing Words
 
-| Azonosító
+| Identifier
 | UC_W_List
 
-| Kiváltó esemény
-| A felhasználó listázni kívánja a szavakat
+| Triggering Event
+| The user wants to list the words
 
-| Felhasználók
-| Általános felhasználó, Bejelentkezett felhasználó, Moderátor
+| Users
+| General user, Authenticated user, Moderator
 
-| Elsődleges lefutás
+| Primary Flow
 |
-1. A felhasználó a szavak listázása menüpontra kattint,
 
-2. A rendszerben kiválogatásra kerülnek a szavak
+    The user clicks on the "List Words" menu option,
 
-| Kivételek és alternatívák
+    The system filters the words
+
+| Exceptions and Alternatives
 | -
 
-| Utófeltétel
-| A rendszerben a szavak listája előállt
+| Post condition
+| The system has generated the word list
 
-| Eredmény
-| A felhasználó látja a szavak listáját, kiválaszthat egyet közülük.
+| Result
+| The user sees the list of words and can select one from them.
 
-| Használati eset realizáció
-| Technikai modell
+| Use Case Realization
+| Technical model
 
 |===
 
 [cols="1h,4"]
 |===
-| Használati eset
-| Új szó javaslata
+| Use Case
+| Proposing a New Word
 
-| Azonosító
+| Identifier
 | UC_W_Create
 
-| Kiváltó esemény
-| A bejelentkezett felhasználó létre szeretne hozni egy új szót
+| Triggering Event
+| The authenticated user wants to create a new word
 
-| Felhasználók
-| Bejelentkezett felhasználó, Moderátor
+| Users
+| Authenticated user, Moderator
 
-| Elsődleges lefutás
+| Primary Flow
 |
-1. A felhasználó a javaslat tétele menüpontra kattint
 
-2. A felhaszáló a felugró ablakban kiválasztja az új szó létrehozását
+    The user clicks on the "Propose a Word" menu option
 
-3. A felhasználó beírja az új szót, a hozzá tartozó tiltott szimbólumokat, és opcionálisan egy rövid indoklást a szó létrehozására
+    The user selects the option to create a new word in the popup window
 
-4. A felhasználó a javaslat küldése gombra kattint
+    The user enters the new word, the associated restricted symbols, and optionally a brief justification for creating the word
 
-5. A javaslat eltárolásra kerül az adatbázisban, majd a moderátorok azt elfogadhatják vagy elutasíthatják.
+    The user clicks the "Submit Proposal" button
 
-| Kivételek és alternatívák
+    The proposal is stored in the database, and moderators can either approve or reject it.
+
+| Exceptions and Alternatives
 | -
 
-| Utófeltétel
-| Az adatbázisban rögzül a javaslat
+| Post condition
+| The proposal is recorded in the database
 
-| Eredmény
-| A moderátorok láthatják a javaslatot, majd elfogadhatják illetve elutasíthatják azt.
+| Result
+| Moderators can see the proposal and decide to approve or reject it.
 
-| Használati eset realizáció
-| Technikai modell
+| Use Case Realization
+| Technical model
 
 |===
 
 [cols="1h,4"]
 |===
-| Használati eset
-| Javaslat szó, vagy az ahhoz tartozó tiltott szimbólumok módosítására
+| Use Case
+| Proposing a Modification to a Word or Its Associated Restricted Symbols
 
-| Azonosító
+| Identifier
 | UC_W_Update
 
-| Kiváltó esemény
-| A bejelentkezett felhasználó módosítani szeretne egy szót vagy az ahhoz tartozó tiltott szimbólumokat.
+| Triggering Event
+| The authenticated user wants to modify a word or its associated restricted symbols
 
-| Felhasználók
-| Bejelentkezett felhasználó, Moderátor
+| Users
+| Authenticated user, Moderator
 
-| Elsődleges lefutás
+| Primary Flow
 |
-1. A felhasználó a javaslat tétele menüpontra kattint
 
-2. A felhaszáló a felugró ablakban kiválasztja a szó módosítását
+    The user clicks on the "Propose a Word" menu option
 
-3. A felhasználó kiválasztja a már meglévő szavak közül a módosítani kívánt szót, beírja az új szót és/vagy a hozzá tartozó tiltott szimbólumokat, valamint egy rövid indoklást a szó és/vagy a tiltott szimbólumok módosítására
+    The user selects the option to modify the word in the popup window
 
-4. A felhasználó a javaslat küldése gombra kattint
+    The user selects the word to be modified from the existing words, enters the new word and/or its associated restricted symbols, and provides a brief justification for modifying the word and/or the restricted symbols
 
-5. A javaslat eltárolásra kerül az adatbázisban, majd a moderátorok azt elfogadhatják vagy elutasíthatják.
+    The user clicks the "Submit Proposal" button
 
-| Kivételek és alternatívák
+    The proposal is stored in the database, and moderators can either approve or reject it.
+
+| Exceptions and Alternatives
 | -
 
-| Utófeltétel
-| Az adatbázisban rögzül a javaslat
+| Post condition
+| The proposal is recorded in the database
 
-| Eredmény
-| A moderátorok láthatják a javaslatot, majd elfogadhatják illetve elutasíthatják azt.
+| Result
+| Moderators can see the proposal and decide to approve or reject it.
 
-| Használati eset realizáció
-| Technikai modell
+| Use Case Realization
+| Technical model
 
 |===
 
 [cols="1h,4"]
 |===
-| Használati eset
-| Javaslat szó törlésére
+| Use Case
+| Proposing the Deletion of a Word
 
-| Azonosító
+| Identifier
 | UC_W_Delete
 
-| Kiváltó esemény
-| A bejelentkezett felhasználó törölni szeretne egy szót.
+| Triggering Event
+| The authenticated user wants to delete a word.
 
-| Felhasználók
-| Bejelentkezett felhasználó, Moderátor
+| Users
+| Authenticated user, Moderator
 
-| Elsődleges lefutás
+| Primary Flow
 |
-1. A felhasználó a javaslat tétele menüpontra kattint
 
-2. A felhaszáló a felugró ablakban kiválasztja a szó törlését
+    The user clicks on the "Propose a Word" menu option
 
-3. A felhasználó kiválasztja a már meglévő szavak közül a törölni kívánt szót, valamint egy rövid indoklást a szó törlésére
+    The user selects the option to delete a word in the popup window
 
-4. A felhasználó a javaslat küldése gombra kattint
+    The user selects the word to be deleted from the existing words and provides a brief justification for its deletion
 
-5. A javaslat eltárolásra kerül az adatbázisban, majd a moderátorok azt elfogadhatják vagy elutasíthatják.
+    The user clicks the "Submit Proposal" button
 
-| Kivételek és alternatívák
+    The proposal is stored in the database, and moderators can either approve or reject it.
+
+| Exceptions and Alternatives
 | -
 
-| Utófeltétel
-| Az adatbázisban rögzül a javaslat
+| Post condition
+| The proposal is recorded in the database
 
-| Eredmény
-| A moderátorok láthatják a javaslatot, majd elfogadhatják illetve elutasíthatják azt.
+| Result
+| Moderators can see the proposal and decide to approve or reject it.
 
-| Használati eset realizáció
-| Technikai modell
+| Use Case Realization
+| Technical model
 
 |===
 
 [cols="1h,4"]
 |===
-| Használati eset
-| Javaslatok listázása
+| Use Case
+| Listing Proposals
 
-| Azonosító
+| Identifier
 | UC_S_List
 
-| Kiváltó esemény
-| A moderátor listázni kívánja a javaslatokat
+| Triggering Event
+| The moderator wants to list the proposals
 
-| Felhasználók
-| Moderátor
+| Users
+| Moderator
 
-| Elsődleges lefutás
+| Primary Flow
 |
-1. A moderátor a javaslatok menüpontra kattint,
 
-2. A rendszerben kiválogatásra kerülnek a javaslatok
+    The moderator clicks on the "Proposals" menu option,
 
-| Kivételek és alternatívák
+    The system retrieves the proposals
+
+| Exceptions and Alternatives
 | -
 
-| Utófeltétel
-| A rendszerben a javaslatok listája előállt
+| Post condition
+| The system has generated the list of proposals
 
-| Eredmény
-| A moderátor látja a javaslatok listáját, melyeket elfogadhat, illetve elutasíthat.
+| Result
+| The moderator sees the list of proposals, which can be approved or rejected.
 
-| Használati eset realizáció
-| Technikai modell
+| Use Case Realization
+| Technical model
 
 |===
 
 [cols="1h,4"]
 |===
-| Használati eset
-| Javaslatok elfogadása
+| Use Case
+| Accepting Proposals
 
-| Azonosító
+| Identifier
 | UC_S_Accept
 
-| Kiváltó esemény
-| A moderátor jóvá akar hagyni egy javaslatot
+| Triggering Event
+| The moderator wants to approve a proposal
 
-| Felhasználók
-| Moderátor
+| Users
+| Moderator
 
-| Elsődleges lefutás
+| Primary Flow
 |
-1. A moderátor az általa kiválasztott javaslat mellett található 'elfogadás' ikonra kattint,
 
-2. A rendszerben a javaslat típusának megfelelő esemény megy végbe (create,update,delete).
+    The moderator clicks the "Accept" icon next to the selected proposal,
 
-| Kivételek és alternatívák
+    The system executes the corresponding action based on the proposal type (create, update, delete).
+
+| Exceptions and Alternatives
 | -
 
-| Utófeltétel
-| A rendszerben létrejött, módosult vagy törlődött egy szó.
+| Post condition
+| A word has been created, modified, or deleted in the system.
 
-| Eredmény
-| A szavak listázásakor megjelenik az új vagy a módosított szó, vagy már nem jelenik meg a törölt szó.
+| Result
+| When listing words, the new or modified word appears, or the deleted word no longer appears.
 
-| Használati eset realizáció
-| Technikai modell
+| Use Case Realization
+| Technical model
 
 |===
 
 [cols="1h,4"]
 |===
-| Használati eset
-| Javaslatok elutasítása
+| Use Case
+| Rejecting Proposals
 
-| Azonosító
+| Identifier
 | UC_S_Reject
 
-| Kiváltó esemény
-| A moderátor el akar utasítani egy javaslatot
+| Triggering Event
+| The moderator wants to reject a proposal
 
-| Felhasználók
-| Moderátor
+| Users
+| Moderator
 
-| Elsődleges lefutás
+| Primary Flow
 |
-1. A moderátor az általa kiválasztott javaslat mellett található 'elutasítás' ikonra kattint,
 
-2. A rendszerben eltűnik a javaslatok közül az elutasított javaslat.
+    The moderator clicks the "Reject" icon next to the selected proposal,
 
-| Kivételek és alternatívák
+    The rejected proposal disappears from the list of proposals in the system.
+
+| Exceptions and Alternatives
 | -
 
-| Utófeltétel
-| A rendszerben eltűnik a javaslatok közül az elutasított javaslat.
+| Post condition
+| The rejected proposal is removed from the list of proposals in the system.
 
-| Eredmény
-| A szavak listázásakor minden a régi marad.
+| Result
+| When listing words, everything remains unchanged.
 
-| Használati eset realizáció
-| Technikai modell
+| Use Case Realization
+| Technical model
 
 |===
 
-== Jogosultságok
+== Permissions
 
 [cols="1,1,1"]
 |===
-| Használati eset | Jogosultság | Szerepkörök
+| Use Case | Permission | Roles
 
-| Szavak listázása
+| Listing Words
 | WORD_LIST
-| Általános felhasználó, Bejelentkezett felhasználó, Moderátor
+| General User, Authenticated User, Moderator
 
-| Új szó javaslata
+| Proposing a New Word
 | WORD_CREATE
-| Bejelentkezett felhasználó, Moderátor
+| Authenticated User, Moderator
 
-| Javaslat szó, vagy az ahhoz tartozó tiltott szimbólumok módosítására
+| Proposing a Modification to a Word or Its Associated Restricted Symbols
 | WORD_UPDATE
-| Bejelentkezett felhasználó, Moderátor
+| Authenticated User, Moderator
 
-| Javaslat szó törlésére
+| Proposing the Deletion of a Word
 | WORD_DELETE
-| Bejelentkezett felhasználó, Moderátor
+| Authenticated User, Moderator
 
-| Javaslatok listázása
+| Listing Proposals
 | SUGGESTION_LIST
-| Moderátor
+| Moderator
 
-| Javaslatok elfogadása
+| Accepting Proposals
 | SUGGESTION_ACCEPT
-| Moderátor
+| Moderator
 
-| Javaslatok elutasítása
+| Rejecting Proposals
 | SUGGESTION_REJECT
-| Moderátor
+| Moderator
 
 |===
 
-== Felületi terv
+== UI Design
 
-=== Szavak listázása felület
+=== Word Listing Interface
 
-==== Arculat
-image::../static/frontend_plans/list_words.png[Szavak listázása arculati terv]
+=== Layout
 
+image::../static/frontend_plans/list_words.png[Word Listing Layout]
 
-==== A felületen lévő mezők
+=== Fields on the Interface
 
 [cols="1,1,1,1"]
 
 |===
-| Név | Típus | Kötelező? | Szerkeszthető?
+| Name | Type | Required? | Editable?
 
-| Keresés
-| Szöveges input mező
+| Search
+| Text input field
 | N
-| I
+| Y
 
-| Szavak fejléc
-| Szöveg mező
-| N
-| N
-
-| Tiltott ikonok fejléc
-| Szöveges mező
+| Words Header
+| Text field
 | N
 | N
 
-| Szó listaelem
-| Gomb
+| Restricted Icons Header
+| Text field
 | N
 | N
 
-| Szó
-| Szöveges mező
+| Word List Item
+| Button
 | N
 | N
 
-| Ikonok
-| Szöveges mező
+| Word
+| Text field
+| N
+| N
+
+| Icons
+| Text field
 | N
 | N
 
@@ -354,241 +363,233 @@ image::../static/frontend_plans/list_words.png[Szavak listázása arculati terv]
 
 
 
-==== A felületről elérhető műveletek
+==== Actions Available on the Interface
+
 [cols="1,1,1"]
 |===
-| Esemény | Leírás | Jogosultság
+| Event | Description | Permission
 
-| Szó listaelemre kattintás
-| A felugró ablakban kiválasztásra kerül a szó. A javaslat tétele ablakokban a szó adatait láthatjuk.
+| Clicking on a Word List Item
+| The word is selected in the popup window. In the proposal windows, the word details can be viewed.
 | WORD_LIST
 |===
 
-=== Új szó javaslata felület
+=== Proposing a New Word Interface
 
-==== Arculat
-image::../static/frontend_plans/create_word_suggest.png[Új szó javaslata arculati terv]
+==== Layout
 
-==== A felületen lévő mezők
+image::../static/frontend_plans/create_word_suggest.png[Proposing a New Word Layout]
+Fields on the Interface
 
 [cols="1,1,1,1"]
 
 |===
-| Név | Típus | Kötelező? | Szerkeszthető?
+| Name | Type | Required? | Editable?
 
-| Szó
-| Szöveges input mező
-| I
-| I
+| Word
+| Text input field
+| Y
+| Y
 
-| Szimbólum
-| Input mező
-| I
-| I
+| Symbol
+| Input field
+| Y
+| Y
 
-| Indoklás
-| Szöveges input mező
+| Justification
+| Text input field
 | N
-| I
+| Y
 
 |===
 
-==== A felületről elérhető műveletek
+==== Actions Available on the Interface
 
 [cols="1,1,1"]
 |===
-| Esemény | Leírás | Jogosultság
+| Event | Description | Permission
 
-| A Send gombra kattintás
-| Az új szó bevezetésére való javaslat elküldésre kerül. A moderátorok láthatják a javaslatot a javaslatok listázásakor.
+| Clicking the Send button
+| The proposal for introducing the new word is sent. Moderators can view the proposal when listing the suggestions.
 | WORD_CREATE
 |===
 
-=== Szavak módosítására javaslat felület
+=== Proposal to Modify a Word Interface
 
-==== Arculat
-image::../static/frontend_plans/modify_word_suggest.png[meglévő szó módosítási javaslata arculati terv]
+==== Layout
 
-==== A felületen lévő mezők
+image::../static/frontend_plans/modify_word_suggest.png[Modify Existing Word Proposal Layout]
+=== Fields on the Interface
 
 [cols="1,1,1,1"]
 
 |===
-| Név | Típus | Kötelező? | Szerkeszthető?
+| Name | Type | Required? | Editable?
 
-| Módosítani kívánt szó az adatbázisból kiválasztva
-| Objektum
-| I
-| I
+| Word to Modify (selected from the database)
+| Object
+| Y
+| Y
 
-| Új szó
-| Szöveges input mező
-| Igen, de automatikusan kitölttődik szó választása után
-| I
+| New Word
+| Text input field
+| Yes, but automatically filled in after selecting the word
+| Y
 
-| Szimbólum
-| Input mező
-| Igen, de automatikusan kitölttődik szó választása után
-| I
+| Symbol
+| Input field
+| Yes, but automatically filled in after selecting the word
+| Y
 
-| Indoklás
-| Szöveges input mező
+| Justification
+| Text input field
 | N
-| I
+| Y
 
 |===
-
-==== A felületről elérhető műveletek
+Actions Available on the Interface
 
 [cols="1,1,1"]
 |===
-| Esemény | Leírás | Jogosultság
+| Event | Description | Permission
 
-| A Send gombra kattintás
-| A szó módosítására való javaslat elküldésre kerül. A moderátorok láthatják a javaslatot a javaslatok listázásakor.
+| Clicking the Send button
+| The proposal for modifying the word is sent. Moderators can view the proposal when listing the suggestions.
 | WORD_UPDATE
 |===
 
-=== Szavak törlésére javaslat felület
+=== Proposal to Delete a Word Interface
 
-==== Arculat
-image::../static/frontend_plans/delete_word_suggest.png[Meglévő szó törlésének javaslata arculati terv]
+==== Layout
 
-==== A felületen lévő mezők
+image::../static/frontend_plans/delete_word_suggest.png[Proposal to Delete an Existing Word Layout]
+
+==== Fields on the Interface
 
 [cols="1,1,1,1"]
 
 |===
-| Név | Típus | Kötelező? | Szerkeszthető?
+| Name | Type | Required? | Editable?
 
-| Törölni kívánt szó az adatbázisból kiválasztva
-| Objektum
-| Igen, de automatikusan kitölttődik szó választása után
-| I
+| Word to Delete (selected from the database)
+| Object
+| Yes, but automatically filled in after selecting the word
+| Y
 
-
-| Indoklás
-| Szöveges input mező
+| Justification
+| Text input field
 | N
-| I
+| Y
 
 |===
 
-
-==== A felületről elérhető műveletek
+==== Actions Available on the Interface
 
 [cols="1,1,1"]
 |===
-| Esemény | Leírás | Jogosultság
+| Event | Description | Permission
 
-| A Send gombra kattintás
-| A szó törlésére való javaslat elküldésre kerül. A moderátorok láthatják a javaslatot a javaslatok listázásakor.
+| Clicking the Send button
+| The proposal for deleting the word is sent. Moderators can view the proposal when listing the suggestions.
 | WORD_DELETE
 |===
 
-=== Javaslatok listázása felület
+=== Proposals Listing Interface
 
-A felületen megjelenő kék, zöld és piros dobozok valójában mind egy objektumot reprezentálnak, a "suggestion" azaz javaslat objektumot. A kék változtatást, a zöld létrehozást, a piros pedig törlést jelent. Ezeken az objektumokon 2 közös műveletet értelmezünk, az elfogadást és az elutasítást.
+The blue, green, and red boxes appearing on the interface actually all represent the same object, the "suggestion" object. The blue represents a modification, the green represents a creation, and the red represents a deletion. For these objects, two common operations are defined: acceptance and rejection.
 
-==== Arculat
-image::../static/frontend_plans/list_suggestions.png[javaslatok megtekintése arculati terv]
+==== Layout
 
-==== A felületen lévő mezők
+image::../static/frontend_plans/list_suggestions.png[View Proposals Layout]
+
+==== Fields on the Interface
 
 [cols="1,1,1,1"]
 
 |===
-| Név | Típus | Kötelező? | Szerkeszthető?
+| Name | Type | Required? | Editable?
 
-| Fiók
-| Gomb
-| I
+| Account
+| Button
+| Y
 | N
 
-| Vissza a játékba
-| Gomb
-| I
+| Back to the Game
+| Button
+| Y
 | N
 
-| Javaslat tétele
-| Gomb
-| N
-| N
-
-| Jelentkezés moderátornak
-| Gomb
+| Make Proposal
+| Button
 | N
 | N
 
-
-| Eredeti szó
-| Szöveges mező
+| Apply as Moderator
+| Button
 | N
 | N
 
-
-| Új szó
-| Szöveges mező
+| Original Word
+| Text field
 | N
 | N
 
-| Eredeti tiltott ikonok
-| Szöveges mező
+| New Word
+| Text field
 | N
 | N
 
-| Új tiltott ikonok
-| Szöveges mező
+| Original Restricted Icons
+| Text field
 | N
 | N
 
-| Indoklás
-| Szöveges mező
+| New Restricted Icons
+| Text field
 | N
 | N
 
-| Jóváhagyás
-| Gomb
+| Justification
+| Text field
 | N
 | N
 
-| Elutasítás
-| Gomb
+| Approval
+| Button
+| N
+| N
+
+| Rejection
+| Button
 | N
 | N
 
 |===
 
-==== A felületről elérhető műveletek
+==== Available Operations on the Interface
 
 [cols="1,1,1"]
 |===
-| Esemény | Leírás | Jogosultság
+| Event | Description | Permission
 
-| A "play" gombra kattintás
-| Visszakerülünk a főoldalra, ahol játszhatunk tovább.
-|
+| Clicking the "play" button
+| Returns to the homepage, where we can continue playing. |
 
-| "Javaslat tétele gombra" kattintás
-| Megjelenik az új szó javaslata felület. Javaslatot tehetünk Új szó tételére.
-| WORD_CREATE
+| Clicking the "Make Proposal" button
+| The New Word Proposal interface appears. A proposal can be made for a New Word. | WORD_CREATE
 
-| "Jelentkezés Moderátornak" gombra kattintás
-| Megjelenik a "jelentkezés moderátornak" felugró ablak
-| SUGGESTION_LIST
+| Clicking the "Apply as Moderator" button
+| The "apply as moderator" popup window appears. | SUGGESTION_LIST
 
-| Az "Accept" (pipa) gombra kattintás
-| A javaslat elfogadásra kerül. Létrehozási javaslat esetén az új szó megjelenik a rendszerben, módosítási javaslat esetén a módosított szó lesz elérhető a rendszerben, az új tiltott ikonokkal, illetve törlési javaslat esetén a szó törlődik a rendszerből.
-| SUGGESTION_ACCEPT
+| Clicking the "Accept" (checkmark) button
+| The proposal is accepted. In the case of a creation proposal, the new word appears in the system; in the case of a modification proposal, the modified word becomes available with the new restricted symbols; in the case of a deletion proposal, the word is deleted from the system. | SUGGESTION_ACCEPT
 
-| A "Reject" ( X ) gombra kattintás
-| A javaslat elutasításra kerül. A rendszerben minden marad a régi.
-| SUGGESTION_REJECT
+| Clicking the "Reject" (X) button
+| The proposal is rejected. Everything remains unchanged in the system. | SUGGESTION_REJECT
 
-| A "name" gombra kattintás
-| Megjelenik a "login" felugró ablak és fiókot válthatunk ( illetve bejelentkezhetünk ha eddig nem tettük meg ).
-|
+| Clicking the "name" button
+| The "login" popup window appears, and we can switch accounts (or log in if we haven't done so yet). |
 
 |===
 
-link:../functional-models.adoc[Vissza]
+link:../functional-models.adoc[Back]
