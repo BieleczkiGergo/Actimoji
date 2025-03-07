@@ -1,9 +1,9 @@
-= Funkcionális modellek
+= Functional models
 
 // * link:functional-models/manage-pets-functional-model.adoc[Állatok kezelése]
 
-* Profil kezelése
+* Manage profiles
 
-* Szavak kezelése
+* Manage words
 
-link:system-plan.adoc[Vissza]
+link:system-plan.adoc[back]

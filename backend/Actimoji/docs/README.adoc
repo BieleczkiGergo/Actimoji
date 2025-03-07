@@ -1,7 +1,7 @@
-= Alkalmazás dokumentáció
+= Application documentation
 
-Követelmény specifikáció
+Requirements specification
 
-link:system-plan.adoc[Fejlesztői dokumentáció - rendszerterv]
+link:system-plan.adoc[Developer documentation - system plan]
 
-Felhasználói dokumentáció
+User documentation

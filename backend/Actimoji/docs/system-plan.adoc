@@ -1,11 +1,11 @@
-= Fejlesztői dokumentáció
+= Developer documentation
 
-* link:functional-models.adoc[Funkcionális modellek]
+* link:functional-models.adoc[Functional models]
 
-* Technikai modellek
+* Technical models
 
-* Interfész leírások
+* Interface specifications
 
 
 
-link:README.adoc[Vissza]
+link:README.adoc[Back]
