@@ -5,8 +5,10 @@ import Modal from "@mui/material/Modal";
 import LoginModal from "./components/Login/LoginModal.js";
 import SignUpModal from "./components/SignUp/SignUpModal.js";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion.js";
+import ReadSuggestion from "./components/ReadSuggestion/ReadSuggestion.js";
 
 function App() {
+
   const [openLogin, setOpenLogin] = React.useState(false);
   const handleOpenLogin = () => setOpenLogin(true);
   const handleCloseLogin = () => setOpenLogin(false);
@@ -14,7 +16,7 @@ function App() {
   const [openSignUp, setOpenSignUp] = React.useState(false);
   const handleOpenSignUp = () => {
     setOpenSignUp(true);
-    setOpenLogin(false); // Bezárja a login modalt, ha szükséges
+    setOpenLogin(false);
   };
   const handleCloseSignUp = () => setOpenSignUp(false);
 
@@ -38,9 +40,10 @@ function App() {
     <div className="container">
       <div className="sidebar">
         <div className="profile">
-          <div className="name">név</div>
+          <div className="name">Név</div>
           <div className="avatar">👤</div>
         </div>
+        
         <button className="sidebarButton" onClick={handleOpenSuggestion}>
           Make suggestion
         </button>
@@ -51,7 +54,15 @@ function App() {
         </Modal>
 
         <button className="sidebarButton">Become mod</button>
-        <button className="sidebarButton">Read suggestions</button>
+
+        {/* ÚJ OLDAL MEGNYITÁSA ÚJ FÜLBEN */}
+        <button 
+          className="sidebarButton" 
+          onClick={() => window.open("/readsuggestions", "_blank")}
+        >
+          Read suggestions
+        </button>
+
         <button className="sidebarButton" onClick={handleOpenLogin}>
           Login
         </button>
