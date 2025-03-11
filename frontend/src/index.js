@@ -13,7 +13,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/readsuggestion" element={<ReadSuggestion />} />
+        {  <Route path="/readsuggestions" element={<ReadSuggestion />} />  }
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

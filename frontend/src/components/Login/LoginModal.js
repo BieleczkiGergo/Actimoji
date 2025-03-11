@@ -36,7 +36,7 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
         {errors.Password && <span>{errors.Password.message}</span>}
 
         <p id="register" onClick={handleOpenSignUp} style={{ cursor: "pointer" }}>
-          Don't have an account? <a>Sign up</a> now
+          Don't have an account? <a href="" >Sign up</a> now
         </p>
 
         <br />
