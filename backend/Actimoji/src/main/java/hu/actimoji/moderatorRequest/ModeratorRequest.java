@@ -1,32 +1,32 @@
 package hu.actimoji.moderatorRequest;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Entity
 public class ModeratorRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
 
     private String reason;
-    private long requested_id;
-    private long approved_id;
+    private int requested_id;
+    private int approved_id;
     private boolean approved;
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -38,11 +38,11 @@ public class ModeratorRequest {
         this.reason = reason;
     }
 
-    public long getRequested_id() {
+    public int getRequested_id() {
         return requested_id;
     }
 
-    public void setRequested_id(long requested_id) {
+    public void setRequested_id(int requested_id) {
         this.requested_id = requested_id;
     }
 
@@ -50,7 +50,7 @@ public class ModeratorRequest {
         return approved_id;
     }
 
-    public void setApproved_id(long approved_id) {
+    public void setApproved_id(int approved_id) {
         this.approved_id = approved_id;
     }
 

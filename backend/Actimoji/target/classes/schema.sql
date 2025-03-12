@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS `words`
     word varchar(20) NOT NULL,
     banned_icons varchar(200) NOT NULL
     );
-
 CREATE TABLE IF NOT EXISTS `suggestion`
 (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -31,8 +30,8 @@ CREATE TABLE IF NOT EXISTS `suggestion`
     );
 
 CREATE TABLE IF NOT EXISTS `modrequest` (
-    id int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-    reason VARCHAR(100) NOT NULL,
+                                            id int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+                                            reason VARCHAR(100) NOT NULL,
     approved BOOLEAN DEFAULT FALSE,
     requested_id int,
     approved_id int,

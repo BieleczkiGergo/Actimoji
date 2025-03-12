@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ModeratorRequestRepository extends JpaRepository<ModeratorRequest, Long> {
+public interface ModeratorRequestRepository extends JpaRepository<ModeratorRequest, Integer> {
 
 }
