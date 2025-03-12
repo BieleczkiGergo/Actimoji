@@ -1,25 +1,25 @@
 import React from "react";
-import { useState } from "react";
 import "./App.css";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import LoginModal from "./components/Login/LoginModal.js";
 import SignUpModal from "./components/SignUp/SignUpModal.js";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion.js";
+import ReadSuggestion from "./components/ReadSuggestion/ReadSuggestion.js";
 
 function App() {
   const [openLogin, setOpenLogin] = React.useState(false);
   const handleOpenLogin = () => setOpenLogin(true);
   const handleCloseLogin = () => setOpenLogin(false);
 
-  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openSignUp, setOpenSignUp] = React.useState(false);
   const handleOpenSignUp = () => {
     setOpenSignUp(true);
     setOpenLogin(false); // Bezárja a login modalt, ha szükséges
   };
   const handleCloseSignUp = () => setOpenSignUp(false);
 
-  const [openSuggestion, setOpenSuggestion] = useState(false);
+  const [openSuggestion, setOpenSuggestion] = React.useState(false);
   const handleOpenSuggestion = () => setOpenSuggestion(true);
   const handleCloseSuggestion = () => setOpenSuggestion(false);
 
