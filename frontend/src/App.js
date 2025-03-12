@@ -8,17 +8,14 @@ import SignUpModal from "./components/SignUp/SignUpModal.js";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion.js";
 
 function App() {
-
-  console.log("default route");
-
-  const [openLogin, setOpenLogin] = useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
   const handleOpenLogin = () => setOpenLogin(true);
   const handleCloseLogin = () => setOpenLogin(false);
 
   const [openSignUp, setOpenSignUp] = useState(false);
   const handleOpenSignUp = () => {
     setOpenSignUp(true);
-    setOpenLogin(false);
+    setOpenLogin(false); // Bezárja a login modalt, ha szükséges
   };
   const handleCloseSignUp = () => setOpenSignUp(false);
 
@@ -42,10 +39,9 @@ function App() {
     <div className="container">
       <div className="sidebar">
         <div className="profile">
-          <div className="name">Név</div>
+          <div className="name">név</div>
           <div className="avatar">👤</div>
         </div>
-        
         <button className="sidebarButton" onClick={handleOpenSuggestion}>
           Make suggestion
         </button>
@@ -56,15 +52,7 @@ function App() {
         </Modal>
 
         <button className="sidebarButton">Become mod</button>
-
-        {/* ÚJ OLDAL MEGNYITÁSA ÚJ FÜLBEN */}
-        <button 
-          className="sidebarButton" 
-          onClick={() => window.open("/readsuggestions", "_blank")}
-        >
-          Read suggestions
-        </button>
-
+        <button className="sidebarButton">Read suggestions</button>
         <button className="sidebarButton" onClick={handleOpenLogin}>
           Login
         </button>
