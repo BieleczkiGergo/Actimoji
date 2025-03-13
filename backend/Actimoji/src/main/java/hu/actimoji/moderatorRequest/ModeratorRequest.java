@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "modrequest")
 public class ModeratorRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

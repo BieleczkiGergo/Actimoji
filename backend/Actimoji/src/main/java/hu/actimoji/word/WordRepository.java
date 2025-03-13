@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface WordRepository extends JpaRepository<Word, Integer> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM words LIMIT 10")
+    @Query(nativeQuery = true, value = "SELECT * FROM word LIMIT 10")
     List<Word> getSomeWords();
 
 

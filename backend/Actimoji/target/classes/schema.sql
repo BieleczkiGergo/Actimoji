@@ -13,10 +13,11 @@ CREATE TABLE IF NOT EXISTS `word`
     word varchar(20) NOT NULL,
     banned_icons varchar(200) NOT NULL
     );
+
 CREATE TABLE IF NOT EXISTS `suggestion`
 (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    type ENUM('add', 'remove', 'modify') NOT NULL,
+    operation ENUM('add', 'remove', 'modify') NOT NULL,
     word_id int ,
     new_word VARCHAR(20) ,
     new_icons VARCHAR(40) ,
@@ -24,17 +25,17 @@ CREATE TABLE IF NOT EXISTS `suggestion`
     poster int,
     handler_mod int,
     handled_at TIMESTAMP,
-    FOREIGN KEY (word_id) REFERENCES word(id),
-    FOREIGN KEY (poster) REFERENCES account(id),
-    FOREIGN KEY (handler_mod) REFERENCES account(id)
+    FOREIGN KEY (word_id) REFERENCES word(id) ON DELETE CASCADE,
+    FOREIGN KEY (poster) REFERENCES account(id) ON DELETE SET NULL,
+    FOREIGN KEY (handler_mod) REFERENCES account(id) ON DELETE SET NULL
     );
 
 CREATE TABLE IF NOT EXISTS `modrequest` (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     reason VARCHAR(100) NOT NULL,
     approved BOOLEAN DEFAULT FALSE,
-    requested_id int,
-    approved_id int,
-    FOREIGN KEY (requested_id) REFERENCES account(id),
-    FOREIGN KEY (approved_id) REFERENCES account(id)
+    requested_id int NULL,
+    approved_id int NULL,
+    FOREIGN KEY (requested_id) REFERENCES account(id) ON DELETE CASCADE,
+    FOREIGN KEY (approved_id) REFERENCES account(id) ON DELETE SET NULL
     );

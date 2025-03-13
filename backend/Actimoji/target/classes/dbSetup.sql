@@ -6,6 +6,6 @@ CREATE DATABASE `Actimoji`;
 
 CREATE USER 'actimoji_user'@'localhost' IDENTIFIED BY 'asd123';
 
-GRANT SELECT, UPDATE, DELETE, INSERT ON `Actimoji`.* TO 'actimoji_user'@'localhost';
+GRANT SELECT, UPDATE, DELETE, INSERT, CREATE, DROP, ALTER ON `Actimoji`.* TO 'actimoji_user'@'localhost';
 
 FLUSH PRIVILEGES;

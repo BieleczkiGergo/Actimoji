@@ -55,3 +55,21 @@ gen_btn.addEventListener("click", () => {
     emoji_out.innerText = `Forbidden emojis: ${ forbidden }`;
 
 });
+
+console.log(words.map( (wordItem, i) => {
+    let wordTxt = "";
+    let forbidden = "";
+    if( typeof wordItem === 'string' ){
+        wordTxt = wordItem;
+
+    } else {
+        if( wordItem.length > 1 ){
+            forbidden = wordItem[1];
+        }
+        wordTxt = wordItem[0];
+
+    }
+
+    return `(${i+1}, '${wordTxt}', '${forbidden}')`;
+
+}).join(",\n"));

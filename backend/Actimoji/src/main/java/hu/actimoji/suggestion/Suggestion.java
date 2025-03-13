@@ -21,6 +21,7 @@ public class Suggestion {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "operation")
     private SuggestionType type;
 
     @ManyToOne
