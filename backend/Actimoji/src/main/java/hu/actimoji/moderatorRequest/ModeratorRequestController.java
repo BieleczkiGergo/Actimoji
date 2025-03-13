@@ -15,25 +15,5 @@ public class ModeratorRequestController {
     @Autowired
     private ModeratorRequestService moderatorRequestService;
 
-    @PostMapping("/request")
-    @Operation(summary = "Create new moderator request")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ModeratorRequest saveRequest(@RequestBody ModeratorRequest request) {
-        return moderatorRequestService.saveRequest(request);
-    }
 
-    @GetMapping("/review")
-    public List<ModeratorRequest> getAllRequests() {
-        return moderatorRequestService.getAllRequests();
-    }
-
-    @PostMapping("/review/accept/{id}")
-    public void acceptRequest(@PathVariable Integer id) {
-        moderatorRequestService.acceptRequest(id);
-    }
-
-    @PostMapping("/review/reject/{id}")
-    public void rejectRequest(@PathVariable Integer id) {
-        moderatorRequestService.rejectRequest(id);
-    }
 }

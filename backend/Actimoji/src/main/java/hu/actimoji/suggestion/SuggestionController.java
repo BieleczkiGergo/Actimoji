@@ -11,18 +11,5 @@ public class SuggestionController {
     @Autowired
     private SuggestionService suggestionService;
 
-    @PostMapping("/create")
-    public Suggestion createSuggestion(@RequestBody Suggestion suggestion) {
-        return suggestionService.createSuggestion(suggestion);
-    }
 
-    @PostMapping("/modify/{id}")
-    public Suggestion modifySuggestion(@PathVariable Long id, @RequestBody Suggestion updatedSuggestion) {
-        return suggestionService.modifySuggestion(id, updatedSuggestion);
-    }
-
-    @PostMapping("/delete/{id}")
-    public void deleteSuggestion(@PathVariable Long id) {
-        suggestionService.deleteSuggestion(id);
-    }
 }

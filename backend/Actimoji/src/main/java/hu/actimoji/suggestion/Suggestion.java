@@ -1,13 +1,14 @@
 package hu.actimoji.suggestion;
 
-
+import hu.actimoji.account.Account;
 import hu.actimoji.word.Word;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,47 +16,28 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class Suggestion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+
+    @Enumerated(EnumType.STRING)
+    private SuggestionType type;
+
     @ManyToOne
     @JoinColumn(name = "word_id")
-    @Nullable
     private Word word;
-    private String bannedEmojis;
-    private boolean isModerated;
 
-    public int getId() {
-        return id;
-    }
+    private String newWord;
+    private String newIcons;
+    private String reason;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "poster")
+    private Account poster;
 
-    @Nullable
-    public Word getWord() {
-        return word;
-    }
+    @ManyToOne
+    @JoinColumn(name = "handler_mod")
+    private Account handlerMod;
 
-    public void setWord(@Nullable Word word) {
-        this.word = word;
-    }
-
-    public String getBannedEmojis() {
-        return bannedEmojis;
-    }
-
-    public void setBannedEmojis(String bannedEmojis) {
-        this.bannedEmojis = bannedEmojis;
-    }
-
-    public boolean isModerated() {
-        return isModerated;
-    }
-
-    public void setModerated(boolean moderated) {
-        isModerated = moderated;
-    }
+    private Date handledAt;
 }

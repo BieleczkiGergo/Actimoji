@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
-    boolean existsById(Integer id);
-    Account findById(int id);
+    Account findByEmailAddress(String email);
+
 }

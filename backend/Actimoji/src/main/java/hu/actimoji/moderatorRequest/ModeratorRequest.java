@@ -1,16 +1,16 @@
 package hu.actimoji.moderatorRequest;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.*;
+import hu.actimoji.account.Account;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
 public class ModeratorRequest {
     @Id
@@ -18,47 +18,13 @@ public class ModeratorRequest {
     private Integer id;
 
     private String reason;
-    private int requested_id;
-    private int approved_id;
     private boolean approved;
 
-    public Integer getId() {
-        return id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "requested_id")
+    private Account requested;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public int getRequested_id() {
-        return requested_id;
-    }
-
-    public void setRequested_id(int requested_id) {
-        this.requested_id = requested_id;
-    }
-
-    public long getApproved_id() {
-        return approved_id;
-    }
-
-    public void setApproved_id(int approved_id) {
-        this.approved_id = approved_id;
-    }
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
+    @ManyToOne
+    @JoinColumn(name = "approved_id")
+    private Account approvedBy;
 }

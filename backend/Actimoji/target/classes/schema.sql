@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `account`
     is_moderator BOOLEAN NOT NULL
     );
 
-CREATE TABLE IF NOT EXISTS `words`
+CREATE TABLE IF NOT EXISTS `word`
 (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     word varchar(20) NOT NULL,
@@ -17,21 +17,21 @@ CREATE TABLE IF NOT EXISTS `suggestion`
 (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     type ENUM('add', 'remove', 'modify') NOT NULL,
-    word_id int NOT NULL,
-    new_word VARCHAR(20) NOT NULL,
-    new_icons VARCHAR(40) NOT NULL,
+    word_id int ,
+    new_word VARCHAR(20) ,
+    new_icons VARCHAR(40) ,
     reason VARCHAR(150) NOT NULL,
     poster int,
     handler_mod int,
     handled_at TIMESTAMP,
-    FOREIGN KEY (word_id) REFERENCES words(id),
+    FOREIGN KEY (word_id) REFERENCES word(id),
     FOREIGN KEY (poster) REFERENCES account(id),
     FOREIGN KEY (handler_mod) REFERENCES account(id)
     );
 
 CREATE TABLE IF NOT EXISTS `modrequest` (
-                                            id int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-                                            reason VARCHAR(100) NOT NULL,
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    reason VARCHAR(100) NOT NULL,
     approved BOOLEAN DEFAULT FALSE,
     requested_id int,
     approved_id int,

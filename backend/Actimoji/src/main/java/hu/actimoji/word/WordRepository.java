@@ -1,14 +1,16 @@
 package hu.actimoji.word;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.NativeQuery;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface WordRepository extends CrudRepository<Word, Long> {
+public interface WordRepository extends JpaRepository<Word, Integer> {
 
-    @NativeQuery("SELECT * FROM words LIMIT 10")
+    @Query(nativeQuery = true, value = "SELECT * FROM words LIMIT 10")
     List<Word> getSomeWords();
 
 
