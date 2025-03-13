@@ -8,29 +8,28 @@ function MakeSuggestion () {
     const renderContent = () => {
         switch (activeTab) {
             case "Create":
-                return (
-                    <>
+                return <>
                         <input className={styles.wordInput} type="text" placeholder="Word"></input>
                         <input className={styles.emojiInput} type="text" placeholder="Emoji"></input>
                         <input className={styles.textField} type="text" placeholder="Reason for ..."></input>
                         <button className={styles.sendButton}>Create</button>
-                    </>
-                )
+                    </>;
+                
             case "Modify":
-                return (
-                    <>
+                return <>
                         <input className={styles.wordInput} type="text" placeholder="Word"></input>
                         <input className={styles.emojiInput} type="text" placeholder="Emoji"></input>
                         <input className={styles.textField} type="text" placeholder="Reason for ..."></input>
                         <button className={styles.sendButton}>Modify</button>
-                    </>
-                )
+                    </>;
+
             case "Delete":
-                return (
-                    <>
+                return <>
                         <input className={styles.wordInput} type="text" placeholder="Word"></input>
-                    </>
-                )
+                    </>;
+
+            default:
+                return <></>;
         }
     }
     

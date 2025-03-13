@@ -3,11 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ReviewProvider } from './components/review';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ReviewProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={ <App /> }/>
+          <Route path="/readsuggestions" element={<h2>Read suggestions</h2>} />
+        </Routes>
+      </BrowserRouter>
+
+    </ReviewProvider>
   </React.StrictMode>
 );
 
