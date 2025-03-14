@@ -3,6 +3,7 @@ package hu.actimoji.account;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.CONFLICT)
-public class ExistingAccountException extends RuntimeException {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class AccountNotFoundException extends RuntimeException {
+
 }

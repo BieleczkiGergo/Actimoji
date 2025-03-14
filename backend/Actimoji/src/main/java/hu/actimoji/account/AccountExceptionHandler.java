@@ -11,6 +11,10 @@ import javax.security.auth.login.AccountException;
 public class AccountExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.CONFLICT,reason = "Account already exists")
-    @ExceptionHandler(AccountException.class)
-    public void handleAccountException(AccountException ex) {}
+    @ExceptionHandler(ExistingAccountException.class)
+    public void handleExistingAccountException(ExistingAccountException ex) {}
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND,reason = "You don't have an account")
+    @ExceptionHandler(AccountNotFoundException.class)
+    public void handleAccountNotFoundException(AccountNotFoundException ex) {}
 }

@@ -28,4 +28,44 @@ public class ModeratorRequest {
     @ManyToOne
     @JoinColumn(name = "approved_id")
     private Account approvedBy;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+
+    public Account getRequested() {
+        return requested;
+    }
+
+    public void setRequested(Account requested) {
+        this.requested = requested;
+    }
+
+    public Account getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(Account approvedBy) {
+        this.approvedBy = approvedBy;
+    }
 }

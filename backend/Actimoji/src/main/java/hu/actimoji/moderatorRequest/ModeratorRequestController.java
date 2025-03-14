@@ -1,5 +1,6 @@
 package hu.actimoji.moderatorRequest;
 
+import hu.actimoji.account.Account;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,31 @@ import java.util.List;
 public class ModeratorRequestController {
     @Autowired
     private ModeratorRequestService moderatorRequestService;
+
+    @PostMapping("/request")
+    @Operation(summary = "Apply for moderator")
+    public ModeratorRequest createModeratorRequest(@RequestBody ModeratorRequest moderatorRequest) {
+        return moderatorRequestService.createModeratorRequest(moderatorRequest);
+    }
+
+    @GetMapping("/review")
+    @Operation(summary = "List all moderator requests")
+    public List<ModeratorRequest> getModeratorRequests() {
+        return moderatorRequestService.listModeratorRequests();
+    }
+
+    @PostMapping("/review/accept/{id}")
+    @Operation(summary = "Accept a moderator request")
+    public ModeratorRequest acceptModeratorRequest(@PathVariable("id") Integer id, @RequestParam("moderatorId") Integer moderatorId) {
+        return moderatorRequestService.acceptModeratorRequest(id, moderatorId);
+    }
+
+    @DeleteMapping("/review/reject/{id}")
+    @Operation(summary = "Reject a moderator request")
+    public ModeratorRequest rejectModeratorRequest(@PathVariable("id") Integer id,@RequestParam("moderatorId") Integer moderatorId) {
+        return moderatorRequestService.rejectModeratorRequest(id, moderatorId);
+    }
+
 
 
 }

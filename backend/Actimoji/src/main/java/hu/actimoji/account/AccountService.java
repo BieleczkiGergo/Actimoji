@@ -16,6 +16,7 @@ public class AccountService {
         if (existingAccount != null) {
             throw new ExistingAccountException();
         }
+        account.setId(null);
         return accountRepository.save(account);
     }
 
