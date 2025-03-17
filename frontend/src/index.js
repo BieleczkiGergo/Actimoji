@@ -5,19 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ReviewProvider } from './components/review';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import ReadSuggestion from './components/ReadSuggestion/ReadSuggestion';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ReviewProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={ <App /> }/>
-          <Route path="/readsuggestions" element={<h2>Read suggestions</h2>} />
-        </Routes>
-      </BrowserRouter>
-
-    </ReviewProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        {  <Route path="/readsuggestion" element={<ReadSuggestion/>} />  }
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

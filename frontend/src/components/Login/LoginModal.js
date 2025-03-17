@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./LoginModal.css";
 
@@ -36,8 +36,9 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
         {errors.Password && <span>{errors.Password.message}</span>}
 
         <p id="register" onClick={handleOpenSignUp} style={{ cursor: "pointer" }}>
-          Don't have an account? <a href="/">Sign up</a> now
+        Don't have an account? <span style={{ color: "#E85B2C", textDecoration: "underline" }}>Sign up</span> now
         </p>
+
 
         <br />
         <input type="submit" value="Submit" id="send" />

@@ -50,6 +50,17 @@ function SignUpModal({ handleClose }) {
         />
         {errors.Password && <span>{errors.Password.message}</span>}
 
+        <p>Password again</p>
+        <input
+          className="signupInput"
+          type="password"
+          {...register("Password", {
+            required: "This input is mandatory",
+            minLength: { value: 6, message: "Password must be at least 6 characters" },
+          })}
+        />
+        {errors.Password && <span>{errors.Password.message}</span>}
+
         <br />
         <input type="submit" value="Sign Up" id="signup-send" />
       </form>
