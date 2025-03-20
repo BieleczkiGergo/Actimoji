@@ -37,13 +37,13 @@ INSERT INTO `modrequest` (requested_id, approved_id, reason, approved)
 VALUES
     (3, NULL, 'According to all known laws of aviation, there is no way a bee should be able to fly', FALSE);
 
---INSERT INTO `suggestion` (operation, word_id, new_word, new_icons, reason, poster, handler_mod, handled_at)
---VALUES
-    --('add', NULL, 'Oh Long Johnson', '',
-    --    'Ill give you a nickel if you tickle my pickle', 3, NULL, NULL)
-    --,('modify', 21, 'helicopter', '🚁', 'Why not', 1, NULL, NULL),
-    --,('remove', 23, '', '', '', 2, NULL, NULL),
-    --,('modify', 8, 'idgaf', '',
-        --'ön egy cégnél dolgozik', 4, NULL, NULL)
-    --;
+INSERT INTO `suggestion` (operation, word_id, new_word, new_icons, reason, poster, handler_mod, handled_at, accepted)
+VALUES
+    (0, NULL, 'Oh Long Johnson', '',
+        'Ill give you a nickel if you tickle my pickle', 3, NULL, NULL, NULL)
+    ,(1, 21, 'helicopter', '🚁', 'Why not', 1, NULL, NULL, NULL)
+    ,(2, 23, '', '', '', 2, NULL, NULL, NULL)
+    ,(1, 8, 'idgaf', '',
+        'ön egy cégnél dolgozik', 4, NULL, NULL, NULL)
+    ;
 

@@ -17,12 +17,13 @@ CREATE TABLE IF NOT EXISTS `word`
 CREATE TABLE IF NOT EXISTS `suggestion`
 (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    operation ENUM('add', 'remove', 'modify') NOT NULL,
+    operation TINYINT NOT NULL,
     word_id int ,
     new_word VARCHAR(20) ,
     new_icons VARCHAR(40) ,
     reason VARCHAR(150) NOT NULL,
     poster int,
+    accepted TINYINT,
     handler_mod int,
     handled_at TIMESTAMP,
     FOREIGN KEY (word_id) REFERENCES word(id) ON DELETE CASCADE,

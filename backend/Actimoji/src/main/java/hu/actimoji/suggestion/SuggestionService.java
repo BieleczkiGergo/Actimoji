@@ -10,5 +10,13 @@ public class SuggestionService {
     @Autowired
     private SuggestionRepository suggestionRepository;
 
+    @Autowired
+    private SuggestionConverter converter;
 
+    public void save(SuggestionSave suggestionSave) {
+        Suggestion suggestion = converter.toSuggestion(suggestionSave);
+
+        suggestionRepository.save( suggestion );
+
+    }
 }

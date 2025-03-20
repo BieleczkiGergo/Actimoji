@@ -18,11 +18,10 @@ import java.util.Date;
 public class Suggestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "operation")
-    private SuggestionType type;
+    private byte type;
 
     @ManyToOne
     @JoinColumn(name = "word_id")
@@ -36,9 +35,12 @@ public class Suggestion {
     @JoinColumn(name = "poster")
     private Account poster;
 
+    private Byte accepted;
+
     @ManyToOne
     @JoinColumn(name = "handler_mod")
     private Account handlerMod;
 
     private Date handledAt;
+
 }
