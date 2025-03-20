@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    height: 100vh;
+    background-color: #f3f6eb;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #ff6b35;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile {
+    width: 100%;
+    background-color: #3b7080;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .avatar {
+    font-size: 24px;
+  }
+  
+  .sidebarButton {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #283845;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .sidebarButton:hover {
+    background-color: #1f2c38;
+  }
+  
+  .mainContent {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  

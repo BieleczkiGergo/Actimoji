@@ -38,14 +38,27 @@ function App() {
         <button className="sidebarButton" onClick={handleOpenSuggestion}>
           Make suggestion
         </button>
+
+        {/* ÚJ OLDAL MEGNYITÁSA ÚJ FÜLBEN */}
+        <button 
+          className="sidebarButton" 
+          onClick={() => window.open("/readsuggestion", "_blank")}
+        >
+          Read suggestions
+        </button>
+
+        <button className="sidebarButton">
+          List Words
+        </button>
+
         <Modal open={openSuggestion} onClose={handleCloseSuggestion}>
           <div className="loginParent">
             <MakeSuggestion />
 
           </div>
         </Modal>
-
         <button className="sidebarButton">Become mod</button>
+
         <button className="sidebarButton" onClick={ handleGotoReadSuggestions }>Read suggestions</button>
         <button className="sidebarButton" onClick={handleOpenLogin}>
           Login
