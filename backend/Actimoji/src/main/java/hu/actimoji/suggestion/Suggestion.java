@@ -43,4 +43,83 @@ public class Suggestion {
 
     private Date handledAt;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public byte getType() {
+        return type;
+    }
+
+    public void setType(byte type) {
+        this.type = type;
+    }
+
+    public Word getWord() {
+        return word;
+    }
+
+    public void setWord(Word word) {
+        this.word = word;
+    }
+
+    public String getNewWord() {
+        return newWord;
+    }
+
+    public void setNewWord(String newWord) {
+        this.newWord = newWord;
+    }
+
+    public String getNewIcons() {
+        return newIcons;
+    }
+
+    public void setNewIcons(String newIcons) {
+        this.newIcons = newIcons;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Account getPoster() {
+        return poster;
+    }
+
+    public void setPoster(Account poster) {
+        this.poster = poster;
+    }
+
+    public Byte getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Byte accepted) {
+        this.accepted = accepted;
+    }
+
+    public Account getHandlerMod() {
+        return handlerMod;
+    }
+
+    public void setHandlerMod(Account handlerMod) {
+        this.handlerMod = handlerMod;
+    }
+
+    public Date getHandledAt() {
+        return handledAt;
+    }
+
+    public void setHandledAt(Date handledAt) {
+        this.handledAt = handledAt;
+    }
 }

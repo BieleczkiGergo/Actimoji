@@ -18,22 +18,15 @@ public class ModeratorRequestService {
     @Autowired
     private AccountRepository accountRepository;
 
-
     public ModeratorRequest createModeratorRequest(ModeratorRequest moderatorRequest) {
-        Optional<Account> account = accountRepository.findById(moderatorRequest.getRequested().getId());
-        if (account.isEmpty()) {
-            throw new AccountNotFoundException();
-        }
-        moderatorRequest.setApprovedBy(null);
         return moderatorRequestRepository.save(moderatorRequest);
     }
 
     public List<ModeratorRequest> listModeratorRequests() {
-
         return moderatorRequestRepository.findAll();
     }
 
-    public ModeratorRequest acceptModeratorRequest(Integer id,  Integer moderatorId) {
+    public ModeratorRequest acceptModeratorRequest(Integer id, Integer moderatorId) {
         Optional<ModeratorRequest> request = moderatorRequestRepository.findById(id);
         if (request.isEmpty()) {
             throw new ModeratorRequestNotFoundException();
@@ -59,7 +52,6 @@ public class ModeratorRequestService {
         return moderatorRequestRepository.save(modRequest);
     }
 
-
     public ModeratorRequest rejectModeratorRequest(Integer id, Integer moderatorId) {
         Optional<ModeratorRequest> request = moderatorRequestRepository.findById(id);
         if (request.isEmpty()) {
@@ -78,6 +70,7 @@ public class ModeratorRequestService {
         modRequest.setApproved(false);
         modRequest.setApprovedBy(moderatorAccount.get());
 
-        return moderatorRequestRepository.save(modRequest);
+        moderatorRequestRepository.delete(modRequest);
+        return modRequest;
     }
 }

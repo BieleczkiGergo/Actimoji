@@ -16,9 +16,13 @@ public class ModeratorRequestController {
     @Autowired
     private ModeratorRequestService moderatorRequestService;
 
+    @Autowired
+    private ModeratorRequestConverter moderatorRequestConverter;
+
     @PostMapping("/request")
     @Operation(summary = "Apply for moderator")
-    public ModeratorRequest createModeratorRequest(@RequestBody ModeratorRequest moderatorRequest) {
+    public ModeratorRequest createModeratorRequest(@RequestBody ModeratorRequestDTO moderatorRequestDTO) {
+        ModeratorRequest moderatorRequest = moderatorRequestConverter.toEntity(moderatorRequestDTO);
         return moderatorRequestService.createModeratorRequest(moderatorRequest);
     }
 
