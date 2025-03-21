@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/review")
 @Tag(name= "Review functions", description = "Reviews")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReviewController {
 
     @Autowired
