@@ -6,6 +6,10 @@ import hu.actimoji.suggestion.Suggestion;
 import hu.actimoji.suggestion.SuggestionRepository;
 import hu.actimoji.word.Word;
 import hu.actimoji.word.WordRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +32,9 @@ public class ReviewService {
     @Autowired
     WordRepository wordRepository;
 
+    @PersistenceContext
+    EntityManager entityManager;
+
     public List<ReviewDTO> getAllReviews() {
         return suggestionRepository.findAllByHandledAtIsNull()
                 .stream().map( reviewConverter::toReviewDTO )
@@ -35,6 +42,7 @@ public class ReviewService {
 
     }
 
+    @Transactional
     public void acceptSuggestion(Long reviewId, Integer handlerModId) {
         Suggestion suggestion = suggestionRepository.findById(reviewId).orElse(null);
 
@@ -76,6 +84,7 @@ public class ReviewService {
             wordRepository.save( word );
 
         }else {
+            entityManager.detach( suggestion );
             Word word = suggestion.getWord();
             suggestionRepository.deleteByWordId( word.getId() );
             wordRepository.delete( word );

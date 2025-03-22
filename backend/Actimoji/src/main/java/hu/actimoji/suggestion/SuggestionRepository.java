@@ -1,11 +1,10 @@
 package hu.actimoji.suggestion;
 
-import hu.actimoji.word.Word;
-import io.micrometer.common.KeyValues;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 
@@ -13,7 +12,8 @@ public interface SuggestionRepository extends JpaRepository<Suggestion, Long> {
 
     List<Suggestion> findAllByHandledAtIsNull();
 
-    void deleteByWord(Word word);
+    @Modifying
+    @Query("DELETE FROM Suggestion s WHERE s.word.id = :wordId")
+    int deleteByWordId( @Param("wordId") Integer wordId);
 
-    void deleteByWordId(Integer id);
 }

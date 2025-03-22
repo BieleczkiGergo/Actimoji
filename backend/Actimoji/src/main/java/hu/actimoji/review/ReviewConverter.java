@@ -41,7 +41,7 @@ public class ReviewConverter {
         Suggestion suggestion = suggestionRepository.findById(reviewDTO.getSuggestionId()).orElse(null);
 
         suggestion.setHandlerMod( accountRepository.findById(handlerModId).orElse(null) );
-        suggestion.setHandledAt( new Date(null) );
+        suggestion.setHandledAt( new Date() );
 
         return suggestion;
     }

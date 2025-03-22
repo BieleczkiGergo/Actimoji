@@ -25,14 +25,14 @@ public class ReviewController {
 
     @PostMapping("/accept/{suggestionId}")
     @Operation(summary = "Accept a suggestion")
-    public void acceptReview(@PathVariable Long suggestionId, Integer userId) {
+    public void acceptReview(@PathVariable Long suggestionId, @RequestParam Integer userId) {
         reviewService.acceptSuggestion( suggestionId, userId );
 
     }
 
     @PostMapping("/reject/{suggestionId}")
     @Operation(summary = "Reject a suggestion")
-    public void rejectReview(@PathVariable Long suggestionId, Integer userId) {
+    public void rejectReview(@PathVariable Long suggestionId, @RequestParam Integer userId) {
         reviewService.rejectSuggestion( suggestionId, userId );
 
     }
