@@ -1,30 +1,30 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Modal from "@mui/material/Modal";
 import LoginModal from "./components/Login/LoginModal.js";
 import SignUpModal from "./components/SignUp/SignUpModal.js";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion.js";
-import { ReviewCtx } from "./components/review.js";
+import ListWords from "./components/ListWords/ListWords.js";
 
 function App() {
-
-  // Itt lesznek a review-ek
-  let reviews = useContext( ReviewCtx );
-
-  const [openLogin, setOpenLogin] = React.useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
   const handleOpenLogin = () => setOpenLogin(true);
   const handleCloseLogin = () => setOpenLogin(false);
 
-  const [openSignUp, setOpenSignUp] = React.useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const handleOpenSignUp = () => {
     setOpenSignUp(true);
-    setOpenLogin(false); // Bezárja a login modalt, ha szükséges
+    setOpenLogin(false);
   };
   const handleCloseSignUp = () => setOpenSignUp(false);
 
-  const [openSuggestion, setOpenSuggestion] = React.useState(false);
+  const [openSuggestion, setOpenSuggestion] = useState(false);
   const handleOpenSuggestion = () => setOpenSuggestion(true);
   const handleCloseSuggestion = () => setOpenSuggestion(false);
+
+  const [openWordsModal, setOpenWordsModal] = useState(false);
+  const handleOpenWords = () => setOpenWordsModal(true);
+  const handleCloseWords = () => setOpenWordsModal(false);
 
   const handleGotoReadSuggestions = () => window.location.href = "/readsuggestions";
 
@@ -32,51 +32,45 @@ function App() {
     <div className="container">
       <div className="sidebar">
         <div className="profile">
-          <div className="name">név</div>
+          <div className="name">Név</div>
           <div className="avatar">👤</div>
         </div>
+        
         <button className="sidebarButton" onClick={handleOpenSuggestion}>
           Make suggestion
         </button>
-
-        {/* ÚJ OLDAL MEGNYITÁSA ÚJ FÜLBEN */}
-        <button 
-          className="sidebarButton" 
-          onClick={() => window.open("/readsuggestion", "_blank")}
-        >
+        
+        <button className="sidebarButton" onClick={() => window.open("/readsuggestion", "_blank")}>
           Read suggestions
         </button>
-
-        <button className="sidebarButton">
+        
+        <button className="sidebarButton" onClick={handleOpenWords}>
           List Words
         </button>
-
+        
         <Modal open={openSuggestion} onClose={handleCloseSuggestion}>
           <div className="loginParent">
             <MakeSuggestion />
-
           </div>
         </Modal>
-        <button className="sidebarButton">Become mod</button>
 
-        <button className="sidebarButton" onClick={ handleGotoReadSuggestions }>Read suggestions</button>
+        <button className="sidebarButton">Become mod</button>
+        <button className="sidebarButton" onClick={handleGotoReadSuggestions}>
+          Read suggestions
+        </button>
         <button className="sidebarButton" onClick={handleOpenLogin}>
           Login
         </button>
-
-        {/* Login Modal */}
+        
         <Modal open={openLogin} onClose={handleCloseLogin}>
           <div className="loginParent">
             <LoginModal handleClose={handleCloseLogin} handleOpenSignUp={handleOpenSignUp} />
-
           </div>
         </Modal>
-
-        {/* Sign Up Modal */}
+        
         <Modal open={openSignUp} onClose={handleCloseSignUp}>
           <div className="loginParent">
             <SignUpModal handleClose={handleCloseSignUp} />
-
           </div>
         </Modal>
       </div>
@@ -85,10 +79,11 @@ function App() {
       <div className="main">
         <input className="input" type="text" placeholder="nickname" />
         <button className="button">Play</button>
-        <button className="joinButton">
-          Join Party &nbsp;<span role="img" aria-label="party">🎉</span>
-        </button>
+        <button className="joinButton">Join Party 🎉</button>
       </div>
+
+      {/* List Words Modal */}
+      <ListWords open={openWordsModal} onClose={handleCloseWords} />
     </div>
   );
 }
