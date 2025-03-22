@@ -46,4 +46,22 @@
     flex-grow: 1;
     padding: 20px;
   }
-  
+
+
+.review {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+  width: 40%;
+}
+
+.reviewItem {
+  margin-top: 40px;
+  background-color: #1f2c38;
+  padding: 25px;
+  border-radius: 40px;
+}
+
+.p {
+  color: #ada8a8;
+}

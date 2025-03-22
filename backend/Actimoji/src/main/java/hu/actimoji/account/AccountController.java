@@ -17,7 +17,8 @@ public class AccountController {
 
     @PostMapping("/registration")
     @Operation(summary = "Create new account")
-    public Account createAccount(@RequestBody Account account) {
+    public Account createAccount(@RequestBody AccountDTO accountDTO) {
+        Account account = AccountConverter.toEntity(accountDTO);
         return accountService.createAccount(account);
     }
 

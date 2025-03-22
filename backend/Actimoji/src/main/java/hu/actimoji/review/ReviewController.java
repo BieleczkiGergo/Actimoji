@@ -7,12 +7,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/review")
+@Tag(name= "Review functions", description = "Reviews")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReviewController {
 
     @Autowired
     ReviewService reviewService;
 
     @GetMapping
+    @Operation(summary = "List all suggestions")
     public List<ReviewDTO> getReviews() {
         return reviewService.getAllReviews();
 
