@@ -1,5 +1,7 @@
 package hu.actimoji.review;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +24,14 @@ public class ReviewController {
     }
 
     @PostMapping("/accept/{suggestionId}")
+    @Operation(summary = "Accept a suggestion")
     public void acceptReview(@PathVariable Long suggestionId, Integer userId) {
         reviewService.acceptSuggestion( suggestionId, userId );
 
     }
 
     @PostMapping("/reject/{suggestionId}")
+    @Operation(summary = "Reject a suggestion")
     public void rejectReview(@PathVariable Long suggestionId, Integer userId) {
         reviewService.rejectSuggestion( suggestionId, userId );
 
