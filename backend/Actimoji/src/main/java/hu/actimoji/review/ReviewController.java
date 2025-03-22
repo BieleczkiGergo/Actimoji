@@ -18,13 +18,15 @@ public class ReviewController {
 
     }
 
-    @PostMapping("/accept/{id}")
-    public void acceptReview(@PathVariable Long id, Long userId) {
+    @PostMapping("/accept/{suggestionId}")
+    public void acceptReview(@PathVariable Long suggestionId, Integer userId) {
+        reviewService.acceptSuggestion( suggestionId, userId );
 
     }
 
-    @PostMapping("/reject/id")
-    public void rejectReview(@PathVariable Long id, Long userId) {
+    @PostMapping("/reject/{suggestionId}")
+    public void rejectReview(@PathVariable Long suggestionId, Integer userId) {
+        reviewService.rejectSuggestion( suggestionId, userId );
 
     }
 

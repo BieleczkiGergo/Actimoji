@@ -23,7 +23,7 @@ public class Suggestion {
     @Column(name = "operation")
     private byte type;
 
-    @ManyToOne
+    @ManyToOne( cascade = CascadeType.REMOVE )
     @JoinColumn(name = "word_id")
     private Word word;
 
