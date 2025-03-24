@@ -5,23 +5,46 @@ import axios from 'axios';
 
 function ReadSuggestion() {
   const navigate = useNavigate();
-  
+
+  const [userId, setUserId] = useState(1);
   const [reviews, setReviews] = useState([]);
 
-  useEffect(() => {
+  function loadData() {
     axios.get("http://localhost:8080/review")
       .then((response) => {
         setReviews(response.data);
       })
       .catch((error) => {
-        console.error("Hiba történt az adatok lekérésekor:", error);
+        console.error("An error occured when getting the data: ", error);
       });
-  }, []);
-
-  function approveSuggestion(operation) {
-
   }
 
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  function approveSuggestion(suggestionId) {
+    axios.post(`http://localhost:8080/review/accept/${suggestionId}?userId=${userId}`)
+      .then(() => {
+        alert(`Suggestion ${suggestionId} approved by user ${userId}!`);
+        setReviews((prevReviews) => prevReviews.filter((r) => r.suggestionId !== suggestionId));
+      })
+      .catch((error) => {
+        console.error(`An error occurred while accepting suggestion ${suggestionId}:`, error);
+      });
+  }
+  
+  function declineSuggestion(suggestionId) {
+    axios.post(`http://localhost:8080/review/reject/${suggestionId}?userId=${userId}`)
+      .then(() => {
+        alert(`Suggestion ${suggestionId} rejected by user ${userId}!`);
+        setReviews((prevReviews) => prevReviews.filter((r) => r.suggestionId !== suggestionId));
+      })
+      .catch((error) => {
+        console.error(`An error occurred while rejecting suggestion ${suggestionId}:`, error);
+      });
+  }
+  
   return (
     <div className="container">
       {/* Sidebar */}
@@ -44,25 +67,27 @@ function ReadSuggestion() {
         <button className="sidebarButton">Become mod</button>
 
         <button className="sidebarButton">Login</button>
-
-        {/* Map-eljük ki a review-kat */}
       </div>
+      
+      {/* Review lista */}
       <div className={styles.review}>
-          {reviews.length > 0 ? (
-            reviews.map((review) => (
-              <div key={review.suggestionId} className={styles.reviewItem}>
-                <p className={styles.p}><strong>Old word:</strong> {review.old_word}</p>
-                <p className={styles.p}><strong>New word:</strong> {review.new_word}</p>
-                <p className={styles.p}><strong>Operation:</strong> {review.operation}</p>
-                <p className={styles.p}><strong>Reason:</strong> {review.reason}</p>
-                <p>✔️ ❌</p>
-                <hr />
-              </div>
-            ))
-          ) : (
-            <p>Nincsenek elérhető javaslatok.</p>
-          )}
-        </div>
+        {reviews.length > 0 ? (
+          reviews.map((review) => (
+            <div key={review.suggestionId} className={styles.reviewItem}>
+              <p className={styles.p}><strong>Old word:</strong> {review.old_word}</p>
+              <p className={styles.p}><strong>New word:</strong> {review.new_word}</p>
+              <p className={styles.p}><strong>Operation:</strong> {review.operation}</p>
+              <p className={styles.p}><strong>Reason:</strong> {review.reason}</p>
+              
+              <p onClick={() => approveSuggestion(review.suggestionId)}>✔️</p>
+              <p onClick={() => declineSuggestion(review.suggestionId)}>❌</p>
+              <hr />
+            </div>
+          ))
+        ) : (
+          <p>Nincsenek elérhető javaslatok.</p>
+        )}
+      </div>
     </div>
   );
 }
