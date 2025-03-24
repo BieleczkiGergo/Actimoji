@@ -18,9 +18,11 @@ public class ModeratorRequestConverter {
         ModeratorRequest request = new ModeratorRequest();
         request.setReason(dto.getReason());
         request.setApproved(false);
+        Account account = accountRepository.getReferenceById(dto.getRequestedId());
 
-        Account account = accountRepository.findById(dto.getRequestedId())
-                .orElseThrow(() -> new AccountNotFoundException());
+        if (account == null) {
+            throw new AccountNotFoundException();
+        }
 
         request.setRequested(account);
         return request;

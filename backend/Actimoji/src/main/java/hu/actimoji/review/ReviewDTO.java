@@ -38,6 +38,9 @@ public class ReviewDTO {
         }
     }
 
+    public ReviewDTO() {
+    }
+
     public Long getSuggestionId() {
         return suggestionId;
     }

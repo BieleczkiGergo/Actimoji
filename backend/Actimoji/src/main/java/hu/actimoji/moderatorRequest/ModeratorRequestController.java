@@ -3,6 +3,7 @@ package hu.actimoji.moderatorRequest;
 import hu.actimoji.account.Account;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/mod")
 @Tag(name= "Moderator request functions", description = "Moderator requests")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ModeratorRequestController {
     @Autowired
     private ModeratorRequestService moderatorRequestService;
@@ -21,7 +23,7 @@ public class ModeratorRequestController {
 
     @PostMapping("/request")
     @Operation(summary = "Apply for moderator")
-    public ModeratorRequest createModeratorRequest(@RequestBody ModeratorRequestDTO moderatorRequestDTO) {
+    public ModeratorRequest createModeratorRequest(@Valid @RequestBody ModeratorRequestDTO moderatorRequestDTO) {
         ModeratorRequest moderatorRequest = moderatorRequestConverter.toEntity(moderatorRequestDTO);
         return moderatorRequestService.createModeratorRequest(moderatorRequest);
     }
@@ -38,7 +40,7 @@ public class ModeratorRequestController {
         return moderatorRequestService.acceptModeratorRequest(id, moderatorId);
     }
 
-    @DeleteMapping("/review/reject/{id}")
+    @PostMapping("/review/reject/{id}")
     @Operation(summary = "Reject a moderator request")
     public ModeratorRequest rejectModeratorRequest(@PathVariable("id") Integer id,@RequestParam("moderatorId") Integer moderatorId) {
         return moderatorRequestService.rejectModeratorRequest(id, moderatorId);
