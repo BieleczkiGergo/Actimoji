@@ -7,29 +7,32 @@ import java.util.List;
 
 public class Room {
 
-    private final static int MAX_MESSAGES = 50;
+    private final static int MAX_PLAYERS = 8;
 
     private List<Player> players;
     private String currentPrompt;
     private int currentWriter;
-
-    private String[] messages;
+    private int round;
 
     public Room() {
-        players = new LinkedList<>();
-        currentWriter = 0;
-        currentPrompt = "";
-        messages = new String[MAX_MESSAGES];
+        this.players = new LinkedList<>();
+        this.currentWriter = 0;
+        this.round = 0;
+        this.currentPrompt = "";
 
     }
 
-    public void addUser(Player player) {
+    public void addUser(Player player) throws RoomFullException {
+        if (players.size() >= MAX_PLAYERS) {
+            throw new RoomFullException("Room full");
+
+        }
         players.add(player);
 
     }
 
     public void removeUser(Player player) {
-        // This will be a little more complicated
+        // TODO: This will be a little more complicated
         players.remove(player);
 
     }

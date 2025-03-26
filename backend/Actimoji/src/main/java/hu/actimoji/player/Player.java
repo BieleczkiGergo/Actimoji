@@ -26,10 +26,6 @@ public class Player {
 
     }
 
-    public void broadCastDescription(String description){
-
-    }
-
     public void receiveMessage(String message){
 
     }
