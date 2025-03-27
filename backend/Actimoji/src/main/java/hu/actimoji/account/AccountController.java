@@ -15,13 +15,6 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping("/registration")
-    @Operation(summary = "Create new account")
-    public Account createAccount(@RequestBody AccountDTO accountDTO) {
-        Account account = AccountConverter.toEntity(accountDTO);
-        return accountService.createAccount(account);
-    }
-
     @GetMapping("/list")
     @Operation(summary = "List all users")
     public List<Account> listGladiators() {

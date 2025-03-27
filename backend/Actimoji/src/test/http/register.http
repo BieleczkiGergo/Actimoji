@@ -1,0 +1,8 @@
+POST http://localhost:8080/profile/register
+Content-Type: application/json
+
+{
+  "username": "Oláh 2es Golfgusztáv",
+  "email": "asd@asdmail.asd",
+  "password": "fitymakremleves"
+}

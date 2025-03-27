@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 
 @Entity
 public class Account {
@@ -19,7 +21,7 @@ public class Account {
     @Size(max = 20)
     private String userName;
     @NotNull
-    @Size(min = 6, max = 25)
+    @Size(min = 6, max = 60)
     private String password;
     @Email
     @NotNull
@@ -67,6 +69,16 @@ public class Account {
 
     public void setModerator(boolean moderator) {
         isModerator = moderator;
+    }
+
+    public List<String> getRoles(){
+        if (isModerator){
+            return List.of("ROLE_MODERATOR");
+
+        } else {
+            return List.of();
+
+        }
     }
 }
 
