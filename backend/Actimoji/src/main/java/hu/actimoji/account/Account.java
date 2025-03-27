@@ -18,7 +18,7 @@ public class Account {
 
     @Column(name = "user_name")
     @NotNull
-    @Size(max = 20)
+    @Size(min = 6, max = 20)
     private String userName;
     @NotNull
     @Size(min = 6, max = 60)

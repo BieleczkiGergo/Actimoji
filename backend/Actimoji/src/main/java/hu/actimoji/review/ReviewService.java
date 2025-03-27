@@ -51,7 +51,7 @@ public class ReviewService {
         suggestion.setHandledAt( new Date() );
 
         suggestion.setAccepted( (byte) 1 );
-
+         
         suggestionRepository.save( suggestion );
         this.completeSuggestion( suggestion );
 

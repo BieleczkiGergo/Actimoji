@@ -1,9 +1,11 @@
 package hu.actimoji.moderatorRequest;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class ModeratorRequestDTO {
     @NotNull
+    @Size(max = 100)
     private String reason;
 
     @NotNull

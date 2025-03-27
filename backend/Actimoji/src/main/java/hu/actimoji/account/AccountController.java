@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/account")
 @Tag(name="Account functions", description = "Manage accounts")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
 
     @Autowired
