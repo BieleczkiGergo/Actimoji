@@ -5,7 +5,7 @@ import LoginModal from "./components/Login/LoginModal.js";
 import SignUpModal from "./components/SignUp/SignUpModal.js";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion.js";
 import ListWords from "./components/ListWords/ListWords.js";
-import BecomeMod from "./components/ModRequest/BecomeMod.js"; // Import the BecomeMod modal
+import BecomeMod from "./components/ModRequest/BecomeMod.js";
 
 function App() {
   const [openLogin, setOpenLogin] = useState(false);
@@ -47,9 +47,12 @@ function App() {
           Read suggestions
         </button>
 
+
+        {/*}
         <button className="sidebarButton" onClick={handleOpenWords}>
           List Words
         </button>
+        */}
 
         <Modal open={openSuggestion} onClose={handleCloseSuggestion}>
           <div className="loginParent">
@@ -57,7 +60,9 @@ function App() {
           </div>
         </Modal>
 
-        <button className="sidebarButton" onClick={handleOpenBecomeMod}>Become Mod</button>
+        <button className="sidebarButton" onClick={handleOpenBecomeMod}>
+          Become Mod
+        </button>
 
         <Modal open={openBecomeMod} onClose={handleCloseBecomeMod}>
           <div className="loginParent">
@@ -67,6 +72,10 @@ function App() {
 
         <button className="sidebarButton" onClick={handleOpenLogin}>
           Login
+        </button>
+
+        <button className="sidebarButton" onClick={handleOpenSignUp}>
+          Sign Up
         </button>
 
         <Modal open={openLogin} onClose={handleCloseLogin}>
