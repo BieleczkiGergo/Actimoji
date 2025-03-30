@@ -12,7 +12,7 @@ public class WordService {
     private WordRepository wordRepository;
 
     public List<Word> getWords() {
-        return wordRepository.getSomeWords();
+        return wordRepository.findAll();
 
     }
 }

@@ -21,7 +21,7 @@ public class WordController {
     private WordService wordService;
 
     @GetMapping("/query")
-    @Operation(summary = "List 10 words")
+    @Operation(summary = "List all words")
     public List<Word> queryWords() {
         return wordService.getWords();
 
