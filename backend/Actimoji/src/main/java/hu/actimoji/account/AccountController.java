@@ -18,7 +18,7 @@ public class AccountController {
 
     @GetMapping("/list")
     @Operation(summary = "List all users")
-    public List<Account> listGladiators() {
+    public List<Account> listUsers() {
         return accountService.listAccounts();
     }
 
