@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import "./SignUpModal.css";
 
 function SignUpModal({ handleClose }) {
@@ -10,9 +11,21 @@ function SignUpModal({ handleClose }) {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Sign Up Data:", data);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post("http://localhost:8080/profile/register", {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      });
+
+      alert(`Registration successful: ${response.data.message}`);
+      reset();
+      handleClose();
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Registration failed. Please try again.");
+    }
   };
 
   return (
@@ -23,43 +36,32 @@ function SignUpModal({ handleClose }) {
         <input
           className="signupInput"
           placeholder="Username"
-          {...register("Username", { required: "This input is mandatory" })}
+          {...register("username", { required: "This input is mandatory" })}
         />
-        {errors.Username && <span>{errors.Username.message}</span>}
+        {errors.username && <span>{errors.username.message}</span>}
 
         <p>Email</p>
         <input
           className="signupInput"
           type="email"
           placeholder="Email"
-          {...register("Email", {
+          {...register("email", {
             required: "This input is mandatory",
             pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" },
           })}
         />
-        {errors.Email && <span>{errors.Email.message}</span>}
+        {errors.email && <span>{errors.email.message}</span>}
 
         <p>Password</p>
         <input
           className="signupInput"
           type="password"
-          {...register("Password", {
+          {...register("password", {
             required: "This input is mandatory",
             minLength: { value: 6, message: "Password must be at least 6 characters" },
           })}
         />
-        {errors.Password && <span>{errors.Password.message}</span>}
-
-        <p>Password again</p>
-        <input
-          className="signupInput"
-          type="password"
-          {...register("Password", {
-            required: "This input is mandatory",
-            minLength: { value: 6, message: "Password must be at least 6 characters" },
-          })}
-        />
-        {errors.Password && <span>{errors.Password.message}</span>}
+        {errors.password && <span>{errors.password.message}</span>}
 
         <br />
         <input type="submit" value="Sign Up" id="signup-send" />
