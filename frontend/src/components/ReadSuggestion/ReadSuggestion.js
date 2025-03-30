@@ -58,7 +58,7 @@ function ReadSuggestion() {
       {/* Sidebar */}
       <div className="sidebar">
         <div className="profile">
-          <div className="name">Név</div>
+          <div className="name">Name</div>
           <div className="avatar">👤</div>
         </div>
 
