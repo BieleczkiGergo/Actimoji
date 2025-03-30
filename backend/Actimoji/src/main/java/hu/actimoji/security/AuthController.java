@@ -36,6 +36,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin(origins = "http://localhost:3000")
     public LoginResponse register(@RequestBody RegisterDTO registerDTO) {
         Account account = accountService.getAccountByEmail( registerDTO.getEmail() );
 
