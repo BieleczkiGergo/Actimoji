@@ -18,7 +18,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginDto loginDto) {
-        Account account = accountService.getAccountByEmail( loginDto.getEmail() );
+        Account account = accountService.getAccountByUsername( loginDto.getUsername() );
 
         if (account == null) {
             return new LoginResponse("", "User not found");
@@ -36,15 +36,15 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public LoginResponse register(@RequestBody LoginDto loginDto) {
-        Account account = accountService.getAccountByEmail( loginDto.getEmail() );
+    public LoginResponse register(@RequestBody RegisterDTO registerDTO) {
+        Account account = accountService.getAccountByEmail( registerDTO.getEmail() );
 
         if (account != null) {
             return new LoginResponse("", "Account already exists");
 
         }
 
-        account = accountService.createAccount( loginDto.getUsername(), loginDto.getEmail(), loginDto.getPassword() );
+        account = accountService.createAccount( registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getPassword() );
 
         return new LoginResponse(jwtUtil.generateToken( account ), "Success");
 

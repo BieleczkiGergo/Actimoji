@@ -1,6 +1,7 @@
 package hu.actimoji.account;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,10 +22,11 @@ public class AccountService implements UserDetailsService {
 
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    @Transactional
     @PostConstruct
     public void init() {
         createAccount("admin", "admin@actimoji.hu", "admin")
-        .setModerator( true );
+        .setModerator(true);
 
         createAccount("test_user", "test_user@actimoji.hu", "test_user");
 
@@ -67,6 +69,7 @@ public class AccountService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByEmailAddress(username);
         if (account == null) {
+            System.out.println("Username not found: " + username);
             throw new UsernameNotFoundException(username);
 
         }

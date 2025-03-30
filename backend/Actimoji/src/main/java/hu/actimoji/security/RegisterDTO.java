@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LoginDto {
+public class RegisterDTO {
 
     private String username;
+    private String email;
     private String password;
 
 }
