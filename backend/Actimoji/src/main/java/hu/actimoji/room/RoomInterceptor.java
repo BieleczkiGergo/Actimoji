@@ -5,6 +5,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+import java.net.URI;
 import java.util.Map;
 
 public class RoomInterceptor implements HandshakeInterceptor {
@@ -12,18 +13,33 @@ public class RoomInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                    Map<String, Object> attributes) throws Exception {
-        final String path = request.getURI().getPath();
+        final URI uri = request.getURI();
+        final String path = uri.getPath();
+        final String query = uri.getQuery();
 
-        final String[] parts = path.split("/");
-        if (parts.length != 3){
+        if (query == null || query.isEmpty()) {
             return false;
 
         }
+
+        final String[] parts = path.split("/");
+        if (parts.length < 4){
+            return false;
+
+        }
+
         try {
-            final int roomId = Integer.parseInt(parts[2]);
+            // set room id
+            final int roomId = Integer.parseInt( parts[3] );
             attributes.put("roomId", roomId);
 
-        }catch (NumberFormatException e){
+            // set username
+            final String[] params = uri.getQuery().split("&");
+            final String uname = params[0].split("=")[1];
+            attributes.put("username", uname);
+
+
+        }catch (Exception e){
             return false;
 
         }

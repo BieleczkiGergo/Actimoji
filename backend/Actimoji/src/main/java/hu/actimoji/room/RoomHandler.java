@@ -22,21 +22,29 @@ public class RoomHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(@NonNull WebSocketSession session) throws Exception {
         final Integer roomId = (Integer) session.getAttributes().get("roomId");
+        final String uname = (String) session.getAttributes().get("username");
+
         Room room = roomService.getRoom(roomId);
 
-        Player player = new Player(session, room);
+        Player player = new Player(session, room, uname);
 
-        room.addUser(player);
+        room.addPlayer(player);
 
     }
 
     @Override
     protected void handleTextMessage(@NonNull WebSocketSession session, TextMessage message) throws Exception {
+        Player player = playerService.getPlayer(session);
+
+        player.broadcastMessage(message.getPayload());
 
     }
 
     @Override
     public void afterConnectionClosed(@NonNull WebSocketSession session, CloseStatus status) throws Exception {
+        Player player = playerService.getPlayer(session);
+
+        player.leaveRoom();
 
     }
 }
