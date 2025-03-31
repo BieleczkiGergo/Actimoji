@@ -5,22 +5,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
 import hu.actimoji.game.GameUtils;
 
-public class HelperMessage extends Message {
+import java.util.List;
 
-    private String prompt;
+public class GameOverMessage extends GameStateMessage {
+
+    List<PlayerStats> playerStats;
+
+    public GameOverMessage(List<PlayerStats> playerStats) {
+        this.playerStats = playerStats;
+
+    }
 
     @Override
     public String toJsonString() {
         ObjectMapper mapper = new ObjectMapper();
-        String actionId = GameUtils.getEventId( GameEvents.SendHelp );
+        String eventId = GameUtils.getEventId( GameEvents.GameOver );
 
         try {
-            return actionId + mapper.writeValueAsString( this );
+            return eventId + mapper.writeValueAsString( this );
 
         } catch (JsonProcessingException e) {
-            return actionId;
+            return eventId;
 
         }
-
     }
 }

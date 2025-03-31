@@ -1,6 +1,6 @@
 package hu.actimoji.room;
 
-import hu.actimoji.game.GameActions;
+import hu.actimoji.game.GameEvents;
 import hu.actimoji.game.GameState;
 import hu.actimoji.player.Player;
 
@@ -50,7 +50,7 @@ public class Room {
 
     public void broadCastChatMessage(Player player, String message) {
         for (Player p : players) {
-            p.receiveCommand( GameActions.SendChatMessage, message );
+            p.receiveCommand( GameEvents.SendChatMessage, message );
 
         }
 
@@ -58,7 +58,7 @@ public class Room {
 
     public void broadcastDescription(String description) {
         for (Player p : players) {
-            p.receiveCommand( GameActions.SendDescription, description );
+            p.receiveCommand( GameEvents.SendDescription, description );
 
         }
 

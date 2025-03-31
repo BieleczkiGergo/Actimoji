@@ -1,7 +1,8 @@
 package hu.actimoji.player;
 
-import hu.actimoji.game.GameActions;
+import hu.actimoji.game.GameEvents;
 import hu.actimoji.game.GameUtils;
+import hu.actimoji.game.message.Message;
 import hu.actimoji.room.Room;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +41,7 @@ public class Player {
         }
 
         if( room.guessPrompt( message ) ) {
-            receiveCommand( GameActions.SendChatMessage, "You guessed correctly!" );
+            // TODO: implement correct guess
 
         }else {
             room.broadCastChatMessage( this, message );
@@ -49,11 +50,9 @@ public class Player {
 
     }
 
-    public void receiveCommand(GameActions command, String message){
-        String action = GameUtils.getActionId( command );
-
+    public void receiveCommand(Message message){
         try {
-            session.sendMessage( new TextMessage( action + message) );
+            session.sendMessage( new TextMessage( message.toJsonString() ) );
 
         } catch (IOException e) {
             try {

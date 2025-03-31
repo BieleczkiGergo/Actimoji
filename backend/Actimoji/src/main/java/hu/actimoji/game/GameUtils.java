@@ -16,24 +16,20 @@ public class GameUtils {
             9: game over
 
      */
-    public static String getActionId( GameActions action ){
+    public static String getEventId(GameEvents action ){
         return switch( action ){
-            case GameStart -> "gs";
-            case RoundStart -> "rs";
+            // lifecycle events
+            case Waiting -> "wa";
+            case RoundPrepare -> "rp";
+            case Round -> "rr";
             case RoundOver -> "ro";
             case GameOver -> "go";
 
+            // non-lifecycle events
+            case PlayerUpdate -> "pu";
             case SendChatMessage -> "sc";
-            case GuessedWord -> "gw";
             case SendDescription -> "sd";
-
-            case WordChoice -> "wc";
-
-            case PlayerJoined -> "pj";
-            case PlayerLeft -> "pl";
-
-            case SetDescribing -> "dy";
-            case UnsetDescribing -> "dn";
+            case SendHelp -> "sh";
 
             case Error -> "ee";
 

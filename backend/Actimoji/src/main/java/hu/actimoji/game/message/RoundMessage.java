@@ -5,24 +5,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
 import hu.actimoji.game.GameUtils;
 
-public class ChatMessage extends Message {
+public class RoundMessage extends GameStateMessage{
 
-    private final static String commandId = "cm";
+    String placeHolder;
+    long endTimeStamp;
 
-    private String message;
-    private String username;
+    String word;
 
-    public ChatMessage(String message, String username) {
-        this.message = message;
-        this.username = username;
+    public RoundMessage(String placeHolder, long endTimeStamp, String word) {
+        this.placeHolder = placeHolder;
+        this.endTimeStamp = endTimeStamp;
+        this.word = word;
 
     }
-
 
     @Override
     public String toJsonString() {
         ObjectMapper mapper = new ObjectMapper();
-        String actionId = GameUtils.getEventId( GameEvents.SendChatMessage );
+        String actionId = GameUtils.getEventId( GameEvents.Round );
 
         try {
             return actionId + mapper.writeValueAsString( this );
