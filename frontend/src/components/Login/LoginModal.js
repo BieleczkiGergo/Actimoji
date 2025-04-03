@@ -9,7 +9,7 @@ import "./LoginModal.css";
 function LoginModal({ handleClose, handleOpenSignUp }) {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  const { login } = useAuth(); // Token kezelés
+  const { login } = useAuth();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
@@ -23,7 +23,7 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
 
       const { token } = response.data;
 
-      login(token); // Token mentése a contextben
+      login(token);
 
       setSnackbarMessage("Login successful!");
       setSnackbarSeverity("success");
@@ -43,7 +43,7 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
   };
 
   return (
-    <div>
+    <div className="modalContainer">
       <h2>Login to your Actimoji account</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <p>Username</p>

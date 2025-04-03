@@ -11,8 +11,8 @@ import ReadSuggestion from "./components/ReadSuggestion/ReadSuggestion";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthProvider> {/* 🔹 Tokenkezelés és autentikáció */}
-      <ReviewProvider> {/* 🔹 Megmaradt az értékelési provider */}
+    <AuthProvider>
+      <ReviewProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
