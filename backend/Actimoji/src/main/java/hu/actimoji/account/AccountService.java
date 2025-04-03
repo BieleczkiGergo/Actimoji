@@ -25,8 +25,9 @@ public class AccountService implements UserDetailsService {
     @Transactional
     @PostConstruct
     public void init() {
-        createAccount("admin", "admin@actimoji.hu", "admin")
-        .setModerator(true);
+        Account admin = createAccount("admin", "admin@actimoji.hu", "admin");
+        admin.setModerator(true);
+        accountRepository.save(admin);
 
         createAccount("test_user", "test_user@actimoji.hu", "test_user");
 
