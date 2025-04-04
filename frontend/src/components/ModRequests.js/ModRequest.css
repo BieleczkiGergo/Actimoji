@@ -1,0 +1,40 @@
+/* ModRequest.css */
+.modReviewContainer {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    width: 80%;
+    margin: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #FF6B35;
+    color: white;
+  }
+  
+  tr:hover {
+    background-color: #ffe0d1;
+    transition: background-color 0.3s;
+  }
+  
+  .snackbar {
+    background-color: #FF6B35;
+    color: white;
+  }
+  

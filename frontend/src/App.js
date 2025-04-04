@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Modal from "@mui/material/Modal";
-import LoginModal from "./components/Login/LoginModal.js";
-import SignUpModal from "./components/SignUp/SignUpModal.js";
-import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion.js";
-import ListWords from "./components/ListWords/ListWords.js";
-import BecomeMod from "./components/ModRequest/BecomeMod.js";
+import LoginModal from "./components/Login/LoginModal";
+import SignUpModal from "./components/SignUp/SignUpModal";
+import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion";
+import ListWords from "./components/ListWords/ListWords";
+import BecomeMod from "./components/ModRequest/BecomeMod";
 import { useAuth } from "./components/Context/AuthContext";
-import { Snackbar } from "@mui/material"; // Modern popup használata
+import { Snackbar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function App() {
-  const { token, logout, user } = useAuth(); // Token és logout funkció beállítása
+  const { token, logout, user } = useAuth();
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openSuggestion, setOpenSuggestion] = useState(false);
@@ -19,55 +20,52 @@ function App() {
   const [alertMessage, setAlertMessage] = useState("");
   const [openAlert, setOpenAlert] = useState(false);
   const [openModAlert, setOpenModAlert] = useState(false);
-  const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false); // Become mod alert
+  const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false);
 
-  const isMod = user?.role === "mod"; // Check if user is a mod
+  const isMod = user?.roles?.includes("ROLE_MODERATOR");
 
-  // Javaslat megnyitása
   const handleSuggestionClick = () => {
     if (token) {
       setOpenSuggestion(true);
     } else {
       setAlertMessage("Please log in to make a suggestion.");
-      setOpenAlert(true); // Nyisd meg az alertet
+      setOpenAlert(true);
     }
   };
 
-  // Read suggestion click - Check if user is mod
   const handleReadSuggestionClick = () => {
     if (isMod) {
       window.open("/readsuggestion", "_blank");
     } else {
-      setOpenModAlert(true); // Nyisd meg a mod alertet
+      setOpenModAlert(true);
     }
   };
 
-  // Become mod click - Check if user is mod
-  const handleBecomeModClick = () => {
+  const handleModRequestClick = () => {
     if (isMod) {
-      setOpenBecomeMod(true); // Nyisd meg a Become Mod modal-t
+      window.open("/mod/requests", "_blank"); // Új gomb, ami elvezet a mod requestekhez
     } else {
-      setOpenBecomeModAlert(true); // Nyisd meg a become mod alertet
+      setOpenModAlert(true);
     }
   };
 
-  const handleCloseAlert = () => {
-    setOpenAlert(false); // Alert bezárása
+  const handleBecomeModClick = () => {
+    if (token) {
+      setOpenBecomeMod(true);
+    } else {
+      setOpenBecomeModAlert(true);
+    }
   };
 
-  const handleCloseModAlert = () => {
-    setOpenModAlert(false); // Mod alert bezárása
-  };
-
-  const handleCloseBecomeModAlert = () => {
-    setOpenBecomeModAlert(false); // Become Mod alert bezárása
-  };
+  const handleCloseAlert = () => setOpenAlert(false);
+  const handleCloseModAlert = () => setOpenModAlert(false);
+  const handleCloseBecomeModAlert = () => setOpenBecomeModAlert(false);
 
   return (
     <div className="container">
       <div className="sidebar">
         <div className="profile">
-          <div className="name">{user?.name || "Guest"}</div> {/* User name display */}
+          <div className="name">{user?.userName || "Guest"}</div>
           <div className="avatar">👤</div>
         </div>
 
@@ -75,18 +73,21 @@ function App() {
           Make suggestion
         </button>
 
-        <button
-          className="sidebarButton"
-          onClick={handleReadSuggestionClick} // Handle Read Suggestion
-        >
-          Read suggestions
-        </button>
-
         <Modal open={openSuggestion} onClose={() => setOpenSuggestion(false)}>
           <div className="loginParent">
             <MakeSuggestion />
           </div>
         </Modal>
+
+        {/* Megmarad a "Read suggestions" gomb */}
+        <button className="sidebarButton" onClick={handleReadSuggestionClick}>
+          Read suggestions
+        </button>
+
+        {/* Új gomb a mod requestekhez */}
+        <button className="sidebarButton" onClick={handleModRequestClick}>
+          View Mod Requests
+        </button>
 
         <button className="sidebarButton" onClick={handleBecomeModClick}>
           Become Mod
@@ -134,46 +135,31 @@ function App() {
 
       <ListWords open={openWordsModal} onClose={() => setOpenWordsModal(false)} />
 
-      {/* Snackbar for login alert */}
       <Snackbar
         open={openAlert}
         autoHideDuration={6000}
         onClose={handleCloseAlert}
         message={alertMessage}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        sx={{
-          backgroundColor: "#FF6B35",
-          color: "#fff",
-          fontWeight: "bold",
-        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
       />
 
-      {/* Snackbar for mod alert */}
       <Snackbar
         open={openModAlert}
         autoHideDuration={6000}
         onClose={handleCloseModAlert}
         message="You must be a mod to view suggestions."
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        sx={{
-          backgroundColor: "#FF6B35",
-          color: "#fff",
-          fontWeight: "bold",
-        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
       />
 
-      {/* Snackbar for become mod alert */}
       <Snackbar
         open={openBecomeModAlert}
         autoHideDuration={6000}
         onClose={handleCloseBecomeModAlert}
-        message="You must be a mod to access Become Mod."
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        sx={{
-          backgroundColor: "#FF6B35",
-          color: "#fff",
-          fontWeight: "bold",
-        }}
+        message="You must be logged in to access Become Mod."
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
       />
     </div>
   );
