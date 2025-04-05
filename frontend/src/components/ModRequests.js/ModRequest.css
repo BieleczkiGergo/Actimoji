@@ -1,40 +1,65 @@
-/* ModRequest.css */
 .modReviewContainer {
-    padding: 20px;
-    margin-top: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    width: 80%;
-    margin: auto;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    margin-top: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #FF6B35;
-    color: white;
-  }
-  
-  tr:hover {
-    background-color: #ffe0d1;
-    transition: background-color 0.3s;
-  }
-  
-  .snackbar {
-    background-color: #FF6B35;
-    color: white;
-  }
-  
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  width: 80%;
+  margin: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  font-size: 16px;
+}
+
+th {
+  background-color: #FF6B35;
+  color: white;
+}
+
+tr:hover {
+  background-color: #ffe0d1;
+  transition: background-color 0.3s;
+}
+
+/* Akciógombok */
+.actionBtn {
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin: 0 5px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.actionBtn.approve {
+  background-color: #d4edda;
+}
+
+.actionBtn.reject {
+  background-color: #f8d7da;
+}
+
+.actionBtn.approve:hover {
+  background-color: #b1dfbb;
+  transform: scale(1.1);
+}
+
+.actionBtn.reject:hover {
+  background-color: #f5c6cb;
+  transform: scale(1.1);
+}
