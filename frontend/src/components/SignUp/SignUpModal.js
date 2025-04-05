@@ -68,7 +68,7 @@ function SignUpModal({ handleClose }) {
           placeholder="Password"
           {...register("password", { 
             required: "This input is mandatory", 
-            minLength: { value: 6, message: "Password must be at least 6 characters" } 
+            minLength: { value: 3, message: "Password must be at least 6 characters" } 
           })} 
         />
         {errors.password && <span>{errors.password.message}</span>}

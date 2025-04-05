@@ -2,6 +2,7 @@
   display: flex;
   height: 100vh;
   background-color: #EEF4ED;
+  flex-wrap: wrap; /* A sidebar és a main szakasz egymás alatt jelenjenek meg kisebb képernyőkön */
 }
 
 .sidebar {
@@ -12,6 +13,7 @@
   align-items: center;
   padding: 10px;
   color: #fff;
+  height: 100vh; /* teljes magasság */
 }
 
 .profile {
@@ -60,6 +62,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px; /* Térköz a fő rész körül */
 }
 
 .input {
@@ -106,7 +109,6 @@
   opacity: 1;
   right: 0;
 }
-
 
 .joinButton {
   background-color: #3B7080;
@@ -157,5 +159,97 @@
   border: 2px solid #000;
   box-shadow: 24;
   padding: 4px;
-  
+}
+
+/* Media Queries a reszponzív dizájnhoz */
+
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 25%; /* A sidebar szélessége kisebb képernyőkön */
+  }
+
+  .main {
+    padding: 15px;
+  }
+
+  .input {
+    width: 60%;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column; /* Az oldal részek vertikálisan elrendeződnek */
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .main {
+    width: 100%;
+    align-items: flex-start; /* Balra igazítjuk a main tartalmát */
+  }
+
+  .input {
+    width: 80%;
+  }
+
+  .button,
+  .joinButton {
+    width: 80%; /* A gombok szélessége teljesen kitölti a szülő elemet */
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .main {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  .button,
+  .joinButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile {
+    flex-direction: column; 
+    align-items: center;
+    width: 100%;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  .avatar {
+    font-size: 18px;
+  }
+
+  .sidebarButton {
+    width: 90%;
+  }
+
+  .input {
+    width: 90%;
+  }
+
+  .button,
+  .joinButton {
+    width: 90%;
+  }
 }
