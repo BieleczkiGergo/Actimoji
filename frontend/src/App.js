@@ -1,88 +1,133 @@
+import React, { useState } from "react";
 import React, { useContext, useState } from "react";
 import "./App.css";
 import Modal from "@mui/material/Modal";
-import LoginModal from "./components/Login/LoginModal.js";
-import SignUpModal from "./components/SignUp/SignUpModal.js";
-import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion.js";
-import { ReviewCtx } from "./components/review.js";
+import LoginModal from "./components/Login/LoginModal";
+import SignUpModal from "./components/SignUp/SignUpModal";
+import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion";
+import ListWords from "./components/ListWords/ListWords";
+import BecomeMod from "./components/ModRequest/BecomeMod";
+import { useAuth } from "./components/Context/AuthContext";
+import { Snackbar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { Game } from "./components/game/game.jsx";
 import { GameCtx } from "./gameCtx.jsx";
 
 function App() {
-
-  // Itt lesznek a review-ek
-  let reviews = useContext( ReviewCtx );
+  const { token, logout, user } = useAuth();
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openSuggestion, setOpenSuggestion] = useState(false);
+  const [openWordsModal, setOpenWordsModal] = useState(false);
+  const [openBecomeMod, setOpenBecomeMod] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [openAlert, setOpenAlert] = useState(false);
+  const [openModAlert, setOpenModAlert] = useState(false);
+  const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false);
 
   let game = useContext( GameCtx );
 
-  const [username, setUsername] = useState("");
+  const isMod = user?.roles?.includes("ROLE_MODERATOR");
 
-  const [openLogin, setOpenLogin] = React.useState(false);
-  const handleOpenLogin = () => setOpenLogin(true);
-  const handleCloseLogin = () => setOpenLogin(false);
-
-  const [openSignUp, setOpenSignUp] = React.useState(false);
-  const handleOpenSignUp = () => {
-    setOpenSignUp(true);
-    setOpenLogin(false); // Bezárja a login modalt, ha szükséges
+  const handleSuggestionClick = () => {
+    if (token) {
+      setOpenSuggestion(true);
+    } else {
+      setAlertMessage("Please log in to make a suggestion.");
+      setOpenAlert(true);
+    }
   };
-  const handleCloseSignUp = () => setOpenSignUp(false);
 
-  const [openSuggestion, setOpenSuggestion] = React.useState(false);
-  const handleOpenSuggestion = () => setOpenSuggestion(true);
-  const handleCloseSuggestion = () => setOpenSuggestion(false);
+  const handleReadSuggestionClick = () => {
+    if (isMod) {
+      window.open("/readsuggestion", "_blank");
+    } else {
+      setOpenModAlert(true);
+    }
+  };
 
-  const handleGotoReadSuggestions = () => window.location.href = "/readsuggestions";
+  const handleModRequestClick = () => {
+    if (isMod) {
+      window.open("/mod/requests", "_blank"); // Új gomb, ami elvezet a mod requestekhez
+    } else {
+      setOpenModAlert(true);
+    }
+  };
+
+  const handleBecomeModClick = () => {
+    if (token) {
+      setOpenBecomeMod(true);
+    } else {
+      setOpenBecomeModAlert(true);
+    }
+  };
+
+  const handleCloseAlert = () => setOpenAlert(false);
+  const handleCloseModAlert = () => setOpenModAlert(false);
+  const handleCloseBecomeModAlert = () => setOpenBecomeModAlert(false);
 
   return (
     <div className="container">
       <div className="sidebar">
         <div className="profile">
-          <div className="name">név</div>
+          <div className="name">{user?.userName || "Guest"}</div>
           <div className="avatar">👤</div>
         </div>
-        <button className="sidebarButton" onClick={handleOpenSuggestion}>
+
+        <button className="sidebarButton" onClick={handleSuggestionClick}>
           Make suggestion
         </button>
 
-        {/* ÚJ OLDAL MEGNYITÁSA ÚJ FÜLBEN */}
-        <button 
-          className="sidebarButton" 
-          onClick={() => window.open("/readsuggestion", "_blank")}
-        >
+        <Modal open={openSuggestion} onClose={() => setOpenSuggestion(false)}>
+          <div className="loginParent">
+            <MakeSuggestion />
+          </div>
+        </Modal>
+
+        {/* Megmarad a "Read suggestions" gomb */}
+        <button className="sidebarButton" onClick={handleReadSuggestionClick}>
           Read suggestions
         </button>
 
-        <button className="sidebarButton">
-          List Words
+        {/* Új gomb a mod requestekhez */}
+        <button className="sidebarButton" onClick={handleModRequestClick}>
+          View Mod Requests
         </button>
 
-        <Modal open={openSuggestion} onClose={handleCloseSuggestion}>
-          <div className="loginParent">
-            <MakeSuggestion />
-
-          </div>
-        </Modal>
-        <button className="sidebarButton">Become mod</button>
-
-        <button className="sidebarButton" onClick={ handleGotoReadSuggestions }>Read suggestions</button>
-        <button className="sidebarButton" onClick={handleOpenLogin}>
-          Login
+        <button className="sidebarButton" onClick={handleBecomeModClick}>
+          Become Mod
         </button>
 
-        {/* Login Modal */}
-        <Modal open={openLogin} onClose={handleCloseLogin}>
+        <Modal open={openBecomeMod} onClose={() => setOpenBecomeMod(false)}>
           <div className="loginParent">
-            <LoginModal handleClose={handleCloseLogin} handleOpenSignUp={handleOpenSignUp} />
-
+            <BecomeMod />
           </div>
         </Modal>
 
-        {/* Sign Up Modal */}
-        <Modal open={openSignUp} onClose={handleCloseSignUp}>
-          <div className="loginParent">
-            <SignUpModal handleClose={handleCloseSignUp} />
+        {token ? (
+          <button className="sidebarButton" onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <>
+            <button className="sidebarButton" onClick={() => setOpenLogin(true)}>
+              Login
+            </button>
+            <button className="sidebarButton" onClick={() => setOpenSignUp(true)}>
+              Sign Up
+            </button>
+          </>
+        )}
 
+        <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
+          <div className="loginParent">
+            <LoginModal handleClose={() => setOpenLogin(false)} />
+          </div>
+        </Modal>
+
+        <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
+          <div className="loginParent">
+            <SignUpModal handleClose={() => setOpenSignUp(false)} />
           </div>
         </Modal>
       </div>
@@ -97,6 +142,35 @@ function App() {
 
         <Game />
       </div>
+
+      <ListWords open={openWordsModal} onClose={() => setOpenWordsModal(false)} />
+
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={handleCloseAlert}
+        message={alertMessage}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
+      />
+
+      <Snackbar
+        open={openModAlert}
+        autoHideDuration={6000}
+        onClose={handleCloseModAlert}
+        message="You must be a mod to view suggestions."
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
+      />
+
+      <Snackbar
+        open={openBecomeModAlert}
+        autoHideDuration={6000}
+        onClose={handleCloseBecomeModAlert}
+        message="You must be logged in to access Become Mod."
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
+      />
     </div>
   );
 }

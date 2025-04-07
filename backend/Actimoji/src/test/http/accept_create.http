@@ -1,0 +1,2 @@
+POST http://localhost:8080/review/accept/1?userId=5
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbXSwiaWF0IjoxNzQzMDg2OTMzLCJleHAiOjE3NDMwOTA1MzN9.Cb1Do7nEjpa5iE28Ybs3YYWQsXN_LzgiHqPzqdk77uJoSh0Z_KyCc9YJngOfuRs6UPt1Ce7TykMNamZxuAcdAg

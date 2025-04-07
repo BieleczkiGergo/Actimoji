@@ -1,10 +1,11 @@
 -- Inserting data into account table
-INSERT INTO `account` (id, user_name, password, email_address, is_moderator)
-VALUES
-    (1, 'admin', 'admin123', 'admin@example.com', TRUE),
-    (2, 'john_doe', 'password123', 'john.doe@example.com', FALSE),
-    (3, 'Gipszkarton Emil', 'skibidicigany', 'emil@gipszkarton.me', FALSE),
-    (4, 'jane_smith', 'password456', 'jane.smith@example.com', FALSE);
+--INSERT INTO `account` (id, user_name, password, email_address, is_moderator)
+--VALUES
+--    (1, 'admin', 'admin123', 'admin@example.com', TRUE),
+--    (2, 'john_doe', 'password123', 'john.doe@example.com', FALSE),
+--    (3, 'Gipszkarton Emil', 'skibidicigany', 'emil@gipszkarton.me', FALSE),
+--    (4, 'jane_smith', 'password456', 'jane.smith@example.com', FALSE);
+-- Or maybe not. The passwords need to be encoded
 
 -- Inserting data into word table (must be done before suggestion)
 INSERT INTO `word` (id, word, banned_icons)

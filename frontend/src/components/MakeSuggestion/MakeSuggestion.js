@@ -1,54 +1,102 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 import styles from "./MakeSuggestion.module.css";
+import ListWords from "../ListWords/ListWords";
 
-function MakeSuggestion () {
-
+function MakeSuggestion() {
     const [activeTab, setActiveTab] = useState("Create");
+    const [operation, setOperation] = useState(0);
+    const [poster, setPoster] = useState(1);
+    const [selectedWord, setSelectedWord] = useState(null);  // A kiválasztott szó
+    const [openListWords, setOpenListWords] = useState(false);
 
-    const renderContent = () => {
-        switch (activeTab) {
-            case "Create":
-                return (
-                    <>
-                        <input className={styles.wordInput} type="text" placeholder="Word"></input>
-                        <input className={styles.emojiInput} type="text" placeholder="Emoji"></input>
-                        <input className={styles.textField} type="text" placeholder="Reason for ..."></input>
-                        <button className={styles.sendButton}>Create</button>
-                    </>
-                )
-            case "Modify":
-                return (
-                    <>
-                        <input className={styles.wordInput} type="text" placeholder="Word"></input>
-                        <input className={styles.emojiInput} type="text" placeholder="Emoji"></input>
-                        <input className={styles.textField} type="text" placeholder="Reason for ..."></input>
-                        <button className={styles.sendButton}>Modify</button>
-                    </>
-                )
-            case "Delete":
-                return (
-                    <>
-                        <input className={styles.wordInput} type="text" placeholder="Word"></input>
-                        <input type="text" id={styles.deleteTextField} placeholder="Reason for ..."></input>
-                        <button className={styles.sendButton}>Delete</button> 
-                    </>
-                )
-        }
-    }
-    
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const handleTabChange = (tab, opValue) => {
+        setActiveTab(tab);
+        setOperation(opValue);
+        setSelectedWord(null);  // Töröljük a kiválasztott szót, ha új tabra váltunk
+    };
+
+    const handleWordSelect = (word) => {
+        setSelectedWord(word);  // Beállítjuk a kiválasztott szót
+        setOpenListWords(false);  // Bezárjuk a modált
+    };
+
+    const onSubmit = (data) => {
+        axios.post("http://localhost:8080/suggest/", {
+            operation: operation,
+            word_id: selectedWord ? selectedWord.id : 1,  // Ha nincs kiválasztott szó, akkor 1 (Create esetén)
+            new_word: data.new_word,
+            new_icons: data.new_icons,
+            reason: data.reason,
+            poster: poster
+        })
+        .then(response => {
+            console.log("Successfully submitted:", response.data);
+            reset();
+        })
+        .catch(error => {
+            console.error("Error occurred during submission:", error);
+        });
+    };
+
     return (
         <>
             <div>
-                <button className={styles.mainButtons} onClick={() => {setActiveTab("Create")}}>Create</button>
-                <button className={styles.mainButtons} onClick={() => {setActiveTab("Modify")}}>Modify</button>
-                <button className={styles.mainButtons} onClick={() => {setActiveTab("Delete")}}>Delete</button>
-            </div> 
-    
-            {renderContent()}
+                <button className={styles.mainButtons} onClick={() => handleTabChange("Create", 0)}>Create</button>
+                <button className={styles.mainButtons} onClick={() => handleTabChange("Modify", 1)}>Modify</button>
+                <button className={styles.mainButtons} onClick={() => handleTabChange("Delete", 2)}>Delete</button>
+            </div>
 
+            <form onSubmit={handleSubmit(onSubmit)} className={styles.inputsContainer}>
+                {(activeTab === "Modify" || activeTab === "Delete") && (
+                    <>
+                        <button type="button" onClick={() => setOpenListWords(true)} className={styles.mainButtons}>
+                            Select Old Word
+                        </button>
+                        {selectedWord && <p>Selected: {selectedWord.word}</p>}  {/* A kiválasztott szó megjelenítése */}
+                    </>
+                )}
+                
+                {(activeTab === "Create" || activeTab === "Modify") && (
+                    <>
+                        <input 
+                            {...register("new_word", { required: "Word is required!" })}
+                            className={styles.wordInput} 
+                            type="text" 
+                            placeholder="Word" 
+                        />
+                        {errors.new_word && <p className={styles.error}>{errors.new_word.message}</p>}
+                        
+                        <input 
+                            {...register("new_icons", { required: "Emoji is required!" })}
+                            className={styles.emojiInput} 
+                            type="text" 
+                            placeholder="Emoji" 
+                        />
+                        {errors.new_icons && <p className={styles.error}>{errors.new_icons.message}</p>}
+                    </>
+                )}
+
+                <input 
+                    {...register("reason", { required: "Reason is required!" })}
+                    className={styles.textField} 
+                    type="text" 
+                    placeholder="Reason for ..." 
+                />
+                {errors.reason && <p className={styles.error}>{errors.reason.message}</p>}
+
+                <button type="submit" className={styles.sendButton}>
+                    {activeTab}
+                </button>
+            </form>
+            
+            {/* ListWords modal */}
+            <ListWords open={openListWords} onClose={() => setOpenListWords(false)} onSelect={handleWordSelect} />
         </>
-    )
-
+    );
 }
 
 export default MakeSuggestion;

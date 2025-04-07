@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `account`
 (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(20) NOT NULL,
-    password VARCHAR(25) NOT NULL,
+    password VARCHAR(60) NOT NULL,
     email_address VARCHAR(40) NOT NULL,
     is_moderator BOOLEAN NOT NULL
     );

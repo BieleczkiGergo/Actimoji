@@ -1,49 +1,71 @@
-.container {
-    display: flex;
-    height: 100vh;
-    background-color: #f3f6eb;
-  }
-  
-  .sidebar {
-    width: 250px;
-    background-color: #ff6b35;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .profile {
-    width: 100%;
-    background-color: #3b7080;
-    padding: 15px;
-    text-align: center;
-    color: white;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .avatar {
-    font-size: 24px;
-  }
-  
-  .sidebarButton {
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #283845;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .sidebarButton:hover {
-    background-color: #1f2c38;
-  }
-  
-  .mainContent {
-    flex-grow: 1;
-    padding: 20px;
-  }
-  
+.review {
+  margin: 2% auto;
+  width: 40%;
+}
+
+.reviewItem {
+  margin-top: 40px;
+  background-color: #1f2c38;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.p {
+  color: #ada8a8;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.approveBtn, .rejectBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.approveBtn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.rejectBtn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.approveBtn:hover {
+  background-color: #388e3c;
+}
+
+.rejectBtn:hover {
+  background-color: #c0392b;
+}
+
+.noSuggestion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+}
+
+.noSuggestion h1 {
+  font-size: 24px;
+  color: #ff6b6b;
+}
+
+.noSuggestion p {
+  font-size: 16px;
+  color: #bbbbbb;
+}

@@ -2,6 +2,8 @@ package hu.actimoji.moderatorRequest;
 
 import hu.actimoji.account.Account;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,8 @@ public class ModeratorRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @Size(max = 100)
     private String reason;
     private boolean approved;
 

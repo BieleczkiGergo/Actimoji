@@ -11,7 +11,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class ReviewDTO {
 
@@ -36,6 +35,64 @@ public class ReviewDTO {
             this.old_icons = old_word.getBannedIcons();
 
         }
+    }
 
+    public ReviewDTO() {
+    }
+
+    public Long getSuggestionId() {
+        return suggestionId;
+    }
+
+    public void setSuggestionId(Long suggestionId) {
+        this.suggestionId = suggestionId;
+    }
+
+    public Byte getOperation() {
+        return operation;
+    }
+
+    public void setOperation(Byte operation) {
+        this.operation = operation;
+    }
+
+    public String getOld_word() {
+        return old_word;
+    }
+
+    public void setOld_word(String old_word) {
+        this.old_word = old_word;
+    }
+
+    public String getNew_word() {
+        return new_word;
+    }
+
+    public void setNew_word(String new_word) {
+        this.new_word = new_word;
+    }
+
+    public String getOld_icons() {
+        return old_icons;
+    }
+
+    public void setOld_icons(String old_icons) {
+        this.old_icons = old_icons;
+    }
+
+    public String getNew_icons() {
+        return new_icons;
+    }
+
+    public void setNew_icons(String new_icons) {
+        this.new_icons = new_icons;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }
