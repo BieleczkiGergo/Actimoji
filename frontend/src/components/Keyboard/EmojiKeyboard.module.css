@@ -1,43 +1,58 @@
 .keyboard {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    background-color: #FF6B35;
-    border: 2px solid #3B7080;
-    border-radius: 8px;
-    width: 220px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .emoji {
-    font-size: 20px;
-    cursor: pointer;
-    margin: 5px;
-    transition: transform 0.2s ease-in-out;
-    color: white;
-  }
-  
-  .emoji:hover {
-    transform: scale(1.2);
-  }
-  
-  .input-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .emoji-button {
-    background-color: #3B7080;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .emoji-button:hover {
-    background-color: #2a5666;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: #EEF4ED; /* Új háttérszín */
+  border: 2px solid #3B7080;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.emoji {
+  font-size: 30px; /* Nagyobb emojik */
+  cursor: pointer;
+  margin: 5px;
+  transition: transform 0.2s ease-in-out;
+  color: #3B7080; /* Emeléssel kiemelt szín */
+}
+
+.emoji:hover {
+  transform: scale(1.2);
+}
+/* Gombok stílusa */
+.pagination {
+  display: flex;
+  justify-content: center; /* Középre igazítás */
+  align-items: center;
+  margin-top: 10px;
+}
+
+.paginationButton {
+  background-color: #3B7080; /* Gomb háttérszín */
+  color: white;
+  border: none;
+  padding: 12px 25px; /* Növelt padding a nagyobb gombokhoz */
+  font-size: 18px;
+  border-radius: 12px; /* Kerekebb sarkok */
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 0.3s ease; /* Animáció a hover állapotnál */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Finom árnyék */
+}
+
+.paginationButton:hover {
+  background-color: #2a5666; /* Sötétebb háttér a hover állapotnál */
+  transform: scale(1.1); /* Finom méretnövekedés */
+}
+
+.paginationButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pagination span {
+  font-size: 16px;
+  color: #3B7080; /* Oldalszám színe */
+}

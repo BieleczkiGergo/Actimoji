@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
-import { Snackbar } from "@mui/material";
 import './ModRequest.css';
 
 const ModReview = () => {
   const { token, user } = useAuth();
   const [modRequests, setModRequests] = useState([]);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
     if (!user?.roles?.includes("ROLE_MODERATOR")) {
-      setSnackbarMessage("You must be a mod to view mod requests.");
-      setOpenSnackbar(true);
       return;
     }
 
@@ -29,8 +24,6 @@ const ModReview = () => {
       })
       .then((response) => setModRequests(response.data))
       .catch((error) => {
-        setSnackbarMessage("Failed to load mod requests.");
-        setOpenSnackbar(true);
         console.error("Error loading mod requests:", error);
       });
   };
@@ -38,8 +31,8 @@ const ModReview = () => {
   const handleDecision = (requestId, action) => {
     const url = `http://localhost:8080/mod/review/${action}/${requestId}`;
     const payload = {
-      id: requestId,           // <- mod kérvény ID-je (request.id)
-      moderatorId: user?.id,   // <- aki elbírálja (a mod user ID-ja)
+      id: requestId,
+      moderatorId: user?.id,
     };
 
     axios
@@ -49,18 +42,12 @@ const ModReview = () => {
         },
       })
       .then(() => {
-        setSnackbarMessage(`Request ${action}ed successfully!`);
-        setOpenSnackbar(true);
-        fetchModRequests(); // frissítés
+        fetchModRequests(); // Frissítés döntés után
       })
       .catch((error) => {
-        setSnackbarMessage(`Failed to ${action} request.`);
-        setOpenSnackbar(true);
         console.error(`Error on ${action}:`, error);
       });
   };
-
-  const handleCloseSnackbar = () => setOpenSnackbar(false);
 
   return (
     <div className="modReviewContainer">
@@ -110,7 +97,6 @@ const ModReview = () => {
           )}
         </tbody>
       </table>
-
     </div>
   );
 };

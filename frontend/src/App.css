@@ -1,8 +1,9 @@
+/* App.css */
 .container {
   display: flex;
+  flex-wrap: wrap;
   height: 100vh;
   background-color: #EEF4ED;
-  flex-wrap: wrap; /* A sidebar és a main szakasz egymás alatt jelenjenek meg kisebb képernyőkön */
 }
 
 .sidebar {
@@ -13,7 +14,7 @@
   align-items: center;
   padding: 10px;
   color: #fff;
-  height: 100vh; /* teljes magasság */
+  height: 100vh;
 }
 
 .profile {
@@ -62,7 +63,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px; /* Térköz a fő rész körül */
+  padding: 20px;
 }
 
 .input {
@@ -74,44 +75,9 @@
   font-size: 16px;
 }
 
-.button {
-  background-color: #FF6B35;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  margin: 10px 0;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.button:hover span {
-  padding-right: 25px;
-}
-
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-
+.button,
 .joinButton {
-  background-color: #3B7080;
+  background-color: #FF6B35;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -122,8 +88,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
 }
 
+.joinButton {
+  background-color: #3B7080;
+}
+
+.button span,
 .joinButton span {
   cursor: pointer;
   display: inline-block;
@@ -131,6 +103,7 @@
   transition: 0.5s;
 }
 
+.button span:after,
 .joinButton span:after {
   content: '\00bb';
   position: absolute;
@@ -140,10 +113,12 @@
   transition: 0.5s;
 }
 
+.button:hover span,
 .joinButton:hover span {
   padding-right: 25px;
 }
 
+.button:hover span:after,
 .joinButton:hover span:after {
   opacity: 1;
   right: 0;
@@ -153,25 +128,67 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate( -50%, -50% );
+  transform: translate(-50%, -50%);
   width: 500px;
   background-color: whitesmoke;
   border: 2px solid #000;
-  box-shadow: 24;
-  padding: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 24px;
+  border-radius: 8px;
 }
 
-/* Media Queries a reszponzív dizájnhoz */
+/* Emoji Keyboard styles */
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: EEF4ED;
+  border: 2px solid #3B7080;
+  border-radius: 8px;
+  width: 220px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
 
+.emoji {
+  font-size: 20px;
+  cursor: pointer;
+  margin: 5px;
+  transition: transform 0.2s ease-in-out;
+  color: white;
+}
+
+.emoji:hover {
+  transform: scale(1.2);
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emoji-button {
+  background-color: #3B7080;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.emoji-button:hover {
+  background-color: #2a5666;
+}
+
+/* Media Queries */
 @media (max-width: 1200px) {
   .sidebar {
-    width: 25%; /* A sidebar szélessége kisebb képernyőkön */
+    width: 25%;
   }
-
   .main {
     padding: 15px;
   }
-
   .input {
     width: 60%;
   }
@@ -179,27 +196,21 @@
 
 @media (max-width: 992px) {
   .container {
-    flex-direction: column; /* Az oldal részek vertikálisan elrendeződnek */
+    flex-direction: column;
   }
-
   .sidebar {
     width: 100%;
     height: auto;
     margin-bottom: 20px;
   }
-
   .main {
     width: 100%;
-    align-items: flex-start; /* Balra igazítjuk a main tartalmát */
+    align-items: flex-start;
   }
-
-  .input {
-    width: 80%;
-  }
-
+  .input,
   .button,
   .joinButton {
-    width: 80%; /* A gombok szélessége teljesen kitölti a szülő elemet */
+    width: 80%;
   }
 }
 
@@ -207,18 +218,12 @@
   .sidebar {
     width: 100%;
     height: auto;
-    margin-bottom: 20px;
   }
-
   .main {
     width: 100%;
     padding: 10px;
   }
-
-  .input {
-    width: 100%;
-  }
-
+  .input,
   .button,
   .joinButton {
     width: 100%;
@@ -227,27 +232,18 @@
 
 @media (max-width: 480px) {
   .profile {
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
     width: 100%;
   }
-
   .name {
     font-size: 14px;
   }
-
   .avatar {
     font-size: 18px;
   }
-
-  .sidebarButton {
-    width: 90%;
-  }
-
-  .input {
-    width: 90%;
-  }
-
+  .sidebarButton,
+  .input,
   .button,
   .joinButton {
     width: 90%;

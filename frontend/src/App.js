@@ -1,28 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 import Modal from "@mui/material/Modal";
+import { Snackbar } from "@mui/material";
 import LoginModal from "./components/Login/LoginModal";
 import SignUpModal from "./components/SignUp/SignUpModal";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion";
 import ListWords from "./components/ListWords/ListWords";
 import BecomeMod from "./components/ModRequest/BecomeMod";
 import { useAuth } from "./components/Context/AuthContext";
-import { Snackbar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import EmojiKeyboard from "./components/Keyboard/EmojiKeyboard";
 
 function App() {
   const { token, logout, user } = useAuth();
+
+  const [nickname, setNickname] = useState("");
+  const [showEmojiKeyboard, setShowEmojiKeyboard] = useState(false);
+  const inputRef = useRef(null);
+  const emojiKeyboardRef = useRef(null); // Hozzáadjuk a billentyűzet ref-jét
+
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openSuggestion, setOpenSuggestion] = useState(false);
   const [openWordsModal, setOpenWordsModal] = useState(false);
   const [openBecomeMod, setOpenBecomeMod] = useState(false);
+
   const [alertMessage, setAlertMessage] = useState("");
   const [openAlert, setOpenAlert] = useState(false);
   const [openModAlert, setOpenModAlert] = useState(false);
   const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false);
 
   const isMod = user?.roles?.includes("ROLE_MODERATOR");
+
+  const handleEmojiSelect = (emoji) => {
+    const input = inputRef.current;
+    if (input) {
+      // Get the current text and append the emoji
+      const start = input.selectionStart;
+      const end = input.selectionEnd;
+      const newValue = nickname.slice(0, start) + emoji + nickname.slice(end);
+      setNickname(newValue);
+
+      // After emoji is added, place the cursor at the end of the new emoji
+      setTimeout(() => {
+        input.setSelectionRange(start + emoji.length, start + emoji.length);
+        input.focus();
+      }, 0);
+    }
+  };
 
   const handleSuggestionClick = () => {
     if (token) {
@@ -43,7 +67,7 @@ function App() {
 
   const handleModRequestClick = () => {
     if (isMod) {
-      window.open("/mod/requests", "_blank"); // Új gomb, ami elvezet a mod requestekhez
+      window.open("/mod/requests", "_blank");
     } else {
       setOpenModAlert(true);
     }
@@ -57,9 +81,20 @@ function App() {
     }
   };
 
-  const handleCloseAlert = () => setOpenAlert(false);
-  const handleCloseModAlert = () => setOpenModAlert(false);
-  const handleCloseBecomeModAlert = () => setOpenBecomeModAlert(false);
+  // Hook for handling outside clicks
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close emoji keyboard if clicked outside
+      if (emojiKeyboardRef.current && !emojiKeyboardRef.current.contains(event.target) && !inputRef.current.contains(event.target)) {
+        setShowEmojiKeyboard(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="container">
@@ -72,32 +107,15 @@ function App() {
         <button className="sidebarButton" onClick={handleSuggestionClick}>
           Make suggestion
         </button>
-
-        <Modal open={openSuggestion} onClose={() => setOpenSuggestion(false)}>
-          <div className="loginParent">
-            <MakeSuggestion />
-          </div>
-        </Modal>
-
-        {/* Megmarad a "Read suggestions" gomb */}
         <button className="sidebarButton" onClick={handleReadSuggestionClick}>
           Read suggestions
         </button>
-
-        {/* Új gomb a mod requestekhez */}
         <button className="sidebarButton" onClick={handleModRequestClick}>
           View Mod Requests
         </button>
-
         <button className="sidebarButton" onClick={handleBecomeModClick}>
           Become Mod
         </button>
-
-        <Modal open={openBecomeMod} onClose={() => setOpenBecomeMod(false)}>
-          <div className="loginParent">
-            <BecomeMod />
-          </div>
-        </Modal>
 
         {token ? (
           <button className="sidebarButton" onClick={logout}>
@@ -125,10 +143,41 @@ function App() {
             <SignUpModal handleClose={() => setOpenSignUp(false)} />
           </div>
         </Modal>
+
+        <Modal open={openSuggestion} onClose={() => setOpenSuggestion(false)}>
+          <div className="loginParent">
+            <MakeSuggestion />
+          </div>
+        </Modal>
+
+        <Modal open={openBecomeMod} onClose={() => setOpenBecomeMod(false)}>
+          <div className="loginParent">
+            <BecomeMod />
+          </div>
+        </Modal>
       </div>
 
       <div className="main">
-        <input className="input" type="text" placeholder="nickname" />
+        <input
+          className="input"
+          type="text"
+          placeholder="nickname"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          ref={inputRef}
+          onFocus={() => setShowEmojiKeyboard(true)}
+          onBlur={() => {
+            // Ne zárd be az emoji billentyűzetet, ha az inputra van fókuszálva
+            if (!showEmojiKeyboard) setTimeout(() => setShowEmojiKeyboard(false), 200);
+          }} 
+        />
+
+        {showEmojiKeyboard && (
+          <div ref={emojiKeyboardRef}>
+            <EmojiKeyboard onEmojiSelect={handleEmojiSelect} />
+          </div>
+        )}
+
         <button className="button">Play</button>
         <button className="joinButton">Join Party 🎉</button>
       </div>
@@ -138,7 +187,7 @@ function App() {
       <Snackbar
         open={openAlert}
         autoHideDuration={6000}
-        onClose={handleCloseAlert}
+        onClose={() => setOpenAlert(false)}
         message={alertMessage}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
@@ -147,7 +196,7 @@ function App() {
       <Snackbar
         open={openModAlert}
         autoHideDuration={6000}
-        onClose={handleCloseModAlert}
+        onClose={() => setOpenModAlert(false)}
         message="You must be a mod to view suggestions."
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
@@ -156,7 +205,7 @@ function App() {
       <Snackbar
         open={openBecomeModAlert}
         autoHideDuration={6000}
-        onClose={handleCloseBecomeModAlert}
+        onClose={() => setOpenBecomeModAlert(false)}
         message="You must be logged in to access Become Mod."
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}

@@ -7,6 +7,7 @@ import { ReviewProvider } from "./components/review";
 import { AuthProvider } from "./components/Context/AuthContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ReadSuggestion from "./components/ReadSuggestion/ReadSuggestion";
+import ModReview from "./components/ModRequests/ModRequests.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +18,7 @@ root.render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/readsuggestion" element={<ReadSuggestion />} />
+            <Route path="/mod/requests" element={<ModReview />} />
           </Routes>
         </BrowserRouter>
       </ReviewProvider>
