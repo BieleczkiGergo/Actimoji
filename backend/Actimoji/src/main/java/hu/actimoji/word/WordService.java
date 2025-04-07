@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WordService {
@@ -13,6 +14,11 @@ public class WordService {
 
     public List<Word> getWords() {
         return wordRepository.getSomeWords();
+
+    }
+
+    public List<String> getWordChoice(int words){
+        return wordRepository.getRandomWords( words ).stream().map(Word::getWord).collect(Collectors.toList());
 
     }
 }

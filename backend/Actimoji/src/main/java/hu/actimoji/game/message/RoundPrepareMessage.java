@@ -1,5 +1,6 @@
 package hu.actimoji.game.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
@@ -9,8 +10,11 @@ import java.util.List;
 
 public class RoundPrepareMessage extends GameStateMessage {
 
+    @JsonProperty("isWriting")
     boolean writing;
+    @JsonProperty("wordChoice")
     List<String> words;
+    @JsonProperty("endTimestamp")
     long endTimeStamp;
 
     public RoundPrepareMessage(boolean writing, List<String> words, long endTimeStamp) {

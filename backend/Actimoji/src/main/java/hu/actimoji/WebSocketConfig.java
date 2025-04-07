@@ -1,7 +1,7 @@
 package hu.actimoji;
 
 
-import hu.actimoji.room.RoomHandler;
+import hu.actimoji.game.GameHandler;
 import hu.actimoji.room.RoomInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -12,9 +12,16 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
+    GameHandler gameHandler;
+
+    public WebSocketConfig(GameHandler gameHandler) {
+        this.gameHandler = gameHandler;
+
+    }
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler( new RoomHandler(), "/game/room/{roomId}" )
+        registry.addHandler( this.gameHandler, "/game/room/{roomId}" )
                 .setAllowedOrigins("*")
                 .addInterceptors(new RoomInterceptor());
     }

@@ -1,5 +1,6 @@
 package hu.actimoji.game.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
@@ -9,12 +10,15 @@ import java.util.List;
 
 public class RoundOverMessage extends GameStateMessage{
 
-    String word;
+    @JsonProperty("prompt")
+    String prompt;
+    @JsonProperty("player_stats")
     List<PlayerStats> playerStats;
+    @JsonProperty("endTimestamp")
     long endTimeStamp;
 
-    public RoundOverMessage(String word, List<PlayerStats> playerStats, long endTimeStamp) {
-        this.word = word;
+    public RoundOverMessage(String prompt, List<PlayerStats> playerStats, long endTimeStamp) {
+        this.prompt = prompt;
         this.playerStats = playerStats;
         this.endTimeStamp = endTimeStamp;
 

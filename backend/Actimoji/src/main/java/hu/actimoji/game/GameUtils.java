@@ -38,8 +38,8 @@ public class GameUtils {
         };
     }
 
-    public boolean validateEmojis( String message ) {
-        return true;
+    public static boolean validateEmojis( String message ) {
+        return true; // TODO: implement emoji checking
 
     }
 }

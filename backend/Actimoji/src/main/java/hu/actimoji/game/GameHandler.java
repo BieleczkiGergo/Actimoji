@@ -1,7 +1,9 @@
-package hu.actimoji.room;
+package hu.actimoji.game;
 
 import hu.actimoji.player.Player;
 import hu.actimoji.player.PlayerService;
+import hu.actimoji.room.Room;
+import hu.actimoji.room.RoomService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,13 +13,19 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @Component
-public class RoomHandler extends TextWebSocketHandler {
+public class GameHandler extends TextWebSocketHandler {
 
     @Autowired
     PlayerService playerService;
 
     @Autowired
     RoomService roomService;
+
+    public GameHandler( PlayerService playerService, RoomService roomService ) {
+        this.playerService = playerService;
+        this.roomService = roomService;
+
+    }
 
     @Override
     public void afterConnectionEstablished(@NonNull WebSocketSession session) throws Exception {
@@ -29,6 +37,8 @@ public class RoomHandler extends TextWebSocketHandler {
         Player player = new Player(session, room, uname);
 
         room.addPlayer(player);
+
+        playerService.addPlayer(player);
 
     }
 
@@ -45,6 +55,7 @@ public class RoomHandler extends TextWebSocketHandler {
         Player player = playerService.getPlayer(session);
 
         player.leaveRoom();
+        playerService.removePlayer(player);
 
     }
 }

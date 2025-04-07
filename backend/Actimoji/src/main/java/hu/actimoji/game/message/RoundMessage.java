@@ -1,5 +1,6 @@
 package hu.actimoji.game.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
@@ -7,7 +8,9 @@ import hu.actimoji.game.GameUtils;
 
 public class RoundMessage extends GameStateMessage{
 
+    @JsonProperty("placeholder")
     String placeHolder;
+    @JsonProperty("endTimestamp")
     long endTimeStamp;
 
     String word;

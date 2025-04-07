@@ -1,5 +1,6 @@
 package hu.actimoji.game.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
@@ -9,10 +10,14 @@ import java.util.List;
 
 public class GameOverMessage extends GameStateMessage {
 
+    @JsonProperty("total_points")
     List<PlayerStats> playerStats;
+    @JsonProperty("endTimestamp")
+    long end;
 
-    public GameOverMessage(List<PlayerStats> playerStats) {
+    public GameOverMessage(List<PlayerStats> playerStats, long end) {
         this.playerStats = playerStats;
+        this.end = end;
 
     }
 

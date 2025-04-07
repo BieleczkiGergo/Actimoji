@@ -1,5 +1,6 @@
 package hu.actimoji.game.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
@@ -7,9 +8,9 @@ import hu.actimoji.game.GameUtils;
 
 public class ChatMessage extends Message {
 
-    private final static String commandId = "cm";
-
+    @JsonProperty("message")
     private String message;
+    @JsonProperty("username")
     private String username;
 
     public ChatMessage(String message, String username) {

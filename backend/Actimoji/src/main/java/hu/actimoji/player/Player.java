@@ -1,19 +1,13 @@
 package hu.actimoji.player;
 
-import hu.actimoji.game.GameEvents;
-import hu.actimoji.game.GameUtils;
 import hu.actimoji.game.message.Message;
 import hu.actimoji.room.Room;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 
-@Getter
-@Setter
 public class Player {
 
     private String username;
@@ -25,6 +19,7 @@ public class Player {
     public Player(WebSocketSession session, Room room, String username) {
         this.session = session;
         this.room = room;
+        this.username = username;
 
     }
 
@@ -33,20 +28,7 @@ public class Player {
     }
 
     public void broadcastMessage(String message){
-
-        if ( isWriting ){
-            room.broadcastDescription(message);
-            return;
-
-        }
-
-        if( room.guessPrompt( message ) ) {
-            // TODO: implement correct guess
-
-        }else {
-            room.broadCastChatMessage( this, message );
-
-        }
+        this.room.handlePlayerMessage( this, message );
 
     }
 
@@ -77,4 +59,46 @@ public class Player {
 
     }
 
+
+    public String getUsername() {
+        return username;
+
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+
+    }
+
+    public WebSocketSession getSession() {
+        return session;
+    }
+
+    public void setSession(WebSocketSession session) {
+        this.session = session;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public boolean isWriting() {
+        return isWriting;
+    }
+
+    public void setWriting(boolean writing) {
+        isWriting = writing;
+    }
+
+    public boolean hasGuessed() {
+        return hasGuessed;
+    }
+
+    public void setHasGuessed(boolean hasGuessed) {
+        this.hasGuessed = hasGuessed;
+    }
 }

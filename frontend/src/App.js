@@ -1,15 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./App.css";
 import Modal from "@mui/material/Modal";
 import LoginModal from "./components/Login/LoginModal.js";
 import SignUpModal from "./components/SignUp/SignUpModal.js";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion.js";
 import { ReviewCtx } from "./components/review.js";
+import { Game } from "./components/game/game.jsx";
+import { GameCtx } from "./gameCtx.jsx";
 
 function App() {
 
   // Itt lesznek a review-ek
   let reviews = useContext( ReviewCtx );
+
+  let game = useContext( GameCtx );
+
+  const [username, setUsername] = useState("");
 
   const [openLogin, setOpenLogin] = React.useState(false);
   const handleOpenLogin = () => setOpenLogin(true);
@@ -83,11 +89,13 @@ function App() {
 
       {/* Main Content */}
       <div className="main">
-        <input className="input" type="text" placeholder="nickname" />
+        <input className="input" type="text" placeholder="nickname" onChange={(e) => setUsername(e.target.value)}/>
         <button className="button">Play</button>
-        <button className="joinButton">
+        <button className="joinButton" onClick={ () => game.joinGame(1, username) }>
           Join Party &nbsp;<span role="img" aria-label="party">🎉</span>
         </button>
+
+        <Game />
       </div>
     </div>
   );

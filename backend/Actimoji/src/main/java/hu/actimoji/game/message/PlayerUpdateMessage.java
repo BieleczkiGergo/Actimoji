@@ -1,5 +1,6 @@
 package hu.actimoji.game.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class PlayerUpdateMessage extends Message {
 
+    @JsonProperty("players")
     List<PlayerUpdateInfo> players;
 
     public PlayerUpdateMessage(List<PlayerUpdateInfo> players) {

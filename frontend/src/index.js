@@ -6,16 +6,20 @@ import reportWebVitals from './reportWebVitals';
 import { ReviewProvider } from './components/review';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import ReadSuggestion from './components/ReadSuggestion/ReadSuggestion';
+import { GameProvider } from './gameCtx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        {  <Route path="/readsuggestion" element={<ReadSuggestion/>} />  }
-      </Routes>
-    </BrowserRouter>
+    <GameProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          {  <Route path="/readsuggestion" element={<ReadSuggestion/>} />  }
+        </Routes>
+      </BrowserRouter>
+
+    </GameProvider>
   </React.StrictMode>
 );
 
