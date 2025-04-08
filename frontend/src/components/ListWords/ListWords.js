@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
-import { useAuth } from "../Context/AuthContext";
-import styles from "./ListWords.module.css"; 
+import styles from "./ListWords.module.css";
+import { useAuth } from "../Context/AuthContext"; // AuthContext importálása
 
 function ListWords({ open, onClose, onSelect }) {
+  const { token } = useAuth(); // Token lekérése az AuthContext-ből
   const [words, setWords] = useState([]);
-  const { token } = useAuth(); // Auth token lekérése
 
   useEffect(() => {
-    if (open && token) {
+    if (open && token) { // Ha a modal nyitva van és van token
       axios
         .get("http://localhost:8080/words/query", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },  // Auth header hozzáadása
         })
         .then((response) => {
           setWords(response.data);
@@ -21,11 +21,11 @@ function ListWords({ open, onClose, onSelect }) {
           console.error("Hiba történt az adatok lekérésekor:", error);
         });
     }
-  }, [open, token]);
+  }, [open, token]); // Ha a modal nyitás vagy a token változik, újraindul a kérés
 
   const handleWordClick = (word) => {
-    onSelect(word);
-    onClose();
+    onSelect(word); // A kiválasztott szó átadása a parent komponensnek
+    onClose(); // Modal bezárása
   };
 
   return (

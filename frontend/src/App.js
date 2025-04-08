@@ -28,6 +28,7 @@ function App() {
   const [openAlert, setOpenAlert] = useState(false);
   const [openModAlert, setOpenModAlert] = useState(false);
   const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false);
+  const [openModAlreadyAlert, setOpenModAlreadyAlert] = useState(false); // New state for "Already a mod" alert
 
   const isMod = user?.roles?.includes("ROLE_MODERATOR");
 
@@ -74,7 +75,10 @@ function App() {
   };
 
   const handleBecomeModClick = () => {
-    if (token) {
+    if (isMod) {
+      // If user is already a moderator, show an alert instead of opening the modal
+      setOpenModAlreadyAlert(true);
+    } else if (token) {
       setOpenBecomeMod(true);
     } else {
       setOpenBecomeModAlert(true);
@@ -207,6 +211,16 @@ function App() {
         autoHideDuration={6000}
         onClose={() => setOpenBecomeModAlert(false)}
         message="You must be logged in to access Become Mod."
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
+      />
+
+      {/* Snackbar for users who are already mods */}
+      <Snackbar
+        open={openModAlreadyAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenModAlreadyAlert(false)}
+        message="You are already a mod!"
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
       />

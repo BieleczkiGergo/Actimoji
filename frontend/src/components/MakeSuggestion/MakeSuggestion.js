@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useAuth } from "../Context/AuthContext"; // Importáljuk az AuthContext-et
 import styles from "./MakeSuggestion.module.css";
 import ListWords from "../ListWords/ListWords";
 
 function MakeSuggestion() {
+    const { token } = useAuth(); // Token beszerzése az AuthContext-ből
     const [activeTab, setActiveTab] = useState("Create");
     const [operation, setOperation] = useState(0);
     const [poster, setPoster] = useState(1);
@@ -32,6 +34,8 @@ function MakeSuggestion() {
             new_icons: data.new_icons,
             reason: data.reason,
             poster: poster
+        }, {
+            headers: { Authorization: `Bearer ${token}` }  // Token átadása az axios kérésben
         })
         .then(response => {
             console.log("Successfully submitted:", response.data);

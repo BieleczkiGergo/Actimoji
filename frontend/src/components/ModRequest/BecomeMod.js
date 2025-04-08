@@ -17,7 +17,7 @@ function BecomeMod() {
 
   const onSubmit = async (data) => {
     try {
-      if (!user || !user.id) {
+      if (!user || !user.userId) {
         alert("Hiányzó felhasználói azonosító.");
         return;
       }
@@ -26,7 +26,7 @@ function BecomeMod() {
         "http://localhost:8080/mod/request",
         {
           reason: data.reason,
-          requestedId: user.id,
+          requestedId: user.userId,
         },
         {
           headers: {

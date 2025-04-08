@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode"; // Importálás helyesen
+import { jwtDecode } from "jwt-decode"; // Importálás helyesen
 
 const AuthContext = createContext();
 
@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Érvénytelen token:", error);
         setUser(null); // Token hiba esetén töröljük a felhasználót
+        setToken(null); // Ha érvénytelen token, akkor töröljük
+        localStorage.removeItem('token'); // Token törlése helyből
       }
     } else {
       delete axios.defaults.headers.common["Authorization"];

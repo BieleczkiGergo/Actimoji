@@ -20,23 +20,29 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
         username: data.username,
         password: data.password,
       });
-
-      const { token } = response.data;
-
-      login(token);
-
-      setSnackbarMessage("Login successful!");
-      setSnackbarSeverity("success");
-      setOpenSnackbar(true);
-      reset();
-
-      setTimeout(() => {
-        handleClose();
-        navigate("/");
-      }, 1500);
+  
+      // Ellenőrizzük, hogy a válasz tartalmazza a tokent
+      if (response.data && response.data.token) {
+        const { token } = response.data;
+  
+        login(token); // A token mentése a globális állapotba
+  
+        setSnackbarMessage("Login successful!");
+        setSnackbarSeverity("success");
+        setOpenSnackbar(true);
+        reset();
+  
+        setTimeout(() => {
+          handleClose();
+          navigate("/"); // Navigálás a főoldalra
+        }, 1500);
+      } else {
+        // Ha nincs token a válaszban, hibaüzenetet jelenítünk meg
+        throw new Error("Invalid login credentials.");
+      }
     } catch (error) {
       console.error("Login error:", error);
-      setSnackbarMessage("Invalid login credentials.");
+      setSnackbarMessage(error.message || "Invalid login credentials.");
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
     }
