@@ -1,43 +1,40 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // Importálás helyesen
+import { jwtDecode } from "jwt-decode"; 
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem('token') || null); // Token mentése helyben
+  const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [user, setUser] = useState(null);
 
-  // Token dekódolása és felhasználói adatok beállítása
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       try {
-        const decodedUser = jwtDecode(token); // Token dekódolása
-        console.log("Dekódolt felhasználó:", decodedUser); // Debugging
-        setUser(decodedUser); // Felhasználó adatainak beállítása
+        const decodedUser = jwtDecode(token);
+        console.log("Dekódolt felhasználó:", decodedUser);
+        setUser(decodedUser);
       } catch (error) {
         console.error("Érvénytelen token:", error);
-        setUser(null); // Token hiba esetén töröljük a felhasználót
-        setToken(null); // Ha érvénytelen token, akkor töröljük
-        localStorage.removeItem('token'); // Token törlése helyből
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem('token');
       }
     } else {
       delete axios.defaults.headers.common["Authorization"];
-      setUser(null); // Ha nincs token, töröljük a felhasználót
+      setUser(null);
     }
   }, [token]);
 
-  // Login függvény
   const login = (newToken) => {
     setToken(newToken);
-    localStorage.setItem('token', newToken); // Token mentése helyben
+    localStorage.setItem('token', newToken); 
   };
 
-  // Logout függvény
   const logout = () => {
     setToken(null);
-    localStorage.removeItem('token'); // Token törlése helyből
+    localStorage.removeItem('token');
   };
 
   return (

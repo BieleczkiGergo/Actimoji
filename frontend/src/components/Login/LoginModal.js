@@ -21,11 +21,10 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
         password: data.password,
       });
   
-      // Ellenőrizzük, hogy a válasz tartalmazza a tokent
       if (response.data && response.data.token) {
         const { token } = response.data;
   
-        login(token); // A token mentése a globális állapotba
+        login(token);
   
         setSnackbarMessage("Login successful!");
         setSnackbarSeverity("success");
@@ -34,10 +33,9 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
   
         setTimeout(() => {
           handleClose();
-          navigate("/"); // Navigálás a főoldalra
+          navigate("/"); 
         }, 1500);
       } else {
-        // Ha nincs token a válaszban, hibaüzenetet jelenítünk meg
         throw new Error("Invalid login credentials.");
       }
     } catch (error) {
