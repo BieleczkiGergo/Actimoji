@@ -104,7 +104,7 @@ function App() {
     <div className="container">
       <div className="sidebar">
         <div className="profile">
-          <div className="name">{user?.userName || "Guest"}</div>
+          <div className="name">{user?.sub || "Guest"}</div>
           <div className="avatar">👤</div>
         </div>
 

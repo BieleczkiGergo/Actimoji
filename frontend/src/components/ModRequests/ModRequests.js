@@ -32,7 +32,7 @@ const ModReview = () => {
     const url = `http://localhost:8080/mod/review/${action}/${requestId}`;
     const payload = {
       id: requestId,
-      moderatorId: user?.id,
+      moderatorId: user?.userId,
     };
 
     axios
