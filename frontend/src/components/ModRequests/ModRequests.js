@@ -3,12 +3,14 @@ import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 import './ModRequest.css';
 
-const ModReview = () => {
+const ModRequests = () => {
   const { token, user } = useAuth();
   const [modRequests, setModRequests] = useState([]);
 
   useEffect(() => {
+    console.log("User in ModRequests:", user);
     if (!user?.roles?.includes("ROLE_MODERATOR")) {
+      console.log("User is not a moderator or not logged in.");
       return;
     }
 
@@ -16,38 +18,63 @@ const ModReview = () => {
   }, [token, user]);
 
   const fetchModRequests = () => {
+    console.log("Fetching mod requests...");
     axios
       .get("http://localhost:8080/mod/review", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => setModRequests(response.data))
+      .then((response) => {
+        console.log("Mod Requests:", response.data);
+        setModRequests(response.data);
+      })
       .catch((error) => {
         console.error("Error loading mod requests:", error);
       });
   };
 
-  const handleDecision = (requestId, action) => {
-    const url = `http://localhost:8080/mod/review/${action}/${requestId}`;
-    const payload = {
-      id: requestId,
-      moderatorId: user?.userId,
-    };
+const handleAccept = (requestId) => {
+  console.log("Accepting request with ID:", requestId); 
+  console.log("User object in decision handler:", user);
 
-    axios
-      .post(url, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(() => {
-        fetchModRequests(); // Frissítés döntés után
-      })
-      .catch((error) => {
-        console.error(`Error on ${action}:`, error);
-      });
-  };
+  const url = `http://localhost:8080/mod/review/accept/${requestId}?moderatorId=${user?.userId}`;
+  
+  axios
+    .post(url, null, { 
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(() => {
+      fetchModRequests();
+    })
+    .catch((error) => {
+      console.error(`Error on accept:`, error);
+    });
+};
+
+
+const handleReject = (requestId) => {
+  console.log("Rejecting request with ID:", requestId);
+  console.log("User object in decision handler:", user);
+
+  const url = `http://localhost:8080/mod/review/reject/${requestId}?moderatorId=${user?.userId}`;
+  
+  axios
+    .post(url, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(() => {
+      fetchModRequests();
+    })
+    .catch((error) => {
+      console.error(`Error on reject:`, error);
+    });
+};
+
 
   return (
     <div className="modReviewContainer">
@@ -75,13 +102,13 @@ const ModReview = () => {
                     <>
                       <button
                         className="actionBtn approve"
-                        onClick={() => handleDecision(request.id, "accept")}
+                        onClick={() => handleAccept(request.id)} // Elfogadás
                       >
                         ✅
                       </button>
                       <button
                         className="actionBtn reject"
-                        onClick={() => handleDecision(request.id, "reject")}
+                        onClick={() => handleReject(request.id)} // Elutasítás
                       >
                         ❌
                       </button>
@@ -101,4 +128,4 @@ const ModReview = () => {
   );
 };
 
-export default ModReview;
+export default ModRequests;

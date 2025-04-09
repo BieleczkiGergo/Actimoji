@@ -40,7 +40,6 @@ function BecomeMod() {
       reset();
     } catch (error) {
       console.error("Hiba a kérés elküldésekor:", error);
-      alert("Hiba történt a kérés elküldésekor.");
     }
   };
 

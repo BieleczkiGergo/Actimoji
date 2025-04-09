@@ -20,17 +20,15 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
         username: data.username,
         password: data.password,
       });
-  
+
       if (response.data && response.data.token) {
         const { token } = response.data;
-  
         login(token);
-  
         setSnackbarMessage("Login successful!");
         setSnackbarSeverity("success");
         setOpenSnackbar(true);
         reset();
-  
+
         setTimeout(() => {
           handleClose();
           navigate("/"); 
@@ -51,22 +49,27 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
       <h2>Login to your Actimoji account</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <p>Username</p>
-        <input 
-          className="loginInput" 
-          placeholder="Username" 
-          {...register("username", { required: "This input is mandatory" })} 
+        <input
+          className="loginInput"
+          placeholder="Username"
+          {...register("username", { required: "This input is mandatory" })}
         />
         {errors.username && <span>{errors.username.message}</span>}
 
         <p>Password</p>
-        <input 
-          className="loginInput" 
-          type="password" 
-          {...register("password", { required: "This input is mandatory" })} 
+        <input
+          className="loginInput"
+          type="password"
+          {...register("password", { required: "This input is mandatory" })}
         />
         {errors.password && <span>{errors.password.message}</span>}
 
-        <p id="register" onClick={handleOpenSignUp} style={{ cursor: "pointer" }}>
+        {/* Az alábbi link a SignUpModal-t nyitja meg */}
+        <p 
+          id="register" 
+          onClick={handleOpenSignUp} 
+          style={{ cursor: "pointer", color: "#E85B2C", textDecoration: "underline" }}
+        >
           Don't have an account? <span style={{ color: "#E85B2C", textDecoration: "underline" }}>Sign up</span> now
         </p>
 

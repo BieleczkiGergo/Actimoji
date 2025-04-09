@@ -35,7 +35,6 @@ tr:hover {
   transition: background-color 0.3s;
 }
 
-/* Akciógombok */
 .actionBtn {
   border: none;
   cursor: pointer;
@@ -62,4 +61,49 @@ tr:hover {
 .actionBtn.reject:hover {
   background-color: #f5c6cb;
   transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .modReviewContainer {
+    width: 95%;
+    padding: 15px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+
+  .actionBtn {
+    font-size: 1rem;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modReviewContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  .actionBtn {
+    font-size: 0.9rem;
+    padding: 4px 6px;
+  }
+
+  .submitButton {
+    width: 100%;
+    padding: 10px;
+  }
 }
