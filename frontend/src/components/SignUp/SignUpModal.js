@@ -21,7 +21,6 @@ function SignUpModal({ handleClose }) {
       });
 
       setOpenSnackbar(true);
-
       reset();
 
       setTimeout(() => {
@@ -68,7 +67,7 @@ function SignUpModal({ handleClose }) {
           placeholder="Password"
           {...register("password", { 
             required: "This input is mandatory", 
-            minLength: { value: 3, message: "Password must be at least 6 characters" } 
+            minLength: { value: 6, message: "Password must be at least 6 characters" } 
           })} 
         />
         {errors.password && <span>{errors.password.message}</span>}
@@ -89,7 +88,6 @@ function SignUpModal({ handleClose }) {
         <input type="submit" value="Sign Up" id="signup-send" />
       </form>
 
-      {/* Snackbar visszajelzés csak sikeres regisztráció esetén */}
       <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={() => setOpenSnackbar(false)}>
         <Alert onClose={() => setOpenSnackbar(false)} severity="success"> 
           Registration successful!

@@ -1,71 +1,128 @@
-.review {
-  margin: 2% auto;
-  width: 40%;
+/* ReadSuggestion.module.css */
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #FF6B35; /* A kért szín */
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sidebarHeader {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.sidebarProfile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.profileName {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.profileAvatar {
+  font-size: 30px;
+}
+
+.sidebarButton {
+  width: 100%;
+  padding: 10px;
+  background-color: #36454F;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.sidebarButton:hover {
+  background-color: #2a2a2a;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.reviewList {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .reviewItem {
-  margin-top: 40px;
-  background-color: #1f2c38;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  text-align: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
 }
 
 .p {
-  color: #ada8a8;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
 }
 
 .buttonContainer {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
   margin-top: 15px;
 }
 
 .approveBtn, .rejectBtn {
-  padding: 10px 20px;
-  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s;
+  border: none;
 }
 
 .approveBtn {
-  background-color: #4caf50;
-  color: white;
-}
-
-.rejectBtn {
-  background-color: #e74c3c;
+  background-color: #3B7080;
   color: white;
 }
 
 .approveBtn:hover {
-  background-color: #388e3c;
+  background-color: #2a5666;
+}
+
+.rejectBtn {
+  background-color: #FF6B35; /* A kért szín */
+  color: white;
 }
 
 .rejectBtn:hover {
-  background-color: #c0392b;
+  background-color: #E25B2F; /* Sötétebb árnyalat a hover hatáshoz */
 }
 
 .noSuggestion {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
   text-align: center;
+  margin-top: 50px;
 }
 
 .noSuggestion h1 {
   font-size: 24px;
-  color: #ff6b6b;
+  color: #555;
 }
 
 .noSuggestion p {
-  font-size: 16px;
-  color: #bbbbbb;
+  color: #777;
 }

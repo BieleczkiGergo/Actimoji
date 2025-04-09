@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 import Modal from "@mui/material/Modal";
-import { Snackbar } from "@mui/material";
+import { Snackbar, Alert } from "@mui/material";
 import LoginModal from "./components/Login/LoginModal";
 import SignUpModal from "./components/SignUp/SignUpModal";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion";
@@ -12,36 +12,34 @@ import EmojiKeyboard from "./components/Keyboard/EmojiKeyboard";
 
 function App() {
   const { token, logout, user } = useAuth();
+  const isMod = user?.roles?.includes("ROLE_MODERATOR");
 
   const [nickname, setNickname] = useState("");
   const [showEmojiKeyboard, setShowEmojiKeyboard] = useState(false);
   const inputRef = useRef(null);
-  const emojiKeyboardRef = useRef(null); // Hozzáadjuk a billentyűzet ref-jét
+  const emojiKeyboardRef = useRef(null);
 
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openSignUp, setOpenSignUp] = useState(false);
-  const [openSuggestion, setOpenSuggestion] = useState(false);
-  const [openWordsModal, setOpenWordsModal] = useState(false);
-  const [openBecomeMod, setOpenBecomeMod] = useState(false);
-
+  const [activeModal, setActiveModal] = useState(null); // Centralized modal state
   const [alertMessage, setAlertMessage] = useState("");
   const [openAlert, setOpenAlert] = useState(false);
   const [openModAlert, setOpenModAlert] = useState(false);
   const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false);
-  const [openModAlreadyAlert, setOpenModAlreadyAlert] = useState(false); // New state for "Already a mod" alert
+  const [openModAlreadyAlert, setOpenModAlreadyAlert] = useState(false);
 
-  const isMod = user?.roles?.includes("ROLE_MODERATOR");
+  // Snackbar for Become Mod request status
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  // Track if Become Mod request has been submitted
+  const [hasRequestedMod, setHasRequestedMod] = useState(false);
 
   const handleEmojiSelect = (emoji) => {
     const input = inputRef.current;
     if (input) {
-      // Get the current text and append the emoji
       const start = input.selectionStart;
       const end = input.selectionEnd;
       const newValue = nickname.slice(0, start) + emoji + nickname.slice(end);
       setNickname(newValue);
-
-      // After emoji is added, place the cursor at the end of the new emoji
       setTimeout(() => {
         input.setSelectionRange(start + emoji.length, start + emoji.length);
         input.focus();
@@ -50,55 +48,53 @@ function App() {
   };
 
   const handleSuggestionClick = () => {
-    if (token) {
-      setOpenSuggestion(true);
-    } else {
+    if (token) setActiveModal("suggestion");
+    else {
       setAlertMessage("Please log in to make a suggestion.");
       setOpenAlert(true);
     }
   };
 
   const handleReadSuggestionClick = () => {
-    if (isMod) {
-      window.open("/readsuggestion", "_blank");
-    } else {
-      setOpenModAlert(true);
-    }
+    if (isMod) window.open("/readsuggestion", "_blank");
+    else setOpenModAlert(true);
   };
 
   const handleModRequestClick = () => {
-    if (isMod) {
-      window.open("/mod/requests", "_blank");
-    } else {
-      setOpenModAlert(true);
-    }
+    if (isMod) window.open("/mod/requests", "_blank");
+    else setOpenModAlert(true);
   };
 
   const handleBecomeModClick = () => {
-    if (isMod) {
-      // If user is already a moderator, show an alert instead of opening the modal
+    if (hasRequestedMod) {
+      setSnackbarMessage("You have already submitted your request to become a mod.");
+      setOpenSnackbar(true);
+    } else if (isMod) {
       setOpenModAlreadyAlert(true);
     } else if (token) {
-      setOpenBecomeMod(true);
+      setActiveModal("becomeMod");
     } else {
       setOpenBecomeModAlert(true);
     }
   };
 
-  // Hook for handling outside clicks
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close emoji keyboard if clicked outside
-      if (emojiKeyboardRef.current && !emojiKeyboardRef.current.contains(event.target) && !inputRef.current.contains(event.target)) {
+      if (
+        emojiKeyboardRef.current &&
+        !emojiKeyboardRef.current.contains(event.target) &&
+        !inputRef.current.contains(event.target)
+      ) {
         setShowEmojiKeyboard(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
 
   return (
     <div className="container">
@@ -108,57 +104,19 @@ function App() {
           <div className="avatar">👤</div>
         </div>
 
-        <button className="sidebarButton" onClick={handleSuggestionClick}>
-          Make suggestion
-        </button>
-        <button className="sidebarButton" onClick={handleReadSuggestionClick}>
-          Read suggestions
-        </button>
-        <button className="sidebarButton" onClick={handleModRequestClick}>
-          View Mod Requests
-        </button>
-        <button className="sidebarButton" onClick={handleBecomeModClick}>
-          Become Mod
-        </button>
+        <button className="sidebarButton" onClick={handleSuggestionClick}>Make suggestion</button>
+        <button className="sidebarButton" onClick={handleReadSuggestionClick}>Read suggestions</button>
+        <button className="sidebarButton" onClick={handleModRequestClick}>View Mod Requests</button>
+        <button className="sidebarButton" onClick={handleBecomeModClick}>Become Mod</button>
 
         {token ? (
-          <button className="sidebarButton" onClick={logout}>
-            Logout
-          </button>
+          <button className="sidebarButton" onClick={logout}>Logout</button>
         ) : (
           <>
-            <button className="sidebarButton" onClick={() => setOpenLogin(true)}>
-              Login
-            </button>
-            <button className="sidebarButton" onClick={() => setOpenSignUp(true)}>
-              Sign Up
-            </button>
+            <button className="sidebarButton" onClick={() => setActiveModal("login")}>Login</button>
+            <button className="sidebarButton" onClick={() => setActiveModal("signup")}>Sign Up</button>
           </>
         )}
-
-        <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
-          <div className="loginParent">
-            <LoginModal handleClose={() => setOpenLogin(false)} />
-          </div>
-        </Modal>
-
-        <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
-          <div className="loginParent">
-            <SignUpModal handleClose={() => setOpenSignUp(false)} />
-          </div>
-        </Modal>
-
-        <Modal open={openSuggestion} onClose={() => setOpenSuggestion(false)}>
-          <div className="loginParent">
-            <MakeSuggestion />
-          </div>
-        </Modal>
-
-        <Modal open={openBecomeMod} onClose={() => setOpenBecomeMod(false)}>
-          <div className="loginParent">
-            <BecomeMod />
-          </div>
-        </Modal>
       </div>
 
       <div className="main">
@@ -170,60 +128,62 @@ function App() {
           onChange={(e) => setNickname(e.target.value)}
           ref={inputRef}
           onFocus={() => setShowEmojiKeyboard(true)}
-          onBlur={() => {
-            // Ne zárd be az emoji billentyűzetet, ha az inputra van fókuszálva
-            if (!showEmojiKeyboard) setTimeout(() => setShowEmojiKeyboard(false), 200);
-          }} 
         />
-
         {showEmojiKeyboard && (
           <div ref={emojiKeyboardRef}>
             <EmojiKeyboard onEmojiSelect={handleEmojiSelect} />
           </div>
         )}
-
         <button className="button">Play</button>
         <button className="joinButton">Join Party 🎉</button>
       </div>
 
-      <ListWords open={openWordsModal} onClose={() => setOpenWordsModal(false)} />
+      <Modal open={activeModal === "login"} onClose={() => setActiveModal(null)}>
+        <div className="loginParent">
+          <LoginModal
+            handleClose={() => setActiveModal(null)}
+            handleOpenSignUp={() => setActiveModal("signup")}
+          />
+        </div>
+      </Modal>
 
-      <Snackbar
-        open={openAlert}
-        autoHideDuration={6000}
-        onClose={() => setOpenAlert(false)}
-        message={alertMessage}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
-      />
+      <Modal open={activeModal === "signup"} onClose={() => setActiveModal(null)}>
+        <div className="loginParent">
+          <SignUpModal handleClose={() => setActiveModal(null)} />
+        </div>
+      </Modal>
 
-      <Snackbar
-        open={openModAlert}
-        autoHideDuration={6000}
-        onClose={() => setOpenModAlert(false)}
-        message="You must be a mod to view suggestions."
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
-      />
+      <Modal open={activeModal === "suggestion"} onClose={() => setActiveModal(null)}>
+        <div className="loginParent">
+          <MakeSuggestion />
+        </div>
+      </Modal>
 
-      <Snackbar
-        open={openBecomeModAlert}
-        autoHideDuration={6000}
-        onClose={() => setOpenBecomeModAlert(false)}
-        message="You must be logged in to access Become Mod."
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
-      />
+      <Modal open={activeModal === "becomeMod"} onClose={() => setActiveModal(null)}>
+        <div className="loginParent">
+          <BecomeMod 
+            onRequestSubmitted={() => {
+              setHasRequestedMod(true); // Set flag after successful request
+              setActiveModal(null); // Close modal
+            }} 
+          />
+        </div>
+      </Modal>
 
-      {/* Snackbar for users who are already mods */}
-      <Snackbar
-        open={openModAlreadyAlert}
-        autoHideDuration={6000}
-        onClose={() => setOpenModAlreadyAlert(false)}
-        message="You are already a mod!"
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
-      />
+      <ListWords open={false} onClose={() => {}} />
+
+      {/* Snackbars */}
+      <Snackbar open={openAlert} autoHideDuration={6000} onClose={() => setOpenAlert(false)} message={alertMessage} />
+      <Snackbar open={openModAlert} autoHideDuration={6000} onClose={() => setOpenModAlert(false)} message="You must be a mod to view suggestions." />
+      <Snackbar open={openBecomeModAlert} autoHideDuration={6000} onClose={() => setOpenBecomeModAlert(false)} message="You must be logged in to access Become Mod." />
+      <Snackbar open={openModAlreadyAlert} autoHideDuration={6000} onClose={() => setOpenModAlreadyAlert(false)} message="You are already a mod!" />
+      
+      {/* Snackbar for Become Mod submission status */}
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="info">
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

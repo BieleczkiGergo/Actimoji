@@ -6,18 +6,18 @@ import styles from "./MakeSuggestion.module.css";
 import ListWords from "../ListWords/ListWords";
 
 function MakeSuggestion() {
-    const { token } = useAuth(); // Token beszerzése az AuthContext-ből
+    const { token, user } = useAuth(); // Token és user beszerzése az AuthContext-ből
     const [activeTab, setActiveTab] = useState("Create");
-    const [operation, setOperation] = useState(0);
-    const [poster, setPoster] = useState(1);
+    const [type, setType] = useState(0);  // "operation" átnevezve "type"-ra
+    const [poster, setPoster] = useState(user?.sub || 1);  // A bejelentkezett user ID-ja (vagy 1, ha nincs bejelentkezve)
     const [selectedWord, setSelectedWord] = useState(null);  // A kiválasztott szó
-    const [openListWords, setOpenListWords] = useState(false);
+    const [openListWords, setOpenListWords] = useState(false);  // ListWords modál állapota
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const handleTabChange = (tab, opValue) => {
+    const handleTabChange = (tab, typeValue) => {
         setActiveTab(tab);
-        setOperation(opValue);
+        setType(typeValue);
         setSelectedWord(null);  // Töröljük a kiválasztott szót, ha új tabra váltunk
     };
 
@@ -28,12 +28,12 @@ function MakeSuggestion() {
 
     const onSubmit = (data) => {
         axios.post("http://localhost:8080/suggest/", {
-            operation: operation,
+            type: type,  // "operation" átnevezve "type"-ra
             word_id: selectedWord ? selectedWord.id : 1,  // Ha nincs kiválasztott szó, akkor 1 (Create esetén)
             new_word: data.new_word,
             new_icons: data.new_icons,
             reason: data.reason,
-            poster: poster
+            poster: poster  // A bejelentkezett user ID-ja
         }, {
             headers: { Authorization: `Bearer ${token}` }  // Token átadása az axios kérésben
         })
@@ -63,7 +63,7 @@ function MakeSuggestion() {
                         {selectedWord && <p>Selected: {selectedWord.word}</p>}  {/* A kiválasztott szó megjelenítése */}
                     </>
                 )}
-                
+
                 {(activeTab === "Create" || activeTab === "Modify") && (
                     <>
                         <input 

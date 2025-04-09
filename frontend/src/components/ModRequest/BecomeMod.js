@@ -1,26 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./BecomeMod.module.css";
 import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 
-function BecomeMod() {
+function BecomeMod({ onRequestSubmitted, handleCloseModal }) {
   const { user, token } = useAuth();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-
-  console.log("Aktív user objektum:", user);
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data) => {
     try {
       if (!user || !user.userId) {
-        alert("Hiányzó felhasználói azonosító.");
+        alert("Missing user ID.");
         return;
       }
+
+      setIsSubmitting(true);
 
       const response = await axios.post(
         "http://localhost:8080/mod/request",
@@ -36,10 +32,14 @@ function BecomeMod() {
       );
 
       console.log("Mod request submitted:", response.data);
-      alert("Kérelmed sikeresen elküldve!");
+      alert("Your mod request has been successfully submitted!");
+      onRequestSubmitted(); // Update parent state to indicate the request is submitted
       reset();
+      handleCloseModal(); // Close the modal
     } catch (error) {
-      console.error("Hiba a kérés elküldésekor:", error);
+      console.error("Error submitting the request:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -60,13 +60,11 @@ function BecomeMod() {
             placeholder="Why would you like to become a mod?"
             className={styles.reason}
           />
-          {errors.reason && (
-            <p className={styles.error}>{errors.reason.message}</p>
-          )}
+          {errors.reason && <p className={styles.error}>{errors.reason.message}</p>}
         </div>
 
-        <button type="submit" className={styles.submitButton}>
-          Submit
+        <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>

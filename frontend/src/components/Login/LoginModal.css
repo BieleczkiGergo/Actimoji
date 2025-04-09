@@ -7,23 +7,24 @@
     padding: 20px;
     background-color: #F5F7FA;
     border: 2px solid #3B7080;
-    border-radius: 1
-    0px;
+    border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* A MODAL tartalma legyen fix pozícióban és jól látható */
 .modalContainer {
-    position: absolute;
+    position: fixed; /* FONTOS: absolute helyett fixed! */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
     background-color: #ffffff;
     border: 2px solid #000;
-    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
-    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+    padding: 24px;
+    z-index: 1301; /* biztosan MUI overlay felett legyen */
 }
-
 
 p {
     margin: 5px 0;
@@ -42,7 +43,6 @@ p {
     color: #3B7080;
     outline: none;
     transition: border-color 0.3s;
-
 }
 
 .loginInput:focus {
@@ -79,8 +79,9 @@ h2 {
 
 a {
     color: #E85B2C;
+    cursor: pointer;
 }
 
 #signUp {
-    color:#E85B2C;
+    color: #E85B2C;
 }

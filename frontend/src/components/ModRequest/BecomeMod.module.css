@@ -1,34 +1,129 @@
-.modalContent {
-    padding: 10px;
-    margin: 10px;
+/* Sidebar container */
+.sidebar {
+  width: 20%;
+  background-color: #FF6B35;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  color: #fff;
+  height: 100vh;
+  border-radius: 10px;
 }
 
-.submitButton {
-    cursor: pointer;
-    border-radius: 12px;
-    background-color: #FF6B35;
-    border: none;
-    color: white;
-    padding: 14px 28px;
-    font-size: 18px;
-    font-weight: 600;
-    transition: background-color 0.4s, transform 0.3s;
-    margin-top: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+/* Profile Section */
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #3B7080;
+  border-radius: 8px;
 }
 
-.submitButton:hover {
-    background-color: #FF6B35;
-    transform: scale(1.05);
+.name {
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.reason {
-    width: 90%;
-    width: 400px;
-    height: 100px;
-    border: 2px solid #3B7080;
-    border-radius: 10px;
-    padding: 10px;
+.avatar {
+  font-size: 20px;
+}
+
+/* Sidebar Button */
+.sidebarButton {
+  background-color: #36454F;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  cursor: pointer;
+  width: 80%;
+  height: 40px;
+}
+
+.sidebarButton:hover {
+  background-color: #2a5666;
+}
+
+/* Main content area */
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Review Item */
+.reviewItem {
+  background-color: #1f2c38;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.p {
+  color: #ada8a8;
+  margin: 5px 0;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.approveBtn, .rejectBtn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.approveBtn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.rejectBtn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.approveBtn:hover {
+  background-color: #388e3c;
+}
+
+.rejectBtn:hover {
+  background-color: #c0392b;
+}
+
+/* No suggestions message */
+.noSuggestion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+}
+
+.noSuggestion h1 {
+  font-size: 24px;
+  color: #ff6b6b;
+}
+
+.noSuggestion p {
+  font-size: 16px;
+  color: #bbbbbb;
 }

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import "./LoginModal.css";
 
-function LoginModal({ handleClose, handleOpenSignUp }) {
+function LoginModal({ handleClose }) {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const { login } = useAuth();
@@ -21,9 +21,8 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
         password: data.password,
       });
 
-      if (response.data && response.data.token) {
-        const { token } = response.data;
-        login(token);
+      if (response.data?.token) {
+        login(response.data.token);
         setSnackbarMessage("Login successful!");
         setSnackbarSeverity("success");
         setOpenSnackbar(true);
@@ -31,13 +30,12 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
 
         setTimeout(() => {
           handleClose();
-          navigate("/"); 
+          navigate("/");
         }, 1500);
       } else {
         throw new Error("Invalid login credentials.");
       }
     } catch (error) {
-      console.error("Login error:", error);
       setSnackbarMessage(error.message || "Invalid login credentials.");
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
@@ -63,15 +61,6 @@ function LoginModal({ handleClose, handleOpenSignUp }) {
           {...register("password", { required: "This input is mandatory" })}
         />
         {errors.password && <span>{errors.password.message}</span>}
-
-        {/* Az alábbi link a SignUpModal-t nyitja meg */}
-        <p 
-          id="register" 
-          onClick={handleOpenSignUp} 
-          style={{ cursor: "pointer", color: "#E85B2C", textDecoration: "underline" }}
-        >
-          Don't have an account? <span style={{ color: "#E85B2C", textDecoration: "underline" }}>Sign up</span> now
-        </p>
 
         <br />
         <input type="submit" value="Submit" id="send" />

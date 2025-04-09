@@ -1,37 +1,51 @@
-#signup-container {
+/* Modal container */
+.modalContainer {
+    position: fixed; /* Ensure the modal is fixed to the screen */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the modal */
+    width: 500px;
+    background-color: #ffffff;
+    border: 2px solid #3B7080;
+    border-radius: 10px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+    padding: 24px;
+    z-index: 1301; /* Ensure it's on top of other overlays */
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #F5F7FA;
-    border: 2px solid #3B7080;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.signupInput {
+  }
+  
+  h2 {
+    color: #E85B2C;
+    font-style: italic;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  /* Input fields */
+  .signupInput {
     width: 90%;
     padding: 10px;
     border-radius: 5px;
     border: 2px solid #3B7080;
-    margin-bottom: 10px;
     font-size: 14px;
     color: #3B7080;
     outline: none;
     transition: border-color 0.3s;
-}
-
-.signupInput:focus {
+    margin-bottom: 10px; /* Add space between fields */
+  }
+  
+  .signupInput:focus {
     border-color: #FF6B35;
     box-shadow: 0 0 5px rgba(255, 107, 53, 0.5);
-}
-
-#signup-send {
+  }
+  
+  /* Submit button */
+  #signup-send {
     cursor: pointer;
     border-radius: 5px;
-    background-color: #3B7080;
+    background-color: #FF6B35;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -39,36 +53,41 @@
     font-weight: bold;
     transition: background-color 0.3s;
     margin-top: 10px;
-}
-
-#signup-send:hover {
-    background-color: #2A5060;
-}
-
-h2 {
-    color: #3B7080;
-    font-style: italic;
-}
-
-p {
+  }
+  
+  #signup-send:hover {
+    background-color: #E85B2C;
+  }
+  
+  /* Text and error messages */
+  p {
     margin: 5px 0;
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #3B7080;
     font-weight: bold;
-}
-
-#signup-link {
+  }
+  
+  span {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Snackbar message */
+  .MuiSnackbar-root {
+    z-index: 1302; /* Ensure it's above the modal */
+  }
+  
+  /* Optional: Link style for redirect */
+  #signup-link {
     font-size: 12px;
     color: #FF6B35;
     cursor: pointer;
     text-decoration: underline;
-}
-
-#signup-link:hover {
+  }
+  
+  #signup-link:hover {
     color: #E85B2C;
-}
-
-#signup-send {
-    background-color: #E85B2C;
-}
+  }
+  
