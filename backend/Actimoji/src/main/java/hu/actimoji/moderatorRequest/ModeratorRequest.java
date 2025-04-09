@@ -1,5 +1,8 @@
 package hu.actimoji.moderatorRequest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import hu.actimoji.account.Account;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -27,6 +30,7 @@ public class ModeratorRequest {
 
     @ManyToOne
     @JoinColumn(name = "requested_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Account requested;
 
     @ManyToOne

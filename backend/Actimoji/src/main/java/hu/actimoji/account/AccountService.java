@@ -25,15 +25,7 @@ public class AccountService implements UserDetailsService {
     @Transactional
     @PostConstruct
     public void init() {
-        Account admin = createAccount("admin", "admin@actimoji.hu", "admin");
-        admin.setModerator(true);
-        accountRepository.save(admin);
 
-        createAccount("test_user", "test_user@actimoji.hu", "test_user");
-
-        createAccount("jane smith", "jane@actimoji.hu", "jane");
-
-        createAccount("Gipszkarton Emil", "gips@actimoji.hu", "gipszkarton");
 
 
     }
@@ -83,4 +75,5 @@ public class AccountService implements UserDetailsService {
                         .toList()
         );
     }
+
 }
