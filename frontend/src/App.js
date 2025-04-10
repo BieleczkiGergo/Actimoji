@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import React, { useContext, useState } from "react";
 import "./App.css";
 import Modal from "@mui/material/Modal";
@@ -24,6 +23,7 @@ function App() {
   const [openAlert, setOpenAlert] = useState(false);
   const [openModAlert, setOpenModAlert] = useState(false);
   const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false);
+  const [username, setUsername] = useState("");
 
   let game = useContext( GameCtx );
 
@@ -72,38 +72,31 @@ function App() {
         <div className="profile">
           <div className="name">{user?.userName || "Guest"}</div>
           <div className="avatar">👤</div>
-        </div>
-
+        </div>  
         <button className="sidebarButton" onClick={handleSuggestionClick}>
           Make suggestion
-        </button>
-
+        </button> 
         <Modal open={openSuggestion} onClose={() => setOpenSuggestion(false)}>
           <div className="loginParent">
             <MakeSuggestion />
           </div>
-        </Modal>
-
+        </Modal>  
         {/* Megmarad a "Read suggestions" gomb */}
         <button className="sidebarButton" onClick={handleReadSuggestionClick}>
           Read suggestions
-        </button>
-
+        </button> 
         {/* Új gomb a mod requestekhez */}
         <button className="sidebarButton" onClick={handleModRequestClick}>
           View Mod Requests
-        </button>
-
+        </button> 
         <button className="sidebarButton" onClick={handleBecomeModClick}>
           Become Mod
-        </button>
-
+        </button> 
         <Modal open={openBecomeMod} onClose={() => setOpenBecomeMod(false)}>
           <div className="loginParent">
             <BecomeMod />
           </div>
-        </Modal>
-
+        </Modal>  
         {token ? (
           <button className="sidebarButton" onClick={logout}>
             Logout
@@ -117,34 +110,32 @@ function App() {
               Sign Up
             </button>
           </>
-        )}
-
+        )}  
         <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
           <div className="loginParent">
             <LoginModal handleClose={() => setOpenLogin(false)} />
           </div>
-        </Modal>
-
+        </Modal>  
         <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
           <div className="loginParent">
             <SignUpModal handleClose={() => setOpenSignUp(false)} />
           </div>
         </Modal>
-      </div>
-
+      </div>  
       {/* Main Content */}
       <div className="main">
-        <input className="input" type="text" placeholder="nickname" onChange={(e) => setUsername(e.target.value)}/>
-        <button className="button">Play</button>
-        <button className="joinButton" onClick={ () => game.joinGame(1, username) }>
-          Join Party &nbsp;<span role="img" aria-label="party">🎉</span>
-        </button>
-
-        <Game />
-      </div>
-
-      <ListWords open={openWordsModal} onClose={() => setOpenWordsModal(false)} />
-
+        {
+          game.inGame ? ( <Game /> ) : (<>
+            <input className="input" type="text" placeholder="nickname" onChange={(e) => setUsername(e.target.value)}/>
+            <button className="button">Play</button>
+            <button className="joinButton" onClick={ () => game.joinGame(1, username) }>
+              Join Party &nbsp;<span role="img" aria-label="party">🎉</span>
+            </button>
+            
+            </>)
+        } 
+      </div>  
+      <ListWords open={openWordsModal} onClose={() => setOpenWordsModal(false)} />  
       <Snackbar
         open={openAlert}
         autoHideDuration={6000}
@@ -152,8 +143,7 @@ function App() {
         message={alertMessage}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
-      />
-
+      />  
       <Snackbar
         open={openModAlert}
         autoHideDuration={6000}
@@ -161,8 +151,7 @@ function App() {
         message="You must be a mod to view suggestions."
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         sx={{ backgroundColor: "#FF6B35", color: "#fff", fontWeight: "bold" }}
-      />
-
+      />  
       <Snackbar
         open={openBecomeModAlert}
         autoHideDuration={6000}
@@ -173,6 +162,8 @@ function App() {
       />
     </div>
   );
+
+
 }
 
 export default App;

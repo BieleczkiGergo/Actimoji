@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 
 
 let GameCtx = createContext({});
@@ -32,6 +32,8 @@ function formatTimestamp( cycleEndTime ){
 
 }
 
+let socket = null;
+
 function GameProvider({ children }){
     let [players, setPlayers] = useState( [] );
     let [chat, setChat] = useState( [] );
@@ -45,7 +47,10 @@ function GameProvider({ children }){
     let [inGame, setInGame] = useState( false );
     let [playerPoints, setPlayerPoints] = useState( [] );
 
-    let socket;
+    useEffect( () => {
+        setInGame( false );
+
+    }, []);
 
     function sendChatMessage( message ){
         socket.send( message );
@@ -53,8 +58,8 @@ function GameProvider({ children }){
     }
     
     // the sendDescription and chooseWord functions are only there to provide clean code
-    function sendDescription( desc ){
-        sendChatMessage( desc );
+    async function sendDescription( desc ){
+        await sendChatMessage( desc );
 
     }
 
@@ -62,34 +67,44 @@ function GameProvider({ children }){
      * 
      * @param {String} chosenWord The chosen word string that the writer will have to describe
      */
-    function chooseWord( chosenWord ){
-        sendChatMessage( chosenWord );
+    async function chooseWord( chosenWord ){
+        await sendChatMessage( chosenWord );
 
+    }
+
+    function disconnect(){
+        if (socket instanceof WebSocket) {
+            socket.close();
+
+        }
+        
     }
 
     function joinGame( roomId, uname ){
         console.log(`joining game: ${roomId} as ${uname}`);
 
-        if (socket instanceof WebSocket) {
-            socket.close();
+        disconnect();
 
-        }
+        socket = new WebSocket(`ws://localhost:8080/game/room/${roomId}?username=${uname}`);
 
-        socket = new WebSocket(`/game/room/${roomId}?username=${uname}`);
-
-        socket.addEventListener( "open", () => {
+        socket.onopen = (e) => {
             setInGame( true );
-            console.log("connected");
+            console.log("connected", e);
 
-        });
+        };
 
-        socket.addEventListener("close", () => {
+        socket.onclose = (e) => {
             setInGame( false );
-            console.log("disconnected");
+            console.log("disconnected", e);
 
-        });
+        };
 
-        socket.addEventListener( "message", event => {
+        socket.onerror = err => {
+            console.error("socket error happened: ", err);
+
+        };
+
+        socket.onmessage = event => {
             const message = event.data;
             const command = message.substring(0, 2);
             let args = "";
@@ -107,11 +122,15 @@ function GameProvider({ children }){
             switch (command) {
                 case "wa": // waiting
                     setCycle("waiting");
+                    setChat( [] );
+                    setHelper( "___" );
+                    setPlayerPoints( [] );
                     break;
 
                 case "rp": // round preparation
                     setCycle("prepare");
                     setWriting( args.isWriting );
+                    setWordChoice( args.wordChoice );
                     setRoundEnd( decodeTimestamp( args.endTimestamp ) );
                     break;
 
@@ -139,9 +158,7 @@ function GameProvider({ children }){
                     break;
                 
                 case "sc": // chat message
-                    let newChat = JSON.parse(JSON.stringify( chat ));
-                    newChat.push( args );
-                    setChat( newChat );
+                    setChat( ( prevChat ) => [ ...prevChat, args ] );
                     break;
 
                 case "sd": // description
@@ -161,20 +178,43 @@ function GameProvider({ children }){
                     break;
             }
 
-        });
+        };
+
+        console.log("new socket: ", socket);
 
     }
+
+    useEffect(() => {
+        const handleUnload = () => {
+            console.log("auto-closing the socket");
+            disconnect();
+
+        };
+
+        window.addEventListener("beforeunload", handleUnload);
+    
+        return () => {
+            window.removeEventListener("beforeunload", handleUnload);
+        };
+    }, []);
+    
 
     return <GameCtx.Provider value={{
             players, chat, cycle, description, helper, roundEnd, writing,
             wordChoice, error, inGame, playerPoints,
 
-            sendChatMessage, sendDescription, chooseWord, joinGame
+            sendChatMessage, sendDescription, chooseWord, disconnect, joinGame
 
         }}>
         { children }
 
     </GameCtx.Provider>
 }
+
+/* TODO: amik még kellenek:
+    emoji szűrő
+    időzítő kiíratás, megformázás
+
+*/
 
 export { GameCtx, GameProvider, findRandomGame };

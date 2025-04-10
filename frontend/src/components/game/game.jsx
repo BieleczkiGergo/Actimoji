@@ -24,14 +24,10 @@ function Game(){
 
         </div>
 
-    } else if( game.cycle == "roundprepare" ){
+    } else if( game.cycle == "prepare" ){
         gameBody = <div className={ styles.game + " " + styles.preapring } >
-            { game.isWriting ? 
-                <WordChoice 
-                    words={ game.wordChoice }
-                    chooseWord={ (word) => game.chooseWord(word) }
-
-                />
+            { game.writing ? 
+                <WordChoice />
                 :
                 <div>
                     <h2>Waiting for writer to choose</h2>
@@ -65,12 +61,15 @@ function Game(){
 
     } else if( game.cycle == "roundover" ){
         gameBody = <div className={ styles.game + " " + styles.roundover } >
-            <PlayerStats stats={ game.playerPoints } />
+            <h2>Round over</h2>
+            <PlayerStats />
             
         </div>
         
     }else if( game.cycle == "gameover" ){
         gameBody = <div className={ styles.game + " " + styles.gameover } >
+            <h2>Game over</h2>
+            <PlayerStats />
             
         </div>
         
@@ -78,11 +77,11 @@ function Game(){
 
     return <div style={ styles.gameFrame }>
         <h2>This is the game element</h2>
-        <PlayersBar players={ game.players }/>
+        <PlayersBar />
 
-        {gameBody}
+        { gameBody }
 
-        <ChatBar chat={ game.chat } disabled={ !game.isWriting } sendChatMessage={game.sendChatMessage}/>
+        <ChatBar chat={ game.chat } disabled={ game.isWriting } sendChatMessage={game.sendChatMessage}/>
 
     </div>
 

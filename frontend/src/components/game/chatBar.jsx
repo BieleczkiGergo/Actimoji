@@ -1,21 +1,25 @@
+import { GameCtx } from "../../gameCtx";
 import styles from "./game.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-function ChatBar({ chat, disabled, sendChatMessage }){
+function ChatBar(){
     let [currentMsg, setCurrentMsg] = useState("");
+
+    const game = useContext( GameCtx );
+    const { chat, isWriting, sendChatMessage } = game;
 
     return <div className={ styles.chatBar }>
 
         <div className={ styles.messages } >
-            {chat.map( (username, message) => 
-                <p>{`${username} : ${message}`}</p>
+            {chat.map( ({username, message}, index) => 
+                <p key={ index }>{`${username} : ${message}`}</p>
 
             )}
 
         </div>
 
         <div className={ styles.yourMessage } >
-            { disabled ?
+            { isWriting ?
                 <>
                     <input placeholder="send to chat" disabled/>
                     <button disabled>Send</button>

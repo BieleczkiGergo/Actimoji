@@ -1,10 +1,17 @@
+import { useContext } from "react";
 import styles from "./game.module.css";
+import { GameCtx } from "../../gameCtx";
 
-function PlayerStats({ stats }){
+function PlayerStats(){
+    let game = useContext( GameCtx );
 
-    return <div className={styles.playerStats}>
+    const stats = game.playerPoints;
+
+    console.log( "player stats: ", stats );
+
+    return <div className={ styles.playerStats }>
         { stats.map( ({name, points}) =>
-            <p>{`${name} : ${points}`}</p>
+            <p key={ name } >{`${name} : ${points}`}</p>
 
         )}
     </div>

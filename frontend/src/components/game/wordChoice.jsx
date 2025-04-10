@@ -1,9 +1,16 @@
 import styles from "./game.module.css";
+import { useContext } from "react";
+import { GameCtx } from "../../gameCtx";
 
-function WordChoice({ words, chooseWord }){
+function WordChoice(){
+    const game = useContext( GameCtx );
+
+    const { wordChoice, chooseWord } = game;
+
+    console.log( wordChoice );
 
     return <div className={ styles.wordChooser }>
-        { words.map( word =>
+        { wordChoice.map( word =>
             <h2 
                 className={ styles.wordChoice } onClick={ () => chooseWord(word)}
                 >
