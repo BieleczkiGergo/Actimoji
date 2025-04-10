@@ -12,7 +12,7 @@ public class RoundOverMessage extends GameStateMessage{
 
     @JsonProperty("prompt")
     String prompt;
-    @JsonProperty("player_stats")
+    @JsonProperty("playerStats")
     List<PlayerStats> playerStats;
     @JsonProperty("endTimestamp")
     long endTimeStamp;

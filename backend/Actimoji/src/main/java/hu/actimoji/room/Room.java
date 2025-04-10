@@ -1,16 +1,17 @@
 package hu.actimoji.room;
 
-import hu.actimoji.game.GameEvents;
 import hu.actimoji.game.GameState;
 import hu.actimoji.game.GameUtils;
 import hu.actimoji.game.message.*;
 import hu.actimoji.player.Player;
 import hu.actimoji.word.WordService;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
 public class Room {
+    // TODO: implement room closing
 
     private final static int MAX_PLAYERS = 8;
     private final static int MIN_PLAYERS = 2;
@@ -18,11 +19,13 @@ public class Room {
     // All time constants are in milliseconds
     private final static long ROUND_START_TIME = 20 * 1000;
     private final static long ROUND_TIME = 2 * 60 * 1000;
-    private final static long ROUND_OVER_TIME = 15 * 1000;
+    private final static long ROUND_OVER_TIME = 10 * 1000;
     private final static long GAME_OVER_TIME = 30 * 1000;
 
     private final static int ROUNDS = 8;
     private final static int CHOICE_WORDS = 3;
+
+    private final static int MAX_POINTS_PER_ROUND = 1000;
 
     private final List<Player> players;
     private String currentPrompt;
@@ -33,7 +36,7 @@ public class Room {
     private Instant stateEnd;
 
     private List<String> wordChoice;
-    private WordService wordService;
+    private final WordService wordService;
     private String placeholder; // TODO: implement placeholder
 
     public Room( WordService wordService ) {
@@ -55,7 +58,7 @@ public class Room {
 
         players.add(player);
         this.broadcastPlayerUpdate();
-        player.receiveCommand( this.getGameStateMessage( player ) );
+        player.receiveCommand( this.getGameStateMessage( players.size() - 1 ) );
 
         if( this.gameState == GameState.WaitingForPlayers && players.size() >= MIN_PLAYERS ) {
             this.nextStage();
@@ -82,23 +85,26 @@ public class Room {
 
             case RoundStart -> GameState.InGame;
             case InGame -> GameState.RoundOver;
-            case RoundOver -> (currentWriter >= players.size() || round >= Room.ROUNDS)
+            case RoundOver -> ( currentWriter >= players.size() || round >= Room.ROUNDS )
                     ? GameState.GameOver
                     : GameState.RoundStart;
 
-            case GameOver -> ( players.size() >= Room.MIN_PLAYERS ) ? GameState.RoundStart : GameState.WaitingForPlayers;
+            case GameOver -> ( players.size() >= Room.MIN_PLAYERS )
+                    ? GameState.RoundStart
+                    : GameState.WaitingForPlayers;
 
         };
 
-        long gameStateMilis = switch ( this.gameState ){
+        long gameStateMillis = switch ( this.gameState ){
             case RoundStart -> Room.ROUND_START_TIME;
             case InGame -> Room.ROUND_TIME;
             case RoundOver -> Room.ROUND_OVER_TIME;
+            case GameOver -> Room.GAME_OVER_TIME;
 
             default -> 0;
         };
 
-        this.stateEnd = Instant.now().plusMillis( gameStateMilis );
+        this.stateEnd = Instant.now().plusMillis( gameStateMillis );
 
         this.timer.schedule( new TimerTask() {
             @Override
@@ -112,6 +118,9 @@ public class Room {
         if( this.gameState == GameState.RoundStart ) {
             this.wordChoice = wordService.getWordChoice( Room.CHOICE_WORDS );
             this.currentPrompt = null;
+            for( Player p : players ) {
+                p.setHasGuessed( false );
+            }
 
         } else if (this.gameState == GameState.InGame ) {
             if( this.currentPrompt == null ) {
@@ -119,10 +128,18 @@ public class Room {
 
             }
             this.placeholder = "_".repeat(this.currentPrompt.length());
+            this.players.get( currentWriter ).setHasGuessed( true );
 
         }
 
         this.broadCastStateUpdate();
+
+    }
+
+    public int getPoints(){
+        long remainingMillis = Duration.between( Instant.now(), stateEnd ).toMillis();
+
+        return (int) Math.ceil( (double) (MAX_POINTS_PER_ROUND * remainingMillis) / ROUND_TIME );
 
     }
 
@@ -147,8 +164,8 @@ public class Room {
             } else {
                 if( message.equals(currentPrompt)) {
                     player.setHasGuessed(true);
+                    player.addPoints( getPoints() );
                     this.broadcastPlayerUpdate();
-                    // TODO: implement player points
 
                     boolean allGuessed = true;
                     for ( Player p : players )
@@ -189,6 +206,24 @@ public class Room {
 
     }
 
+    private void resetGame(){
+        this.timer.cancel();
+        this.gameState = GameState.WaitingForPlayers;
+        this.currentPrompt = "";
+        this.currentWriter = 0;
+        this.round = 0;
+        this.broadCastStateUpdate();
+
+        for (Player p: this.players ) {
+            p.setHasGuessed( false );
+            p.setPoints( 0 );
+            p.setWriting( false );
+
+        }
+        broadcastPlayerUpdate();
+
+    }
+
     public void removePlayer(Player player) {
         if ( players.indexOf(player) < currentWriter){
             currentWriter--;
@@ -198,7 +233,10 @@ public class Room {
         players.remove(player);
         this.broadcastPlayerUpdate();
 
-        if ( players.indexOf(player) == currentWriter ) {
+        if (players.size() < MIN_PLAYERS && gameState == GameState.GameOver ) {
+            resetGame();
+
+        } else if ( players.indexOf(player) == currentWriter ) {
             this.nextStage();
 
         }
@@ -226,6 +264,8 @@ public class Room {
 
     private void broadcastPlayerUpdate() {
         List<PlayerUpdateInfo> updateInfos = new LinkedList<>();
+        System.out.print( this.players );
+        System.out.println(" ; current state: " + gameState.toString() );
 
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
@@ -242,22 +282,34 @@ public class Room {
     }
 
     private void broadCastStateUpdate() {
-        for( Player player : players ) {
-            player.receiveCommand( this.getGameStateMessage( player ) );
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            player.receiveCommand( this.getGameStateMessage( i ) );
 
         }
 
     }
 
-    private GameStateMessage getGameStateMessage( Player player ) {
-        boolean isWriter = players.indexOf( player ) == currentWriter;
+    private GameStateMessage getGameStateMessage( int playerIndex ) {
+        boolean isWriter = playerIndex == currentWriter;
 
         return switch ( gameState ){
             case WaitingForPlayers -> new WaitingMessage();
 
-            case RoundStart -> new RoundPrepareMessage( isWriter, isWriter ? this.wordChoice : null, this.stateEnd.toEpochMilli() );
-            case InGame -> new RoundMessage( this.placeholder, this.stateEnd.toEpochMilli(), isWriter ? this.currentPrompt : this.placeholder );
-            case RoundOver -> new RoundOverMessage( this.currentPrompt, this.getPlayerStats(), this.stateEnd.toEpochMilli() );
+            case RoundStart -> new RoundPrepareMessage(
+                    isWriter, isWriter ? this.wordChoice : null,
+                    this.stateEnd.toEpochMilli()
+            );
+
+            case InGame -> new RoundMessage(
+                    isWriter ? this.currentPrompt : this.placeholder,
+                    this.stateEnd.toEpochMilli()
+            );
+
+            case RoundOver -> new RoundOverMessage(
+                    this.currentPrompt, this.getPlayerStats(),
+                    this.stateEnd.toEpochMilli()
+            );
 
             case GameOver -> new GameOverMessage( this.getPlayerStats(), this.stateEnd.toEpochMilli() );
         };
@@ -267,7 +319,7 @@ public class Room {
         List<PlayerStats> playerStats = new LinkedList<>();
 
         for (Player player : players) {
-            playerStats.add( new PlayerStats() );
+            playerStats.add( new PlayerStats( player ) );
 
         }
 

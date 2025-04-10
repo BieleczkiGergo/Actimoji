@@ -15,10 +15,9 @@ public class RoundMessage extends GameStateMessage{
 
     String word;
 
-    public RoundMessage(String placeHolder, long endTimeStamp, String word) {
+    public RoundMessage(String placeHolder, long endTimeStamp) {
         this.placeHolder = placeHolder;
         this.endTimeStamp = endTimeStamp;
-        this.word = word;
 
     }
 

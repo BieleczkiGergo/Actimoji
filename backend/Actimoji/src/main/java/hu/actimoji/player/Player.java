@@ -15,15 +15,22 @@ public class Player {
     private Room room;
     private boolean isWriting;
     private boolean hasGuessed;
+    private int points;
 
     public Player(WebSocketSession session, Room room, String username) {
         this.session = session;
         this.room = room;
         this.username = username;
 
+        this.points = 0;
+        this.isWriting = false;
+        this.hasGuessed = false;
+
     }
 
     public void leaveRoom(){
+        System.out.println("leaving room");
+        this.room.removePlayer(this);
 
     }
 
@@ -35,10 +42,11 @@ public class Player {
     public void receiveCommand(Message message){
         try {
             session.sendMessage( new TextMessage( message.toJsonString() ) );
+            System.out.println("Sent message");
 
         } catch (IOException e) {
             try {
-                session.sendMessage( new TextMessage("eFailed to send message") );
+                session.sendMessage( new TextMessage("eeFailed to send message") );
 
             } catch (IOException e1) {
                 System.out.println("failed to send error message");
@@ -59,6 +67,10 @@ public class Player {
 
     }
 
+    public void addPoints(int points){
+        this.points += points;
+
+    }
 
     public String getUsername() {
         return username;
@@ -100,5 +112,20 @@ public class Player {
 
     public void setHasGuessed(boolean hasGuessed) {
         this.hasGuessed = hasGuessed;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "username='" + username + '\'' +
+                '}';
     }
 }
