@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import "./App.css";
 import Modal from "@mui/material/Modal";
 import { Snackbar, Alert } from "@mui/material";
@@ -9,6 +9,9 @@ import ListWords from "./components/ListWords/ListWords";
 import BecomeMod from "./components/ModRequest/BecomeMod";
 import { useAuth } from "./components/Context/AuthContext";
 import EmojiKeyboard from "./components/Keyboard/EmojiKeyboard";
+import { useNavigate } from "react-router-dom";
+import { Game } from "./components/game/game.jsx";
+import { GameCtx } from "./gameCtx.jsx";
 
 function App() {
   const { token, logout, user } = useAuth();
@@ -25,6 +28,8 @@ function App() {
   const [openModAlert, setOpenModAlert] = useState(false);
   const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false);
   const [openModAlreadyAlert, setOpenModAlreadyAlert] = useState(false);
+
+  let game = useContext( GameCtx );
 
   // Snackbar for Become Mod request status
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -120,22 +125,26 @@ function App() {
       </div>
 
       <div className="main">
-        <input
-          className="input"
-          type="text"
-          placeholder="nickname"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          ref={inputRef}
-          onFocus={() => setShowEmojiKeyboard(true)}
-        />
-        {showEmojiKeyboard && (
-          <div ref={emojiKeyboardRef}>
-            <EmojiKeyboard onEmojiSelect={handleEmojiSelect} />
-          </div>
-        )}
-        <button className="button">Play</button>
-        <button className="joinButton">Join Party 🎉</button>
+        {
+          game.inGame ? ( <Game /> ) : (<>
+            <input
+              className="input"
+              type="text"
+              placeholder="nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              ref={inputRef}
+              onFocus={() => setShowEmojiKeyboard(true)}
+            />
+            {showEmojiKeyboard && (
+              <div ref={emojiKeyboardRef}>
+                <EmojiKeyboard onEmojiSelect={handleEmojiSelect} />
+              </div>
+            )}
+            <button className="button">Play</button>
+            <button className="joinButton" onClick={ () => game.joinGame(1, nickname) }>Join Party 🎉</button>
+          </>)
+        }
       </div>
 
       <Modal open={activeModal === "login"} onClose={() => setActiveModal(null)}>
@@ -186,6 +195,8 @@ function App() {
       </Snackbar>
     </div>
   );
+
+
 }
 
 export default App;

@@ -1,0 +1,36 @@
+.playersBar.hasGuessed {
+    background-color: green;
+    
+}
+
+.playersBar {
+    overflow: auto;
+
+}
+
+.playerStats {
+    overflow: auto;
+
+}
+
+.playerStats {
+    display: block;
+
+}
+
+.wordChooser {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+
+}
+
+.wordChoice {
+    border-radius: 7px;
+
+}
+
+.wordChoice:hover {
+    border: 2px solid black;
+
+}

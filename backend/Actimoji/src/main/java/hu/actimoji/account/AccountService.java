@@ -45,6 +45,7 @@ public class AccountService implements UserDetailsService {
         account.setPassword(passwordEncoder.encode(password));
 
         return accountRepository.save(account);
+
     }
 
     public Account getAccountByUsername(String username) {
