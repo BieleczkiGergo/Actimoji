@@ -1,176 +1,229 @@
-/* Alap stílusok */
+/* Alap konténer */
 .gameFrame {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #EEF4ED;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  /* Játék szakasz konténer */
-  .game {
-    background-color: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    min-height: 200px;
-    text-align: center;
-  }
-  
-  .waiting, .preparing, .ingame, .roundover, .gameover {
-    color: #3B7080;
-  }
-  
-  /* Játékos sáv */
-  .playersBar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 12px;
-    background-color: #FF6B35;
-    border-radius: 12px;
-    color: white;
-    font-weight: bold;
-    justify-content: center;
-  }
-  
-  .playersBar p {
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 6px 12px;
-    border-radius: 10px;
-    transition: background-color 0.2s ease;
-  }
-  
-  .playersBar p:hover {
-    background-color: rgba(255, 255, 255, 0.35);
-  }
-  
-  .hasGuessed {
-    background-color: #3B7080 !important;
-    color: #fff;
-  }
-  
-  /* Chat */
-  .chatBar {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #f1f5f2;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Játék szekció */
+.game {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.waiting,
+.preparing,
+.ingame,
+.roundover,
+.gameover {
+  color: #365a69;
+  font-size: 18px;
+}
+
+/* Játékos sor */
+.playersBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(200, 200, 200, 0.3);
+  color: #3b7080;
+  font-weight: 600;
+  justify-content: center;
+}
+
+.playersBar p {
+  background-color: rgba(240, 248, 255, 0.7);
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  color: #2f3e46;
+}
+
+.playersBar p:hover {
+  background-color: rgba(225, 238, 248, 0.9);
+}
+
+.hasGuessed {
+  background-color: #365a69 !important;
+  color: #fff !important;
+}
+
+/* Chat */
+.chatBar {
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.messages {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 10px;
+  color: #2f3e46;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Beviteli sor */
+.yourMessage {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.yourMessage input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #365a69;
+  font-size: 14px;
+  outline: none;
+}
+
+.yourMessage button {
+  background-color: #365a69;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.yourMessage button:hover {
+  background-color: #2b4752;
+}
+
+/* Szóválasztó */
+.wordChooser {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.wordChoice {
+  background-color: #fa541c;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.wordChoice:hover {
+  background-color: #e14a18;
+  transform: scale(1.05);
+}
+
+/* Pontszámok */
+.playerStats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: bold;
+  color: #2f3e46;
+  align-items: center;
+}
+
+/* Reszponzívitás */
+@media (max-width: 768px) {
+  .gameFrame {
     padding: 16px;
-    background-color: #f7f7f7;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    display: flex;
+  }
+
+  .game {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .playersBar {
     flex-direction: column;
-    gap: 10px;
-  }
-  
-  .messages {
-    max-height: 200px;
-    overflow-y: auto;
-    padding-right: 10px;
-    color: #36454F;
-    font-size: 14px;
-    line-height: 1.4;
-  }
-  
-  /* Üzenet beviteli rész */
-  .yourMessage {
-    display: flex;
-    gap: 10px;
     align-items: center;
-  }
-  
-  .yourMessage input {
-    flex: 1;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: 1px solid #3B7080;
     font-size: 14px;
-    outline: none;
-  }
-  
-  .yourMessage button {
-    background-color: #3B7080;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-  }
-  
-  .yourMessage button:hover {
-    background-color: #2a5666;
-  }
-  
-  /* Szóválasztás */
-  .wordChooser {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
     padding: 10px;
   }
-  
-  .wordChoice {
-    background-color: #FF6B35;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: all 0.2s ease-in-out;
+
+  .playersBar p {
+    font-size: 13px;
+    padding: 5px 10px;
   }
-  
-  .wordChoice:hover {
-    background-color: #e65b2b;
-    transform: scale(1.05);
+
+  .messages {
+    font-size: 13px;
+    max-height: 150px;
   }
-  
-  /* Ponttábla */
-  .playerStats {
-    display: flex;
+
+  .yourMessage {
     flex-direction: column;
-    gap: 6px;
-    font-weight: bold;
-    color: #36454F;
-    align-items: center;
+    align-items: stretch;
   }
-  
-  /* Responsiveness */
-  @media (max-width: 600px) {
-    .gameFrame {
-      padding: 12px;
-    }
-  
-    .yourMessage {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  
-    .yourMessage button {
-      width: 100%;
-    }
-  
-    .wordChoice {
-      font-size: 14px;
-      padding: 8px 12px;
-    }
-  
-    .playersBar {
-      font-size: 14px;
-      gap: 8px;
-    }
-  
-    .messages {
-      font-size: 13px;
-    }
+
+  .yourMessage button {
+    width: 100%;
   }
-  
+
+  .wordChoice {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .wordChooser {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gameFrame {
+    padding: 12px;
+  }
+
+  .game {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .wordChoice {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .chatBar {
+    padding: 10px;
+  }
+
+  .messages {
+    max-height: 120px;
+  }
+}
