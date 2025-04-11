@@ -75,15 +75,13 @@ function Game(){
         
     }
 
-    return <div style={ styles.gameFrame }>
-        <h2>This is the game element</h2>
-        <PlayersBar />
+    return <div className={ styles.gameFrame }>
+    <h2>Player list:</h2>
+    <PlayersBar />
+    { gameBody }
+    <ChatBar chat={ game.chat } disabled={ game.isWriting } sendChatMessage={game.sendChatMessage}/>
+</div>
 
-        { gameBody }
-
-        <ChatBar chat={ game.chat } disabled={ game.isWriting } sendChatMessage={game.sendChatMessage}/>
-
-    </div>
 
 }
 
