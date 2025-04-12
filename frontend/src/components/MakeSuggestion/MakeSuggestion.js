@@ -27,24 +27,32 @@ function MakeSuggestion() {
     };
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:8080/suggest/", {
-            type: type,  // "operation" átnevezve "type"-ra
-            word_id: selectedWord ? selectedWord.id : 1,  // Ha nincs kiválasztott szó, akkor 1 (Create esetén)
-            new_word: data.new_word,
-            new_icons: data.new_icons,
+        const payload = {
+            type,
+            word_id: selectedWord ? selectedWord.id : 1, // a backend mindig kéri, szóval adjunk 1-et defaultnak
             reason: data.reason,
-            poster: poster  // A bejelentkezett user ID-ja
-        }, {
-            headers: { Authorization: `Bearer ${token}` }  // Token átadása az axios kérésben
+            poster
+        };
+    
+        if (type === 0 || type === 1) {
+            // csak create vagy modify esetén van értelme a new_word és new_icons mezőknek
+            payload.new_word = data.new_word;
+            payload.new_icons = data.new_icons;
+        }
+    
+        axios.post("http://localhost:8080/suggest/", payload, {
+            headers: { Authorization: `Bearer ${token}` }
         })
         .then(response => {
             console.log("Successfully submitted:", response.data);
             reset();
+            setSelectedWord(null); // sikeres beküldés után nullázzuk
         })
         .catch(error => {
             console.error("Error occurred during submission:", error);
         });
     };
+    
 
     return (
         <>
