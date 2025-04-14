@@ -1,7 +1,16 @@
-= Application documentation
+= Application Documentation
 
-Requirements specification
+== Overview
+This is the application documentation for the system. It includes links to the key sections of the documentation.
 
+== Requirements Specification
+The requirements for the system, including functional, non-functional, and system requirements, are detailed in the following document:
+link:requirements.adoc[Requirements specification]
+
+== Developer Documentation - System Plan
+The developer documentation and system plan, outlining the architecture and technical details of the application, can be found here:
 link:system-plan.adoc[Developer documentation - system plan]
 
-User documentation
+== User Documentation
+For information about how end users interact with the system, refer to the following document:
+link:user-documentation.adoc[User documentation]

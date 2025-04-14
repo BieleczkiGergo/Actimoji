@@ -1,6 +1,6 @@
 = Word Management - Functional Model
 
-====== Created by: Kocsis Álkos, Molnár Dávid, Bieleczki Gergő Péter
+====== Created by: Bieleczki Gergő Péter, Kocsis Ákos, Molnár Dávid,
 
 == Description
 
