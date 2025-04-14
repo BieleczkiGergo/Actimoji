@@ -1,0 +1,182 @@
+= Requirements Specification
+
+== Purpose
+
+This document defines the core requirements for the application, ensuring that it meets the needs of all stakeholders. It will cover both functional and non-functional requirements, providing a foundation for development and testing.
+
+== Scope
+
+The system will provide an interactive word game where users need to guess the word from emojis and also they can propose new words, manage existing words, and perform various tasks based on their role (e.g., general user, moderator). The application will be accessible on web and mobile platforms.
+
+== Functional Requirements
+
+=== 1. User Registration and Authentication
+
+[NOTE]
+====
+**Description:** Users must be able to register by providing a valid email address, a username, and a password.
+
+- **Precondition:** The user does not need to be logged in.
+- **Post-condition:** User account is created and can log in.
+
+**Use Case:**
+- A new user registers by entering their email, username, and password.
+====
+
+=== 2. Role Management
+
+[NOTE]
+====
+**Description:** There are three types of users: general users, authenticated users, and moderators. Roles should be assignable based on the user’s registration and privileges.
+
+- **Precondition:** User registration must be completed.
+- **Post-condition:** User is assigned the appropriate role (e.g., general user, moderator).
+
+**Use Case:**
+- General users can play the game
+- Authenticated users can propose changes in connection with words, can apply for moderator.
+- Moderators can approve or reject word proposals and moderator requests.
+====
+
+=== 3. Word Management
+
+[NOTE]
+====
+**Description:** The system will allow users to propose new words, modify existing words, and delete words. Proposals will be reviewed by moderators.
+
+- **Precondition:** User must be authenticated to propose words.
+- **Post-condition:** New word is proposed.
+
+**Use Case:**
+- A user submits a new word for approval by moderators.
+- Moderators review, approve, or reject the submitted word.
+====
+
+=== 4. Proposal and Review
+
+[NOTE]
+====
+**Description:** All word proposals made by users must go through a review process by moderators. Moderators have the ability to approve or reject proposals.
+
+- **Precondition:** A word must be proposed by an authenticated user.
+- **Post-condition:** Word is either added, modified, deleted, or rejected.
+
+**Use Case:**
+- User submits a proposal to add, change, or delete a word.
+- Moderator reviews the word and either accepts or rejects the proposal.
+====
+
+=== 5. Game Mechanics
+
+[NOTE]
+====
+**Description:** The application will provide an interactive word game, where users must guess the correct word from a series of emojis representing the word. Users will take turns proposing words and guessing based on the emojis shown.
+
+- **Precondition:** Users must join a room to play the game.
+- **Post-condition:** The game progresses, either a new word is revealed, or a turn ends.
+
+**Use Case:**
+- A user enters the game room.
+- Another user displays a word represented by emojis.
+- The user attempts to guess the word.
+- If the user guesses the word correctly, the round ends and the guesser becomes the writer.
+- If the user guesses incorrectly, the system allows another attempts until the time is up.
+- After a set number of rounds or after the game ends, the system displays a leaderboard with the most successful players.
+====
+
+=== 6. Game Room Management
+
+[NOTE]
+====
+**Description:** Players can join a game room. A game room will allow a fixed number of players and will track the game's progress, including the number of rounds and the current word being guessed.
+
+- **Precondition:** The user must be registered and authenticated to join or create a game room.
+- **Post-condition:** A game room is created, or the user joins an existing room, and the game begins.
+
+**Use Case:**
+- A user creates a new game room, specifying the number of rounds and the maximum number of players.
+- Other users can join the room by searching for it.
+- The game begins when the required number of players have joined.
+- Players take turns proposing and guessing words until the game ends or reaches its set limit.
+====
+
+=== 7. Player Interaction
+
+[NOTE]
+====
+**Description:** Players in the game can interact with each other via chat messages, either to discuss the current word, ask for hints, or engage in friendly banter.
+
+- **Precondition:** The user must be in an active game room.
+- **Post-condition:** Players can communicate via a chat interface during the game.
+
+**Use Case:**
+- Players use the in-game chat system to communicate during the game.
+- Users can send messages to all players or specific individuals within the game room.
+====
+
+=== 8. Game Progression and Scoring
+
+[NOTE]
+====
+**Description:** The game will track the number of successful word guesses by each player and assign scores based on the time taken to guess and the accuracy of guesses. A leaderboard will be shown at the end of the game.
+
+- **Precondition:** Players must join a room and actively participating in the game.
+- **Post-condition:** Scores are calculated, and a leaderboard is displayed at the end of the game.
+
+**Use Case:**
+- Players earn points for correctly guessing a word in fewer attempts or within a limited time frame.
+- The system displays a leaderboard with the scores of all players at the end of the game.
+- The system can store historical results to provide ongoing competition among players.
+====
+
+== Non-Functional Requirements
+
+=== 1. Performance
+
+[NOTE]
+====
+**Description:** The system must handle up to 1,000 concurrent users without significant performance degradation.
+
+- **Precondition:** The server must be capable of handling the expected load.
+- **Post-condition:** User requests are processed efficiently.
+====
+
+=== 2. Scalability
+
+[NOTE]
+====
+**Description:** The system must be scalable, allowing for future growth, including handling more users and word entries.
+
+- **Precondition:** System infrastructure must be designed for scalability.
+- **Post-condition:** The system can be scaled horizontally and vertically as needed.
+====
+
+=== 3. Security
+
+[NOTE]
+====
+**Description:** The application must ensure secure data transmission (using HTTPS) and protect sensitive user information, such as passwords.
+
+- **Precondition:** Users provide sensitive data (email, password).
+- **Post-condition:** Data is encrypted and protected from unauthorized access.
+====
+
+=== 4. Compatibility
+
+[NOTE]
+====
+**Description:** The system must be compatible with both web browsers and mobile devices, ensuring a smooth user experience across platforms.
+
+- **Precondition:** Users access the system via different devices (e.g., desktop, tablet, mobile).
+- **Post-condition:** User interface is responsive and works seamlessly across devices.
+====
+
+=== 5. Usability
+
+[NOTE]
+====
+**Description:** The application should be intuitive and easy to use for all types of users, including general users, authenticated users, and moderators.
+
+- **Precondition:** The system must be designed with the user in mind, focusing on simplicity and clarity.
+- **Post-condition:** Users can interact with the system efficiently without confusion.
+====

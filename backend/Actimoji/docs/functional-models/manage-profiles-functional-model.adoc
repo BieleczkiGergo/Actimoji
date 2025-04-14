@@ -1,0 +1,140 @@
+= Manage Profiles - Functional Model
+
+== Description
+
+This functional module handles user account management, including registration, authentication, and role assignment. Users may be guests, registered users, or moderators with different permissions within the application.
+
+== Use Cases
+
+[cols="1h,4"]
+|===
+| Use Case
+| Registering a New User
+
+| Identifier
+| UC_A_Register
+
+| Triggering Event
+| The user wants to register a new account
+
+| Users
+| General User
+
+| Primary Flow
+|
+
+    The user navigates to the registration interface
+
+    The user enters their email, password, and optional username
+
+    The system validates the input and creates the account
+
+    A success message is displayed
+
+| Exceptions and Alternatives
+| Email already exists
+
+| Post condition
+| A new user is created and can log in
+
+| Result
+| User is redirected to the login screen
+
+| Use Case Realization
+| AuthController.register()
+
+|===
+
+[cols="1h,4"]
+|===
+| Use Case
+| Logging In
+
+| Identifier
+| UC_A_Login
+
+| Triggering Event
+| The user wants to log in
+
+| Users
+| General User
+
+| Primary Flow
+|
+
+    The user navigates to the login screen
+
+    The user enters their credentials
+
+    The system validates the credentials and issues a JWT token
+
+| Exceptions and Alternatives
+| Invalid credentials
+
+| Post condition
+| JWT token is generated
+
+| Result
+| The user is authenticated
+
+| Use Case Realization
+| AuthController.login()
+
+|===
+
+[cols="1h,4"]
+|===
+| Use Case
+| Applying for Moderator
+
+| Identifier
+| UC_A_ApplyModerator
+
+| Triggering Event
+| The user wants to apply for a moderator role
+
+| Users
+| Authenticated User
+
+| Primary Flow
+|
+
+    The user clicks the “Become mod” button
+
+    A request is sent to the backend
+
+    Admin can review and approve or reject the request
+
+| Exceptions and Alternatives
+| User is already a moderator
+
+| Post condition
+| Request recorded
+
+| Result
+| Moderator request is pending
+
+| Use Case Realization
+| ModeratorRequestController.request()
+
+|===
+
+== Permissions
+
+[cols="1,1,1"]
+|===
+| Use Case | Permission | Roles
+
+| Registering a New User
+| ACCOUNT_CREATE
+| General User
+
+| Logging In
+| ACCOUNT_LOGIN
+| General User
+
+| Applying for Moderator
+| MODERATOR_APPLY
+| Authenticated User
+
+|===

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ReadSuggestion.module.css";
 import axios from "axios";
-import { useAuth } from "../Context/AuthContext";  // Importáljuk az AuthContext-et
+import { useAuth } from "../Context/AuthContext";  // AuthContext importálása
 
 function ReadSuggestion() {
   const navigate = useNavigate();
@@ -18,8 +18,11 @@ function ReadSuggestion() {
   }
 
   useEffect(() => {
+    if (user?.id) {
+      setUserId(user.id);
+    }
     loadData();
-  }, []);
+  }, [user]);
 
   function handleSuggestion(suggestionId, action) {
     axios
@@ -31,7 +34,6 @@ function ReadSuggestion() {
       .catch((error) => console.error(`Error ${action}ing suggestion:`, error));
   }
 
-  // A `review.operation` alapján a megfelelő szöveg visszaadása
   function getOperationText(operation) {
     switch (operation) {
       case 0:
@@ -49,27 +51,31 @@ function ReadSuggestion() {
     <div className={styles.container}>
       {/* Sidebar */}
       <div className={styles.sidebar}>
-        <div className={styles.sidebarHeader}>
+        <div className={styles.sidebarFixed}>
           <div className={styles.sidebarProfile}>
-            {/* Felhasználó neve dinamikusan */}
-            <div className={styles.profileName}>{user?.sub || "Guest"}</div> {/* Ha nincs bejelentkezve, akkor "Guest" */}
+            <div className={styles.profileName}>{user?.sub || "Guest"}</div>
             <div className={styles.profileAvatar}>👤</div>
           </div>
+          <button className={styles.sidebarButton} onClick={() => navigate("/")}>
+            Home
+          </button>
         </div>
-        <button className={styles.sidebarButton} onClick={() => navigate("/")}>
-          Home
-        </button>
       </div>
 
       {/* Main content */}
       <div className={styles.mainContent}>
+        <div className={styles.sidebarSpacer}></div>
         <div className={styles.reviewList}>
           {reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review.suggestionId} className={styles.reviewItem}>
-                <p className={styles.p}><strong>Old word:</strong> {review.old_word}</p>
-                <p className={styles.p}><strong>New word:</strong> {review.new_word}</p>
-                <p className={styles.p}><strong>Operation:</strong> {getOperationText(review.operation)}</p> {/* Operáció szöveg */}
+                {review.operation !== 0 && (
+                  <p className={styles.p}><strong>Old word:</strong> {review.old_word}</p>
+                )}
+                {review.operation !== 2 && (
+                  <p className={styles.p}><strong>New word:</strong> {review.new_word}</p>
+                )}
+                <p className={styles.p}><strong>Operation:</strong> {getOperationText(review.operation)}</p>
                 <p className={styles.p}><strong>Reason:</strong> {review.reason}</p>
 
                 <div className={styles.buttonContainer}>

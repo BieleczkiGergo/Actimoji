@@ -1,28 +1,46 @@
-/* App.css */
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  height: 100vh;
-  background-color: #EEF4ED;
+/* Alap reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #EEF4ED;
+  overflow-x: hidden;
+}
+
+/* Fő konténer */
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Sidebar */
 .sidebar {
   width: 20%;
   background-color: #FF6B35;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
   color: #fff;
-  height: 98.4vh;     /*MIÉRT???????*/
-  position: relative;
+  flex-shrink: 0;
 }
 
+/* Profil box */
 .profile {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: 90%;
   margin-bottom: 20px;
   padding: 10px;
   background-color: #3B7080;
@@ -46,8 +64,7 @@
   padding: 10px 15px;
   margin: 10px 0;
   cursor: pointer;
-  width: 80%;
-  height: 40px;
+  width: 90%;
   font-size: 14px;
   transition: background-color 0.3s ease;
 }
@@ -56,38 +73,44 @@
   background-color: #2a2a2a;
 }
 
+/* Main tartalom */
 .main {
-  flex: 1;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 30px 20px;
+  width: 100%;
+  min-width: 0;
 }
 
+/* Input mező */
 .input {
-  width: 50%;
-  padding: 10px;
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
   margin: 10px 0;
   border-radius: 8px;
   border: 2px solid #3B7080;
   font-size: 16px;
 }
 
+/* Gombok */
 .button,
 .joinButton {
   background-color: #FF6B35;
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: 12px;
   margin: 10px 0;
-  cursor: pointer;
   font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  max-width: 500px;
   transition: all 0.3s ease;
+  text-align: center;
 }
 
 .joinButton {
@@ -123,6 +146,7 @@
   right: 0;
 }
 
+/* Login modal konténer */
 .loginParent {
   position: absolute;
   top: 50%;
@@ -136,12 +160,12 @@
   border-radius: 8px;
 }
 
-/* Emoji Keyboard styles */
+/* Emoji billentyűzet */
 .keyboard {
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
-  background-color: EEF4ED;
+  background-color: #EEF4ED;
   border: 2px solid #3B7080;
   border-radius: 8px;
   width: 220px;
@@ -164,6 +188,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .emoji-button {
@@ -180,71 +206,47 @@
   background-color: #2a5666;
 }
 
-/* Media Queries */
-@media (max-width: 1200px) {
-  .sidebar {
-    width: 25%;
-  }
-  .main {
-    padding: 15px;
-  }
-  .input {
-    width: 60%;
-  }
-}
-
-@media (max-width: 992px) {
+/* Reszponzivitás */
+@media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
-  .sidebar {
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  .main {
-    width: 100%;
-    align-items: flex-start;
-  }
-  .input,
-  .button,
-  .joinButton {
-    width: 80%;
-  }
-}
 
-@media (max-width: 768px) {
   .sidebar {
     width: 100%;
-    height: auto;
-  }
-  .main {
-    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 10px;
   }
+
+  .sidebarButton {
+    width: 45%;
+    margin: 5px;
+  }
+
+  .main {
+    padding: 20px;
+    width: 100%;
+  }
+
   .input,
   .button,
   .joinButton {
     width: 100%;
   }
-}
 
-@media (max-width: 480px) {
   .profile {
     flex-direction: column;
     align-items: center;
     width: 100%;
   }
+
   .name {
     font-size: 14px;
   }
+
   .avatar {
     font-size: 18px;
-  }
-  .sidebarButton,
-  .input,
-  .button,
-  .joinButton {
-    width: 90%;
   }
 }
