@@ -9,7 +9,7 @@ function MakeSuggestion() {
     const { token, user } = useAuth(); // Token és user beszerzése az AuthContext-ből
     const [activeTab, setActiveTab] = useState("Create");
     const [type, setType] = useState(0);  // "operation" átnevezve "type"-ra
-    const [poster, setPoster] = useState(user?.sub || 1);  // A bejelentkezett user ID-ja (vagy 1, ha nincs bejelentkezve)
+    const [poster, setPoster] = useState(user?.id || 1);  // A bejelentkezett user ID-ja (vagy 1, ha nincs bejelentkezve)
     const [selectedWord, setSelectedWord] = useState(null);  // A kiválasztott szó
     const [openListWords, setOpenListWords] = useState(false);  // ListWords modál állapota
 
