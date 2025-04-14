@@ -7,6 +7,7 @@
   border-radius: 8px;
   width: 250px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
 }
 
 .emoji {
@@ -15,17 +16,21 @@
   margin: 5px;
   transition: transform 0.2s ease-in-out;
   color: #3B7080; /* Emeléssel kiemelt szín */
+
 }
 
 .emoji:hover {
   transform: scale(1.2);
+
 }
+
 /* Gombok stílusa */
 .pagination {
   display: flex;
   justify-content: center; /* Középre igazítás */
   align-items: center;
   margin-top: 10px;
+
 }
 
 .paginationButton {
@@ -39,20 +44,34 @@
   margin: 0 10px;
   transition: all 0.3s ease; /* Animáció a hover állapotnál */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Finom árnyék */
+
 }
 
 .paginationButton:hover {
   background-color: #2a5666; /* Sötétebb háttér a hover állapotnál */
   transform: scale(1.1); /* Finom méretnövekedés */
+
 }
 
 .paginationButton:disabled {
   background-color: #ccc;
   cursor: not-allowed;
   box-shadow: none;
+
 }
 
 .pagination span {
   font-size: 16px;
   color: #3B7080; /* Oldalszám színe */
+
+}
+
+.emojiNameInput {
+  display: block;
+  width: 100%;
+  background-color: #00ff00f0;
+
+  padding-bottom: 10px;
+  margin: auto;
+
 }

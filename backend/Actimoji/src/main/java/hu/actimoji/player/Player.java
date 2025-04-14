@@ -30,7 +30,7 @@ public class Player {
 
     public void leaveRoom(){
         System.out.println("leaving room");
-        this.room.removePlayer(this);
+        this.room.handlePlayerLeave(this);
 
     }
 
@@ -39,10 +39,10 @@ public class Player {
 
     }
 
-    public void receiveCommand(Message message){
+    public void handleCommand(Message message){
+        System.out.println("sending comand to: " + this.username);
         try {
             session.sendMessage( new TextMessage( message.toJsonString() ) );
-            System.out.println("Sent message");
 
         } catch (IOException e) {
             try {

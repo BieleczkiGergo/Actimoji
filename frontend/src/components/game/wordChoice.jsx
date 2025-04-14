@@ -7,16 +7,19 @@ function WordChoice(){
 
     const { wordChoice, chooseWord } = game;
 
-    console.log( wordChoice );
+    console.log( wordChoice[0].bannedIcons );
 
     return <div className={ styles.wordChooser }>
-        { wordChoice.map( word =>
+        { wordChoice.map( ({word, bannedIcons}) =>
             <h2 
                 key={ word }
                 className={ styles.wordChoice }
-                onClick={ () => chooseWord(word)}
+                onClick={ () => chooseWord( word ) }
             >
-                {word}
+                <p>{ word }</p>
+                <br />
+                <p>{ bannedIcons }</p>
+
             </h2>
 
         )}

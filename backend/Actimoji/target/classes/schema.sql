@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `suggestion`
     );
 
 CREATE TABLE IF NOT EXISTS `modrequest` (
-    id int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     reason VARCHAR(100) NOT NULL,
     approved BOOLEAN DEFAULT FALSE,
     requested_id int NULL,
@@ -40,3 +40,10 @@ CREATE TABLE IF NOT EXISTS `modrequest` (
     FOREIGN KEY (requested_id) REFERENCES account(id) ON DELETE CASCADE,
     FOREIGN KEY (approved_id) REFERENCES account(id) ON DELETE SET NULL
     );
+
+CREATE TABLE IF NOT EXISTS `emoji` (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    emoji varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    keywords varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;

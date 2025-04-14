@@ -36,7 +36,7 @@ public class GameHandler extends TextWebSocketHandler {
 
         Player player = new Player(session, room, uname);
 
-        room.addPlayer(player);
+        room.handleAddPlayer(player);
 
         playerService.addPlayer(player);
 

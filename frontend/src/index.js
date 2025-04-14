@@ -9,24 +9,29 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ReadSuggestion from "./components/ReadSuggestion/ReadSuggestion";
 import ModReview from "./components/ModRequests/ModRequests.js";
 import { GameProvider } from './gameCtx';
+import { EmojiProvider } from "./components/Keyboard/emojiCtx.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <GameProvider>
-      <AuthProvider>
-        <ReviewProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="/readsuggestion" element={<ReadSuggestion />} />
-              <Route path="/mod/requests" element={<ModReview />} />
-            </Routes>
-          </BrowserRouter>
-        </ReviewProvider>
-      </AuthProvider>
+    <AuthProvider>
+      <ReviewProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={ // tudom, ez csúnya, de ha nem tetszik rendezd el jobban
+              <EmojiProvider><GameProvider>
+                <App />
+              </GameProvider></EmojiProvider>
+            } />
 
-    </GameProvider>
+            <Route path="/readsuggestion" element={<ReadSuggestion />} />
+
+            <Route path="/mod/requests" element={<ModReview />} />
+
+          </Routes>
+        </BrowserRouter>
+      </ReviewProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

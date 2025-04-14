@@ -1,5 +1,4 @@
-import { createContext, useState, useEffect, useRef } from "react";
-
+import { createContext, useState, useEffect } from "react";
 
 let GameCtx = createContext({});
 
@@ -10,27 +9,9 @@ let GameCtx = createContext({});
 async function findRandomGame(){
     // TODO: implemet finding random game
     return 1;
+    
 }
 
-/**
- * 
- * @param {number} timestamp The timestamp
- * @returns a date object, showing the end of the current game cycle
- */
-function decodeTimestamp( timestamp ){
-    return new Date( timestamp );
-
-}
-
-/**
- * 
- * @param {Date} cycleEndTime The end of the game cycle
- * @returns A string representing how much time is left of the current game cycle
- */
-function formatTimestamp( cycleEndTime ){
-    return cycleEndTime.toLocaleString; // TODO: implement a better formatting for this
-
-}
 
 let socket = null;
 
@@ -46,11 +27,17 @@ function GameProvider({ children }){
     let [error, setError] = useState( "" );
     let [inGame, setInGame] = useState( false );
     let [playerPoints, setPlayerPoints] = useState( [] );
+    let [bannedIcons, setBannedIcons] = useState( "" );
 
     useEffect( () => {
         setInGame( false );
 
     }, []);
+
+    useEffect( () => {
+        console.log("word choice: ", wordChoice);
+
+    }, [ wordChoice ]);
 
     function sendChatMessage( message ){
         socket.send( message );
@@ -131,26 +118,27 @@ function GameProvider({ children }){
                     setCycle("prepare");
                     setWriting( args.isWriting );
                     setWordChoice( args.wordChoice );
-                    setRoundEnd( decodeTimestamp( args.endTimestamp ) );
+                    setRoundEnd( args.endTimestamp );
                     break;
 
                 case "rr": // round (ingame)
                     setCycle("ingame");
-                    setHelper( args.placeholder );
-                    setRoundEnd( decodeTimestamp( args.endTimestamp ) );
+                    setHelper( args.placeholder.word );
+                    setBannedIcons( args.placeholder.bannedIcons );
+                    setRoundEnd( args.endTimestamp );
                     break;
 
                 case "ro": // round over
                     setCycle("roundover");
                     setHelper( args.prompt );
                     setPlayerPoints( args.playerStats );
-                    setRoundEnd( decodeTimestamp( args.endTimestamp ) );
+                    setRoundEnd( args.endTimestamp );
                     break;
 
                 case "go": // game over
                     setCycle("gameover");
                     setPlayerPoints( args.playerStats );
-                    setRoundEnd( decodeTimestamp( args.endTimestamp ) );
+                    setRoundEnd( args.endTimestamp );
                     break;
                 
                 case "pu": // player update
@@ -201,7 +189,7 @@ function GameProvider({ children }){
 
     return <GameCtx.Provider value={{
             players, chat, cycle, description, helper, roundEnd, writing,
-            wordChoice, error, inGame, playerPoints,
+            wordChoice, error, inGame, playerPoints, bannedIcons,
 
             sendChatMessage, sendDescription, chooseWord, disconnect, joinGame
 
@@ -212,8 +200,8 @@ function GameProvider({ children }){
 }
 
 /* TODO: amik még kellenek:
-    emoji szűrő
-    időzítő kiíratás, megformázás
+    enum játékciklus tárolására
+    emoji billentyűzet
 
 */
 

@@ -17,8 +17,10 @@ public class WordService {
 
     }
 
-    public List<String> getWordChoice(int words){
-        return wordRepository.getRandomWords( words ).stream().map(Word::getWord).collect(Collectors.toList());
+    public List<WordRead> getWordChoice(int words){
+        return wordRepository.getRandomWords( words ).stream()
+                .map( WordRead::new )
+                .collect(Collectors.toList());
 
     }
 }

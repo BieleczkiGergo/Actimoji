@@ -5,19 +5,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.actimoji.game.GameEvents;
 import hu.actimoji.game.GameUtils;
+import hu.actimoji.word.WordRead;
 
 import java.util.List;
 
 public class RoundOverMessage extends GameStateMessage{
 
     @JsonProperty("prompt")
-    String prompt;
+    WordRead prompt;
+
     @JsonProperty("playerStats")
     List<PlayerStats> playerStats;
+
     @JsonProperty("endTimestamp")
     long endTimeStamp;
 
-    public RoundOverMessage(String prompt, List<PlayerStats> playerStats, long endTimeStamp) {
+    public RoundOverMessage(WordRead prompt, List<PlayerStats> playerStats, long endTimeStamp) {
         this.prompt = prompt;
         this.playerStats = playerStats;
         this.endTimeStamp = endTimeStamp;

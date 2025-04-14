@@ -35,7 +35,8 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
                                 "/game/room/*",
-                                "socket_test.html", "socket_test_script.js", "socket_test_style.css"
+                                "/socket_test.html", "/socket_test_script.js", "/socket_test_style.css",
+                                "/emoji/getAll"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

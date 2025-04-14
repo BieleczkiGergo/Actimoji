@@ -4,12 +4,23 @@ import hu.actimoji.game.GameState;
 import hu.actimoji.game.GameUtils;
 import hu.actimoji.game.message.*;
 import hu.actimoji.player.Player;
+import hu.actimoji.word.WordRead;
 import hu.actimoji.word.WordService;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
+/**
+ * This class handles the meat of the game logic, and it's the most complicated one. However, with some clever naming
+ * conventions, it can be made easier to understand. These naming conventions might apply to other classes as well, such
+ * as the Player class.
+ * <br>
+ * Event handling methods are prefixed with "handle" such as: handlePlayerMessage, handlePlayerLeave etc...
+ * Methods that directly affect all players are prefixed with "broadcast" such as:  broadcastPlayerUpdate
+ * <br>
+ * Future developers: please give very clear names to everything in this file.
+ */
 public class Room {
     // TODO: implement room closing
 
@@ -28,42 +39,42 @@ public class Room {
     private final static int MAX_POINTS_PER_ROUND = 1000;
 
     private final List<Player> players;
-    private String currentPrompt;
+    private WordRead currentPrompt;
     private int currentWriter;
     private int round;
     private Timer timer;
     private GameState gameState;
     private Instant stateEnd;
 
-    private List<String> wordChoice;
+    private List<WordRead> wordChoice;
     private final WordService wordService;
-    private String placeholder; // TODO: implement placeholder
+    private WordRead placeholder; // TODO: implement placeholder
 
     public Room( WordService wordService ) {
         this.players = new LinkedList<>();
-        this.currentWriter = 0;
-        this.round = 0;
-        this.currentPrompt = "";
-        this.gameState = GameState.WaitingForPlayers;
         this.wordService = wordService;
+
+        this.resetGame();
 
     }
 
-    public void addPlayer(Player player) throws RoomFullException {
-        // TODO: handle what happens if 2 or more players have the same name
-        if (players.size() >= MAX_PLAYERS) {
-            throw new RoomFullException("Room full");
+    private void resetGame(){
+        if (timer != null)
+            this.timer.cancel();
+
+        this.gameState = GameState.WaitingForPlayers;
+        this.currentPrompt = new WordRead();
+        this.currentWriter = 0;
+        this.round = 0;
+        this.broadCastStateUpdate();
+
+        for (Player p: this.players ) {
+            p.setHasGuessed( false );
+            p.setPoints( 0 );
+            p.setWriting( false );
 
         }
-
-        players.add(player);
-        this.broadcastPlayerUpdate();
-        player.receiveCommand( this.getGameStateMessage( players.size() - 1 ) );
-
-        if( this.gameState == GameState.WaitingForPlayers && players.size() >= MIN_PLAYERS ) {
-            this.nextStage();
-
-        }
+        broadcastPlayerUpdate();
 
     }
 
@@ -125,6 +136,8 @@ public class Room {
             this.currentPrompt = null;
             for( Player p : players ) {
                 p.setHasGuessed( false );
+                p.setPoints( 0 );
+
             }
 
         } else if (this.gameState == GameState.InGame ) {
@@ -132,7 +145,7 @@ public class Room {
                 this.currentPrompt = this.wordChoice.getFirst();
 
             }
-            this.placeholder = "_".repeat(this.currentPrompt.length());
+            this.placeholder = new WordRead("_".repeat(this.currentPrompt.getWord().length()), new ArrayList<>());
             this.players.get( currentWriter ).setHasGuessed( true );
 
         }
@@ -148,13 +161,31 @@ public class Room {
 
     }
 
+    public void handleAddPlayer(Player player) throws RoomFullException {
+        // TODO: handle what happens if 2 or more players have the same name
+        if (players.size() >= MAX_PLAYERS) {
+            throw new RoomFullException("Room full");
+
+        }
+
+        players.add(player);
+        this.broadcastPlayerUpdate();
+        player.handleCommand( this.getGameStateMessage( players.size() - 1 ) );
+
+        if( this.gameState == GameState.WaitingForPlayers && players.size() >= MIN_PLAYERS ) {
+            this.nextStage();
+
+        }
+
+    }
+
     public void handlePlayerMessage(Player player, String message) {
         int index = players.indexOf(player);
 
         // bruh I don't even know how this could happen
         // this would run if the player is not found in the list
         if (index == -1) {
-            removePlayer(player);
+            handlePlayerLeave(player);
             System.out.println("The unthinkable just happened");
             // TODO: implement something crazier for this
             return;
@@ -163,11 +194,15 @@ public class Room {
 
         if( this.gameState == GameState.InGame ) {
             if ( currentWriter == index ) {
-                if ( GameUtils.validateEmojis(message) )
+                System.out.println("Running filter because of: " + player.getUsername());
+                boolean valid = GameUtils.validateEmojis( message, currentPrompt.getBannedIcons() );
+                if ( valid )
                     this.broadcastDescription( message );
+                else
+                    player.handleCommand( new ErrorMessage("The prompt is invalid") );
 
             } else {
-                if( message.equals(currentPrompt)) {
+                if( message.equals( currentPrompt.getWord() ) ) {
                     player.setHasGuessed(true);
                     player.addPoints( getPoints() );
                     this.broadcastPlayerUpdate();
@@ -194,9 +229,9 @@ public class Room {
                 this.broadCastChatMessage( player, message );
 
             } else {
-                for( String word : wordChoice ) {
-                    if( message.equals(word) ) {
-                        this.currentPrompt = message;
+                for( WordRead word : wordChoice ) {
+                    if( message.equals(word.getWord()) ) {
+                        this.currentPrompt = word;
                         this.nextStage();
 
                     }
@@ -211,38 +246,22 @@ public class Room {
 
     }
 
-    private void resetGame(){
-        this.timer.cancel();
-        this.gameState = GameState.WaitingForPlayers;
-        this.currentPrompt = "";
-        this.currentWriter = 0;
-        this.round = 0;
-        this.broadCastStateUpdate();
+    public void handlePlayerLeave(Player player) {
+        final boolean wasCurrentWriter = players.indexOf(player) < currentWriter;
 
-        for (Player p: this.players ) {
-            p.setHasGuessed( false );
-            p.setPoints( 0 );
-            p.setWriting( false );
-
-        }
-        broadcastPlayerUpdate();
-
-    }
-
-    public void removePlayer(Player player) {
-        if ( players.indexOf(player) < currentWriter){
+        if ( players.indexOf(player) < currentWriter ){
             currentWriter--;
 
         }
 
-        players.remove(player);
+        players.remove( player );
+        System.out.println( players );
         this.broadcastPlayerUpdate();
 
-        if (players.size() < MIN_PLAYERS && gameState == GameState.GameOver ) {
+        if (players.size() < MIN_PLAYERS && gameState != GameState.GameOver ) {
             resetGame();
 
-        } else if ( players.indexOf(player) == currentWriter ) {
-            // TODO: this will always be false and I don't even know what it does
+        } else if ( wasCurrentWriter ) {
             this.nextStage();
 
         }
@@ -252,7 +271,7 @@ public class Room {
         ChatMessage chatMessage = new ChatMessage( message, player.getUsername() );
 
         for (Player p : players) {
-            p.receiveCommand( chatMessage );
+            p.handleCommand( chatMessage );
 
         }
 
@@ -262,7 +281,7 @@ public class Room {
         DescriptionMessage descMessage = new DescriptionMessage( description );
 
         for (Player p : players) {
-            p.receiveCommand( descMessage );
+            p.handleCommand( descMessage );
 
         }
 
@@ -270,8 +289,6 @@ public class Room {
 
     private void broadcastPlayerUpdate() {
         List<PlayerUpdateInfo> updateInfos = new LinkedList<>();
-        System.out.print( this.players );
-        System.out.println(" ; current state: " + gameState.toString() );
 
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
@@ -282,7 +299,7 @@ public class Room {
         PlayerUpdateMessage message = new PlayerUpdateMessage(updateInfos);
 
         for (Player player : players) {
-            player.receiveCommand( message );
+            player.handleCommand( message );
 
         }
     }
@@ -290,7 +307,7 @@ public class Room {
     private void broadCastStateUpdate() {
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            player.receiveCommand( this.getGameStateMessage( i ) );
+            player.handleCommand( this.getGameStateMessage( i ) );
 
         }
 

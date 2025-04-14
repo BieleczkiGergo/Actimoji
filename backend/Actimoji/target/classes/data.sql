@@ -1,19 +1,13 @@
--- Inserting data into account table
---INSERT INTO `account` (id, user_name, password, email_address, is_moderator)
---VALUES
---    (1, 'admin', 'admin123', 'admin@example.com', TRUE),
---    (2, 'john_doe', 'password123', 'john.doe@example.com', FALSE),
---    (3, 'Gipszkarton Emil', 'skibidicigany', 'emil@gipszkarton.me', FALSE),
---    (4, 'jane_smith', 'password456', 'jane.smith@example.com', FALSE);
--- Or maybe not. The passwords need to be encoded
+-- Inserting into accounts is done in the service in a PostConstruct method
 
 -- Inserting data into word table (must be done before suggestion)
+--  TODO: !! Important !! only insert icons here with a space between each of them
 INSERT INTO `word` (id, word, banned_icons)
 VALUES
     (1, 'car', '🚗'),
     (2, 'Elon Musk', ''),
     (3, 'engineer', ''),
-    (4, 'melon', '🍉🍈'),
+    (4, 'melon', '🍉 🍈'),
     (5, 'lemon', '🍋'),
     (6, 'horny', ''),
     (7, 'meme', ''),
@@ -28,10 +22,10 @@ VALUES
     (16, 'galaxy', ''),
     (17, 'tired', '😫'),
     (18, 'fight', ''),
-    (19, 'blind', '🧑‍🦯👩‍🦯👨‍🦯🦯'),
+    (19, 'blind', '🧑‍🦯 👩‍🦯 👨‍🦯 🦯'),
     (20, 'goat', '🐐'),
     (21, 'helicopter', ''),
-    (22, 'apple', '🍏🍎'),
+    (22, 'apple', '🍏 🍎'),
     (23, 'murder', '');
 
 INSERT INTO `modrequest` (requested_id, approved_id, reason, approved)
@@ -47,4 +41,3 @@ VALUES
     ,(1, 8, 'idgaf', '',
         'ön egy cégnél dolgozik', 4, NULL, NULL, NULL)
     ;
-
