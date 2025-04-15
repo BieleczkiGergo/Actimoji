@@ -23,7 +23,7 @@ function Description(){
             game.writing ? (
             <>
                 <h2>{ game.helper }</h2>
-                <h2>{ game.bannedIcons.join(" ") }</h2>
+                <h2>Banned icons: <span>{ game.bannedIcons.join(" ") }</span></h2>
                 <h2>{ desc }</h2>
                 <EmojiKeyboard onEmojiSelect={ emoji => setDesc( desc + emoji) } />
 

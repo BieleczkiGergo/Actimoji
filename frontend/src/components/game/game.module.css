@@ -156,6 +156,10 @@
   align-items: center;
 }
 
+.description {
+  font-size: 2rem;
+}
+
 /* Reszponzívitás */
 @media (max-width: 768px) {
   .gameFrame {
