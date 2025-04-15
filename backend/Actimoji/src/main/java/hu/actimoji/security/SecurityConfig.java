@@ -34,7 +34,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
-                                "/game/room/*",
+                                "/game/**",
                                 "/socket_test.html", "/socket_test_script.js", "/socket_test_style.css",
                                 "/emoji/getAll"
                         ).permitAll()

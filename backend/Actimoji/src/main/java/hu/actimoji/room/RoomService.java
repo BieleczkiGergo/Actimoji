@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -43,6 +44,27 @@ public class RoomService {
             throw new RoomNotFoundException("Room with id " + roomId + " not found");
 
         }
+
+    }
+
+    public Long getRandomRoomId() {
+        for( Map.Entry<Long, Room> roomEntry : rooms.entrySet() ){
+            if ( roomEntry.getValue().getNumberOfPlayers() < Room.MAX_PLAYERS ) {
+                return roomEntry.getKey();
+
+            }
+        }
+
+        long id = nextRoomId;
+        createRoom();
+
+        return id;
+    }
+
+    public List<RoomRead> getRooms(){
+        return rooms.entrySet().stream()
+                .map( RoomRead::new )
+                .toList();
 
     }
 }

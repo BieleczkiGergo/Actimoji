@@ -45,6 +45,8 @@ function Game(){
         </div>
 
     } else if( game.cycle == "roundover" ){
+        console.log( "round over ", game.helper );
+
         gameBody = <div className={ styles.game + " " + styles.roundover } >
             <h2>Round over</h2>
             <h2>The word was: { game.helper }</h2>

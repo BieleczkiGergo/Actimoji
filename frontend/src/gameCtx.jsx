@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import axios from "axios";
 
 let GameCtx = createContext({});
 
@@ -7,8 +8,8 @@ let GameCtx = createContext({});
  * @returns The ID of the game room
  */
 async function findRandomGame(){
-    // TODO: implemet finding random game
-    return 1;
+    const roomResponse = await axios.get("http://localhost:8080/game/random");
+    return roomResponse.data;
     
 }
 

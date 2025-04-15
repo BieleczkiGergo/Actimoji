@@ -12,7 +12,7 @@ import java.util.List;
 public class RoundOverMessage extends GameStateMessage{
 
     @JsonProperty("prompt")
-    WordRead prompt;
+    String prompt;
 
     @JsonProperty("playerStats")
     List<PlayerStats> playerStats;
@@ -21,7 +21,7 @@ public class RoundOverMessage extends GameStateMessage{
     long endTimeStamp;
 
     public RoundOverMessage(WordRead prompt, List<PlayerStats> playerStats, long endTimeStamp) {
-        this.prompt = prompt;
+        this.prompt = prompt.getWord();
         this.playerStats = playerStats;
         this.endTimeStamp = endTimeStamp;
 

@@ -24,8 +24,8 @@ import java.util.*;
 public class Room {
     // TODO: implement room closing
 
-    private final static int MAX_PLAYERS = 8;
-    private final static int MIN_PLAYERS = 2;
+    public final static int MAX_PLAYERS = 8;
+    public final static int MIN_PLAYERS = 2;
 
     // All time constants are in milliseconds
     private final static long ROUND_START_TIME = 20 * 1000;
@@ -134,9 +134,14 @@ public class Room {
         if( this.gameState == GameState.RoundStart ) {
             this.wordChoice = wordService.getWordChoice( Room.CHOICE_WORDS );
             this.currentPrompt = null;
-            for( Player p : players ) {
-                p.setHasGuessed( false );
-                p.setPoints( 0 );
+            if( round == 0 ){ // Reset player points only if it's the first round
+                // TODO: maybe this could be done by calling resetGame
+                // anyway, this is in a very bad place
+                for( Player p : players ) {
+                    p.setHasGuessed( false );
+                    p.setPoints( 0 );
+
+                }
 
             }
 
@@ -194,7 +199,6 @@ public class Room {
 
         if( this.gameState == GameState.InGame ) {
             if ( currentWriter == index ) {
-                System.out.println("Running filter because of: " + player.getUsername());
                 boolean valid = GameUtils.validateEmojis( message, currentPrompt.getBannedIcons() );
                 if ( valid )
                     this.broadcastDescription( message );
@@ -347,6 +351,11 @@ public class Room {
         }
 
         return playerStats;
+    }
+
+    public int getNumberOfPlayers(){
+        return this.players.size();
+
     }
 
 }

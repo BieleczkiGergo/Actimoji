@@ -11,25 +11,26 @@ import { useAuth } from "./components/Context/AuthContext";
 import EmojiKeyboard from "./components/Keyboard/EmojiKeyboard";
 import { useNavigate } from "react-router-dom";
 import { Game } from "./components/game/game.jsx";
-import { GameCtx } from "./gameCtx.jsx";
+import { findRandomGame, GameCtx } from "./gameCtx.jsx";
 
 function App() {
   const { token, logout, user } = useAuth();
   const isMod = user?.roles?.includes("ROLE_MODERATOR");
 
-  const [nickname, setNickname] = useState("");
   const [showEmojiKeyboard, setShowEmojiKeyboard] = useState(false);
   const inputRef = useRef(null);
   const emojiKeyboardRef = useRef(null);
-
+  
   const [activeModal, setActiveModal] = useState(null); // Centralized modal state
   const [alertMessage, setAlertMessage] = useState("");
   const [openAlert, setOpenAlert] = useState(false);
   const [openModAlert, setOpenModAlert] = useState(false);
   const [openBecomeModAlert, setOpenBecomeModAlert] = useState(false);
   const [openModAlreadyAlert, setOpenModAlreadyAlert] = useState(false);
-
-  let game = useContext( GameCtx );
+  
+  const game = useContext( GameCtx );
+  const [nickname, setNickname] = useState("");
+  const [roomId, setRoomId] = useState( 0 ); // Garantálom hogy előjön majd valahol
 
   // Snackbar for Become Mod request status
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -89,16 +90,27 @@ function App() {
         emojiKeyboardRef.current &&
         !emojiKeyboardRef.current.contains(event.target) &&
         !inputRef.current.contains(event.target)
+
       ) {
         setShowEmojiKeyboard(false);
+
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+
   }, []);
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
+
+  };
+
+  const handleJoinRandomGame = async () => {
+    const rid = await findRandomGame();
+    setRoomId( rid );
+    game.joinGame( rid, nickname );
+
   };
 
   return (
@@ -107,6 +119,7 @@ function App() {
         <div className="profile">
           <div className="name">{user?.sub || "Guest"}</div>
           <div className="avatar">👤</div>
+
         </div>
 
         <button className="sidebarButton" onClick={handleSuggestionClick}>Make suggestion</button>
@@ -116,10 +129,12 @@ function App() {
 
         {token ? (
           <button className="sidebarButton" onClick={logout}>Logout</button>
+
         ) : (
           <>
             <button className="sidebarButton" onClick={() => setActiveModal("login")}>Login</button>
             <button className="sidebarButton" onClick={() => setActiveModal("signup")}>Sign Up</button>
+
           </>
         )}
       </div>
@@ -139,10 +154,16 @@ function App() {
             {showEmojiKeyboard && (
               <div ref={emojiKeyboardRef}>
                 <EmojiKeyboard onEmojiSelect={handleEmojiSelect} />
+
               </div>
             )}
-            <button className="button">Play</button>
+            <button 
+              className="button"
+              onClick={ handleJoinRandomGame }
+            >
+              Play</button>
             <button className="joinButton" onClick={ () => game.joinGame(1, nickname) }>Join Party 🎉</button>
+
           </>)
         }
       </div>
