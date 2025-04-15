@@ -2,7 +2,7 @@
 
 * link:functional-models.adoc[Functional models]
 
-* Technical models
+* link:technical-models.adoc[Technical models]
 
 * Interface specifications
 
