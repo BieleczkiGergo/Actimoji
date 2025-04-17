@@ -1,0 +1,119 @@
+= User Documentation
+
+== Introduction
+
+Welcome to the Actimoji Game! This guide helps you, as a user, navigate the system, understand the core features, and make the most out of your gameplay experience—whether you're here just for fun or ready to contribute words and moderate content.
+
+== Getting Started
+
+=== Accessing the Application
+
+You can access the game through your web browser or mobile device. No installation is required.
+
+=== Main page
+
+This is the main page, which you will see when you want to play the game.
+image:static/frontend/mainPage.png[main Page]
+
+=== Creating an Account
+
+1. Click on the “Sign up” button.
+2. Fill in your email address, username, and password.
+3. Submit the form to create your account.
+4. After registration, log in to start using the features or if you just want to play, you don't need to have an account.
+
+image:static/frontend/signUp.png[Sign up]
+== User Roles and Permissions
+
+=== Logging into your account
+1. Click on the Login button
+2. Write you username and your password
+3. Press Submit button to login
+image:static/frontend/login.png[Login]
+
+
+There are different roles in the system, each with different capabilities:
+
+|===
+| Role | Capabilities
+
+| General User | Play the game.
+| Authenticated User | All General User features, plus: propose new words, request moderator role.
+| Moderator | All Authenticated User features, plus: review and approve/reject word proposals and moderator requests.
+|===
+
+== Playing the Game
+
+1. Join or create a game room.
+image:static/frontend/joinOrPlay.png[Join or play the game]
+2. Wait for the game to begin once enough players have joined.
+image:static/frontend/waitingForPlayers.png[Waiting for players]
+3. Start the game
+4. If you are a writer, choose a word you want to write with emojis
+image:static/frontend/writer.png[Writer]
+5. If you are a guesser, guess the word based on the emoji clues.
+image:static/frontend/guesser.png[Guesser]
+6. Points are awarded based on speed and accuracy.
+image:static/frontend/points.png[Points]
+
+=== Chat Feature
+
+- You can chat with other players during the game.
+image:static/frontend/chat.png[Chat]
+
+== Word Proposals
+
+=== Making a new suggestion
+
+1. Navigate to the “Make suggestion” menu.
+2. If you want to create a new word, enter the word, emojis (symbols), and an optional reason.
+3. Press the Create button to submit your proposal for moderator review.
+image:static/frontend/createSuggestion.png[Create suggestion]
+
+=== Modifying a Word
+
+1. Select an existing word from the database.
+2. Update the word or its associated emojis.
+3. Add an optional reason.
+4. Press the modify button to submit your changes for review.
+image:static/frontend/modifySuggestion.png[Modify suggestion]
+
+=== Deleting a Word
+
+1. Select the word to delete.
+2. Optionally provide a reason.
+3. Press the delete button to submit the deletion request.
+image:static/frontend/deleteSuggestion.png[Delete suggestion]
+
+=== Applying for moderator
+1. Press the become mod button
+2. Write a reason why you want to be a moderator
+image:static/frontend/becomeMod.png[Become mod]
+
+== Moderator Actions
+
+As a moderator, you can:
+
+- View the list of all proposals.
+- Accept or reject proposals for:
+- Adding a new word
+- Modifying an existing word
+- Deleting a word
+- Review moderator applications
+
+== Frequently Asked Questions (FAQ)
+
+=== Do I need an account to play?
+No. You can play as a guest, but you’ll need to register to propose words or become a moderator.
+
+=== How do I become a moderator?
+Submit a request via the “Become mod” option. Moderators will review your request.
+
+=== How are scores calculated?
+Scores depend on how quickly and accurately you guess words.
+
+=== Can I play with friends?
+Yes! Create a room and share the name with your friends so they can join.
+
+
+link:README.adoc[Back to Main Documentation]
