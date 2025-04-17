@@ -126,3 +126,4 @@ They are handled in `@ControllerAdvice` classes like `AccountExceptionHandler`.
 
 The backend is cleanly modularized and extensible. Real-time support, REST APIs, and database integration make it a robust architecture for a multiplayer word game.
 
+link:system-plan.adoc[back]

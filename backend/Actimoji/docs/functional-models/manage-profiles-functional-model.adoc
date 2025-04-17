@@ -138,3 +138,5 @@ This functional module handles user account management, including registration, 
 | Authenticated User
 
 |===
+
+link:../functional-models.adoc[back]
