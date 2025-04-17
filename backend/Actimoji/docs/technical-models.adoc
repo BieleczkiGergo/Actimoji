@@ -1,0 +1,128 @@
+= Technical Models
+
+This chapter provides a detailed technical insight into the backend system of the Actimoji project. The backend is developed in Java using the Spring Boot framework and follows a modular, layered architecture.
+
+== 1. System Architecture Overview
+
+The backend application follows a layered architecture:
+
+- **Controller layer**: Handles HTTP requests and responses.
+- **Service layer**: Contains business logic.
+- **Repository layer**: Interfaces with the database using Spring Data JPA.
+- **Domain/Model layer**: Defines data structures and relationships.
+
+The application also uses **WebSocket** for real-time communication in the game, and RESTful APIs for standard HTTP interactions.
+
+== 2. Package Structure
+
+The project is organized under the base package: `hu.actimoji`. Each feature is implemented in its own subpackage:
+
+- `account`: User accounts, authentication, registration.
+- `emoji`: Emoji parsing and storage.
+- `game`: Game logic and state management.
+- `moderatorRequest`: Handling user requests for moderator actions.
+- `player`: Player-related models and logic.
+- `review`: Word review process.
+- `room`: Game room creation, joining, and management.
+- `security`: Web security configuration.
+- `suggestion`: User word suggestion logic.
+- `word`: Word entities and retrieval logic.
+
+== 3. Entity Models
+
+Each entity is a Java class annotated with `@Entity` and is typically stored in its respective module.
+
+Example: `Account` entity in `account/Account.java`:
+[source,java]
+----
+@Entity
+public class Account {
+    @Id @GeneratedValue
+    private Long id;
+
+    private String username;
+    private String email;
+    private String password;
+    // ... getters, setters
+}
+----
+
+All entities use JPA annotations, and most are linked via `@OneToMany`, `@ManyToOne` or `@OneToOne` relations.
+
+== 4. Database
+
+- Uses **MariaDB** as the database engine.
+- ORM provided via Spring Data JPA.
+- Each repository interface extends `JpaRepository`.
+- Schema is auto-generated based on entities (DDL auto).
+
+== 5. Services
+
+Each module has a `Service` class (e.g., `AccountService`, `EmojiService`) containing business logic.
+
+[source,java]
+----
+@Service
+public class AccountService {
+    public Account register(AccountDTO dto) {
+        if (accountRepository.existsByEmail(dto.getEmail())) {
+            throw new ExistingAccountException();
+        }
+        // Save logic
+    }
+}
+----
+
+== 6. REST API Endpoints
+
+Controllers handle HTTP endpoints. Example from `AccountController`:
+
+- `POST /account/register`
+- `GET /account/{id}`
+
+All endpoints return JSON and use `@RestController` annotation.
+
+== 7. WebSocket Communication
+
+Real-time game interaction uses WebSocket. Configuration class:
+
+- `WebSocketConfig.java` – Registers endpoint `/ws/game`.
+
+Messages handled in `GameHandler.java`:
+- Player joins
+- Game state updates
+- New word submissions
+
+== 8. Exception Handling
+
+Custom exceptions are defined, e.g., `AccountNotFoundException`, `ExistingAccountException`.
+
+They are handled in `@ControllerAdvice` classes like `AccountExceptionHandler`.
+
+== 9. Security
+
+- Basic CORS configuration in `CorsConfig.java`.
+- Authentication logic is currently minimal; future improvements possible.
+
+== 10. Configuration
+
+- `application.properties` defines DB config.
+- Spring Boot auto-configures most components.
+
+== 11. Dependencies
+
+- Java 17
+- Spring Boot 3.x
+- Spring Web, Spring Data JPA, WebSocket
+- MariaDB Connector
+- Lombok
+
+== 12. Build Tool
+
+- Uses Maven (`pom.xml`)
+- Includes plugin configurations for build and dependency management
+
+== Summary
+
+The backend is cleanly modularized and extensible. Real-time support, REST APIs, and database integration make it a robust architecture for a multiplayer word game.
+
