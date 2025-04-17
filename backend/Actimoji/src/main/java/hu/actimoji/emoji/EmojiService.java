@@ -21,6 +21,7 @@ public class EmojiService {
     List<EmojiRead> allEmojis;
 
     @PostConstruct
+    @Transactional
     public void init() {
         try {
             emojiParser.parseFile("src/main/resources/emojiSource.txt")
