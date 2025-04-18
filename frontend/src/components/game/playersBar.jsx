@@ -2,17 +2,22 @@ import { useContext } from "react";
 import { GameCtx } from "../Context/gameCtx";
 import styles from "./playersBar.module.css";
 
-function PlayersBar(){
+function PlayersBar({ gridArea }){
     const game = useContext( GameCtx );
 
     const players = game.players;
 
-    console.log( players );
-
-    return <div className={ styles.playersBar }>
+    return <div className={ styles.playersBar + " " + gridArea }>
         
         {players.map( ({name, isWriting, hasGuessed}) =>
-            <p className={hasGuessed ? styles.hasGuessed : ""} key={name}>{name}</p>
+            <p 
+                className={(hasGuessed ? styles.hasGuessed : "") + " " + styles.player}
+                key={name}
+
+            >
+                {name}
+            
+            </p>
 
         )}
 

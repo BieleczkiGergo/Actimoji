@@ -105,7 +105,7 @@ function GameProvider({ children }){
 
             }
 
-            console.log(command, args);
+            // console.log(command, args);
 
             switch (command) {
                 case "wa": // waiting
@@ -113,6 +113,11 @@ function GameProvider({ children }){
                     setChat( [] );
                     setHelper( "___" );
                     setPlayerPoints( [] );
+                    setPlayers( (players) => players.map( player => {
+                        player.hasGuessed = false
+                        return player;
+
+                    }));
                     break;
 
                 case "rp": // round preparation

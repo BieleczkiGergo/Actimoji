@@ -1,7 +1,4 @@
 .playersBar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
     padding: 14px;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(6px);
@@ -10,27 +7,28 @@
     border: 1px solid rgba(200, 200, 200, 0.3);
     color: #3b7080;
     font-weight: 600;
-    justify-content: center;
 
 }
 
-.playersBar p {
-    background-color: rgba(240, 248, 255, 0.7);
+.playersBar .player {
+    display: block;
+    background-color: #f0f8ff;
     padding: 6px 12px;
     border-radius: 8px;
     transition: background-color 0.2s ease;
     color: #2f3e46;
+    margin: 0px;
 
 }
 
-.playersBar p:hover {
+.playersBar .player:hover {
     background-color: rgba(225, 238, 248, 0.9);
 
 }
 
 .hasGuessed {
-    background-color: #365a69 !important;
-    color: #82d975 !important;
+    background-color: #70eb9b !important;
+    color: #000000 !important;
 
 }
 
@@ -44,7 +42,7 @@
     
     }
     
-    .playersBar p {
+    .playersBar .player {
         font-size: 13px;
         padding: 5px 10px;
     

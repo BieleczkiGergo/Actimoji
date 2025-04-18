@@ -1,14 +1,27 @@
 import { GameCtx } from "../Context/gameCtx";
 import styles from "./chatBar.module.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
-function ChatBar(){
+function ChatBar({ gridArea }){
     let [currentMsg, setCurrentMsg] = useState("");
 
-    const game = useContext( GameCtx );
-    const { chat, isWriting, sendChatMessage } = game;
+    const { chat, isWriting, sendChatMessage } = useContext( GameCtx );
 
-    return <div className={ styles.chatBar }>
+    const messagesRef = useRef(null);
+
+    useEffect( () => {
+        if( messagesRef.current ){
+            messagesRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+
+            });
+
+        }
+
+    }, [ chat ]);
+
+    return <div className={ styles.chatBar + " " + gridArea }>
 
         <div className={ styles.messages } >
             {chat.map( ({username, message}, index) => 
@@ -16,6 +29,7 @@ function ChatBar(){
 
             )}
 
+            <div className={ styles.anchor } ref={ messagesRef } />
         </div>
 
         <div className={ styles.yourMessage } >
@@ -27,7 +41,21 @@ function ChatBar(){
                 </>
                 :
                 <>
-                    <input onChange={ (e) => setCurrentMsg(e.target.value) } placeholder="send to chat" />
+                    <input 
+                        onChange={ (e) => setCurrentMsg(e.target.value) } placeholder="send to chat"
+                        onKeyUp={ (e) => {
+                            if( e.key !== "Enter" )
+                                return;
+
+                            sendChatMessage( currentMsg );
+                            e.target.value = "";
+
+                            e.stopPropagation();
+                            e.preventDefault();
+
+                        }}
+                        
+                    />
                     <button onClick={ () => sendChatMessage(currentMsg) }>Send</button>
 
                 </>

@@ -64,11 +64,11 @@ function Game(){
     }
 
     return <div className={ styles.gameFrame }>
-    <h2>Player list:</h2>
-    <PlayersBar />
+    <PlayersBar gridArea={ styles.players }/>
     <CountDownTimer />
     { gameBody }
-    <ChatBar chat={ game.chat } disabled={ game.isWriting } sendChatMessage={ game.sendChatMessage }/>
+    <ChatBar gridArea={ styles.chat }/>
+
 </div>
 
 

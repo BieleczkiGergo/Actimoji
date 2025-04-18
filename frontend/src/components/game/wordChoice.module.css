@@ -8,7 +8,7 @@
 }
 
 .wordChoice {
-    background-color: #fa541c;
+    background-color: #6ba9e8;
     color: white;
     padding: 10px 16px;
     border-radius: 8px;
@@ -20,7 +20,7 @@
 }
 
 .wordChoice:hover {
-    background-color: #e14a18;
+    background-color: #508cc7;
     transform: scale(1.05);
 
 }

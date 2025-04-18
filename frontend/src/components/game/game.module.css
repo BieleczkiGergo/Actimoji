@@ -7,11 +7,27 @@
   background-color: #f1f5f2;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   font-family: 'Segoe UI', sans-serif;
   box-sizing: border-box;
+
+  display: grid;
+  grid-template-rows: auto 40%;
+  grid-template-columns: 30% auto;
+  grid-template-areas:
+    "players game"
+    "players chat"
+  ;
+
+}
+
+.players {
+  grid-area: players;
+
+}
+
+.chat {
+  grid-area: chat;
+
 }
 
 /* Játék szekció */
@@ -20,34 +36,26 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
   text-align: center;
   width: 100%;
   box-sizing: border-box;
-}
-
-/*  This is the same as the above selector, we may fix that later  */
-.waiting,
-.preparing,
-.ingame,
-.roundover,
-.gameover {
   color: #365a69;
   font-size: 18px;
-}
 
+  grid-area: game;
+  
+}
 
 /* Reszponzívitás */
 @media (max-width: 768px) {
   .gameFrame {
     padding: 16px;
+
   }
 
   .game {
     padding: 16px;
-    gap: 14px;
+    
   }
 
 }
@@ -55,16 +63,12 @@
 @media (max-width: 480px) {
   .gameFrame {
     padding: 12px;
+
   }
 
   .game {
     padding: 12px;
-    gap: 12px;
+
   }
 
-  .wordChoice {
-    font-size: 13px;
-    padding: 6px 10px;
-  }
-  
 }

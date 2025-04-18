@@ -1,4 +1,10 @@
 .description {
-    font-size: 2rem;
+    font-size: 1rem;
+    text-decoration: none !important;
     
+}
+
+.description span {
+    font-size: 2rem;
+
 }
