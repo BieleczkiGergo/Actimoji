@@ -1,9 +1,7 @@
 = Functional models
 
-// * link:functional-models/manage-pets-functional-model.adoc[Állatok kezelése]
+* link:functional-models/manage-profiles-functional-model.adoc[Manage profiles]
 
-* Manage profiles
-
-* Manage words
+* link:functional-models/manage-words-functional-model.adoc[Manage words]
 
 link:system-plan.adoc[back]

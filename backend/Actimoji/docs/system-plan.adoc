@@ -4,7 +4,6 @@
 
 * link:technical-models.adoc[Technical models]
 
-* Interface specifications
 
 
 
