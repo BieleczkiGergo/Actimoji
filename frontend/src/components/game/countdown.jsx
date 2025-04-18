@@ -32,7 +32,7 @@ function CountDownTimer() {
 
     }, [ roundEnd, updateTimeStr ]);
 
-    if( "waiting" == cycle )
+    if( "waiting" === cycle )
         return <></>;
 
     return <p>{ timeStr }</p>;

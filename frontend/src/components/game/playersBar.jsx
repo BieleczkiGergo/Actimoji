@@ -7,6 +7,8 @@ function PlayersBar(){
 
     const players = game.players;
 
+    console.log( players );
+
     return <div className={ styles.playersBar }>
         
         {players.map( ({name, isWriting, hasGuessed}) =>

@@ -18,13 +18,13 @@ function Game(){
 
     let gameBody = <></>;
 
-    if( game.cycle == "waiting" ){
+    if( game.cycle === "waiting" ){
         gameBody = <div className={ styles.game + " " + styles.waiting } >
             <h2>Waiting for players</h2>
 
         </div>
 
-    } else if( game.cycle == "prepare" ){
+    } else if( game.cycle === "prepare" ){
         gameBody = <div className={ styles.game + " " + styles.preapring } >
             { game.writing ? 
                 <WordChoice />
@@ -38,13 +38,13 @@ function Game(){
 
         </div>
 
-    } else if( game.cycle == "ingame" ){
+    } else if( game.cycle === "ingame" ){
         gameBody = <div className={ styles.game + " " + styles.ingame } >
             <Description />
             
         </div>
 
-    } else if( game.cycle == "roundover" ){
+    } else if( game.cycle === "roundover" ){
         console.log( "round over ", game.helper );
 
         gameBody = <div className={ styles.game + " " + styles.roundover } >
@@ -54,7 +54,7 @@ function Game(){
             
         </div>
         
-    }else if( game.cycle == "gameover" ){
+    }else if( game.cycle === "gameover" ){
         gameBody = <div className={ styles.game + " " + styles.gameover } >
             <h2>Game over</h2>
             <PlayerStats />

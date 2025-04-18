@@ -1,6 +1,5 @@
 package hu.actimoji.game;
 
-import com.vdurmont.emoji.EmojiParser;
 import java.util.List;
 
 public class GameUtils {
@@ -79,11 +78,6 @@ public class GameUtils {
                 .replaceAll(nonPrintableRegex, "")
                 .replaceAll("\uD83D\uDE00", "")
                 .strip()
-                ;
-
-
-        String transformed = EmojiParser.parseToAliases( text )
-                .replace("\uD83E\uDEE0", ":melting:")
                 ;
 
         System.out.println("text: " + text

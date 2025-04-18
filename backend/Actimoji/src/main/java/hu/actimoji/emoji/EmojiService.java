@@ -1,13 +1,14 @@
 package hu.actimoji.emoji;
 
-import hu.actimoji.game.GameUtils;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class EmojiService {
@@ -18,32 +19,43 @@ public class EmojiService {
     @Autowired
     private EmojiParser emojiParser;
 
-    List<EmojiRead> allEmojis;
+    static List<EmojiRead> allEmojis;
 
     @PostConstruct
     @Transactional
     public void init() {
         try {
-            emojiParser.parseFile("src/main/resources/emojiSource.txt")
-                    .map( emojiRead ->
-                            new Emoji(null, emojiRead.getEmoji(), emojiRead.getKeywords())
-                    )
-                    .forEach( emoji -> {
-                        emojiRepository.save( emoji );
+            if ( allEmojis == null || allEmojis.isEmpty() ) {
+                allEmojis = new LinkedList<>();
+                Stream<EmojiRead> emojiInputStream = emojiParser.parseFile("src/main/resources/emojiSource.txt");
 
-                    });
+                emojiInputStream.forEach( allEmojis::add );
+
+                emojiRepository.saveAll( allEmojis.stream()
+                        .map( EmojiConverter::emojiReadtoEmoji )
+                        .toList()
+
+                );
+
+            }
 
         } catch ( IOException e ){
             System.out.println("Error parsing emojis");
 
         }
 
-        allEmojis = emojiRepository.findAll().stream()
-                .map( emoji -> new EmojiRead(emoji.getEmoji(), emoji.getKeywords()) )
-                .toList();
+        emojiRepository.saveAll( allEmojis.stream()
+                .map( EmojiConverter::emojiReadtoEmoji )
+                .toList()
+        );
 
     }
 
+    /**
+     * This returns everything from a cache, because reading all emojis from database every time someone starts a game
+     * would take a big load on the backend
+     * @return All emojis as EmojiRead objects
+     */
     public List<EmojiRead> findAll() {
         return allEmojis;
 

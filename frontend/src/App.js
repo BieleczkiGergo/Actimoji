@@ -9,9 +9,8 @@ import ListWords from "./components/ListWords/ListWords";
 import BecomeMod from "./components/ModRequest/BecomeMod";
 import { useAuth } from "./components/Context/AuthContext";
 import EmojiKeyboard from "./components/Keyboard/EmojiKeyboard";
-import { useNavigate } from "react-router-dom";
 import { Game } from "./components/game/game.jsx";
-import { findRandomGame, GameCtx } from "./gameCtx.jsx";
+import { findRandomGame, GameCtx } from "./components/Context/gameCtx.jsx";
 
 function App() {
   const { token, logout, user } = useAuth();
@@ -30,7 +29,7 @@ function App() {
   
   const game = useContext( GameCtx );
   const [nickname, setNickname] = useState("");
-  const [roomId, setRoomId] = useState( 0 ); // Garantálom hogy előjön majd valahol
+  // const [roomId, setRoomId] = useState( 0 ); // Garantálom hogy előjön majd valahol
 
   // Snackbar for Become Mod request status
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -108,7 +107,7 @@ function App() {
 
   const handleJoinRandomGame = async () => {
     const rid = await findRandomGame();
-    setRoomId( rid );
+    // setRoomId( rid );
     game.joinGame( rid, nickname );
 
   };

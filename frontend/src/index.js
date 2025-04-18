@@ -8,8 +8,8 @@ import { AuthProvider } from "./components/Context/AuthContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ReadSuggestion from "./components/ReadSuggestion/ReadSuggestion";
 import ModReview from "./components/ModRequests/ModRequests.js";
-import { GameProvider } from './gameCtx';
-import { EmojiProvider } from "./components/Keyboard/emojiCtx.jsx";
+import { GameProvider } from "./components/Context/gameCtx.jsx";
+import { EmojiProvider } from "./components/Context/emojiCtx.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

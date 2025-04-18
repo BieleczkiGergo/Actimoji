@@ -134,7 +134,8 @@ public class Room {
         if( this.gameState == GameState.RoundStart ) {
             this.wordChoice = wordService.getWordChoice( Room.CHOICE_WORDS );
             this.currentPrompt = null;
-            if( round == 0 ){ // Reset player points only if it's the first round
+            if( round == 0 ){
+                // Reset player points only if it's the first round
                 // TODO: maybe this could be done by calling resetGame
                 // anyway, this is in a very bad place
                 for( Player p : players ) {
@@ -144,6 +145,7 @@ public class Room {
                 }
 
             }
+
 
         } else if (this.gameState == GameState.InGame ) {
             if( this.currentPrompt == null ) {
@@ -159,19 +161,46 @@ public class Room {
 
     }
 
-    public int getPoints(){
+    private int getPoints(){
         long remainingMillis = Duration.between( Instant.now(), stateEnd ).toMillis();
 
         return (int) Math.ceil( (double) (MAX_POINTS_PER_ROUND * remainingMillis) / ROUND_TIME );
 
     }
 
+    private boolean checkUsernameExists(String username) {
+        for (Player p : players) {
+            if (username.equals(p.getUsername())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Handle what should happen if 2 or more players (would) have the same username
+     * For now, it just adds 1 to the end of the name
+     * <br>
+     * <small> Maybe we'll add a profanity filter too in the future </small>
+     * @param player The player whose username has to be adjusted
+     */
+    private void adjustUsername(Player player) {
+        while ( checkUsernameExists( player.getUsername() ) ) {
+            player.setUsername(player.getUsername() + "1");
+
+        }
+
+    }
+
     public void handleAddPlayer(Player player) throws RoomFullException {
-        // TODO: handle what happens if 2 or more players have the same name
         if (players.size() >= MAX_PLAYERS) {
             throw new RoomFullException("Room full");
 
         }
+
+        // This is supposed to handle what happens if 2 or more players have the same name
+        this.adjustUsername( player );
 
         players.add(player);
         this.broadcastPlayerUpdate();
