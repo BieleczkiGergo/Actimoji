@@ -1,0 +1,50 @@
+.wordChooser {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+
+}
+
+.wordChoice {
+    background-color: #fa541c;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.wordChoice:hover {
+    background-color: #e14a18;
+    transform: scale(1.05);
+
+}
+
+@media (max-width: 768px) {
+    .wordChoice {
+        font-size: 14px;
+        padding: 8px 12px;
+    
+    }
+    
+    .wordChooser {
+        flex-direction: column;
+        gap: 8px;
+    
+    }
+
+}
+
+@media (max-width: 480px) {
+    .wordChoice {
+        font-size: 13px;
+        padding: 6px 10px;
+    
+    }
+
+}

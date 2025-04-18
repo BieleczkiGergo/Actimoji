@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styles from "./EmojiKeyboard.module.css"; // CSS-modul importálása
-import { EmojiCtx } from "./emojiCtx";
+import { EmojiCtx } from "../Context/emojiCtx";
 
 const EmojiKeyboard = ({ onEmojiSelect }) => {
   const emojis = useContext( EmojiCtx );

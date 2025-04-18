@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
-import { GameCtx } from "../../gameCtx";
+import { GameCtx } from "../Context/gameCtx";
+import styles from "./countdown.module.css";
 
 function formatCountdown(targetTimestamp) {
     const now = Date.now();

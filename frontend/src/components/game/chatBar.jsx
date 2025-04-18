@@ -1,5 +1,5 @@
-import { GameCtx } from "../../gameCtx";
-import styles from "./game.module.css";
+import { GameCtx } from "../Context/gameCtx";
+import styles from "./chatBar.module.css";
 import { useContext, useState } from "react";
 
 function ChatBar(){

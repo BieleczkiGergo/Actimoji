@@ -1,6 +1,6 @@
-import styles from "./game.module.css";
 import { useContext } from "react";
-import { GameCtx } from "../../gameCtx";
+import { GameCtx } from "../Context/gameCtx";
+import styles from "./wordChoice.module.css";
 
 function WordChoice(){
     const game = useContext( GameCtx );

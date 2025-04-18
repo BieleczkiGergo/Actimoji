@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { GameCtx } from "../../gameCtx";
-import styles from "./game.module.css";
+import { GameCtx } from "../Context/gameCtx";
+import styles from "./playersBar.module.css";
 
 function PlayersBar(){
     const game = useContext( GameCtx );

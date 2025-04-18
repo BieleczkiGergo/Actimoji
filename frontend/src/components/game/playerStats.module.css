@@ -1,0 +1,9 @@
+.playerStats {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: bold;
+    color: #2f3e46;
+    align-items: center;
+
+}

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { GameCtx } from "../../gameCtx";
+import { GameCtx } from "../Context/gameCtx";
 import EmojiKeyboard from "../Keyboard/EmojiKeyboard";
+import styles from "./description.module.css";
 
 function Description(){
     const game = useContext( GameCtx );
