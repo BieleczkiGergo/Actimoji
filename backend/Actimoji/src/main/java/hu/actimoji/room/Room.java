@@ -134,12 +134,15 @@ public class Room {
         if( this.gameState == GameState.RoundStart ) {
             this.wordChoice = wordService.getWordChoice( Room.CHOICE_WORDS );
             this.currentPrompt = null;
+            for( Player p : players ) {
+                p.setHasGuessed( false );
+
+            }
             if( round == 0 ){
                 // Reset player points only if it's the first round
                 // TODO: maybe this could be done by calling resetGame
                 // anyway, this is in a very bad place
                 for( Player p : players ) {
-                    p.setHasGuessed( false );
                     p.setPoints( 0 );
 
                 }
@@ -157,6 +160,7 @@ public class Room {
 
         }
 
+        this.broadcastPlayerUpdate();
         this.broadCastStateUpdate();
 
     }
@@ -288,7 +292,7 @@ public class Room {
         }
 
         players.remove( player );
-        System.out.println( players );
+        //System.out.println( players );
         this.broadcastPlayerUpdate();
 
         if (players.size() < MIN_PLAYERS && gameState != GameState.GameOver ) {
