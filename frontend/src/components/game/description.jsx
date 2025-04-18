@@ -1,16 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { GameCtx } from "../Context/gameCtx";
-import EmojiKeyboard from "../Keyboard/EmojiKeyboard";
+import { EmojiKeyboard, removeLastEmoji } from "../Keyboard/EmojiKeyboard";
 import styles from "./description.module.css";
 
 function Description(){
-    const game = useContext( GameCtx );
+    const { bannedIcons, writing, helper, description, sendDescription }
+        = useContext( GameCtx );
 
     const [desc, setDesc] = useState("");
 
     function sendDesc(){
-        if( game.writing )
-            game.sendDescription( desc );
+        if( writing )
+            sendDescription( desc );
 
     }
 
@@ -19,20 +20,31 @@ function Description(){
 
     }, [desc]);
 
-    return <div className="description">
+    console.log("banned icons:", bannedIcons);
+
+    return <div className={ styles.description }>
         {
-            game.writing ? (
+            writing ? (
             <>
-                <h2>{ game.helper }</h2>
-                <h2>Banned icons: <span>{ game.bannedIcons.join(" ") }</span></h2>
+                <h2>{ helper }</h2>
+                {bannedIcons.length > 0 && bannedIcons[0] !== "" ?
+                    <h2>Banned icons: <span>{ bannedIcons.join(" ") }</span></h2>
+                    :
+                    <></>
+                }
+                
                 <h2>{ desc }</h2>
-                <EmojiKeyboard onEmojiSelect={ emoji => setDesc( desc + emoji) } />
+                <EmojiKeyboard
+                    onEmojiSelect={ emoji => setDesc( desc + emoji) }
+                    onEmojiDelete={ () => setDesc(removeLastEmoji(desc)) }
+
+                />
 
             </>)
             :
             (<>
-                <h2>{ game.helper }</h2>
-                <h2>{ game.description }</h2>
+                <h2>{ helper }</h2>
+                <h2>{ description }</h2>
 
             </>)
         }

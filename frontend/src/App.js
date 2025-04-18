@@ -8,7 +8,7 @@ import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion";
 import ListWords from "./components/ListWords/ListWords";
 import BecomeMod from "./components/ModRequest/BecomeMod";
 import { useAuth } from "./components/Context/AuthContext";
-import EmojiKeyboard from "./components/Keyboard/EmojiKeyboard";
+import { EmojiKeyboard, removeLastEmoji } from "./components/Keyboard/EmojiKeyboard.jsx";
 import { Game } from "./components/game/game.jsx";
 import { findRandomGame, GameCtx } from "./components/Context/gameCtx.jsx";
 
@@ -51,6 +51,12 @@ function App() {
       }, 0);
     }
   };
+
+  const handleEmojiDelete = () => {
+    const newNick = removeLastEmoji( nickname );
+    setNickname( newNick );
+
+  }
 
   const handleSuggestionClick = () => {
     if (token) setActiveModal("suggestion");
@@ -152,7 +158,11 @@ function App() {
             />
             {showEmojiKeyboard && (
               <div ref={emojiKeyboardRef}>
-                <EmojiKeyboard onEmojiSelect={handleEmojiSelect} />
+                <EmojiKeyboard
+                  onEmojiSelect={ handleEmojiSelect }
+                  onEmojiDelete={ handleEmojiDelete }
+                
+                />
 
               </div>
             )}
