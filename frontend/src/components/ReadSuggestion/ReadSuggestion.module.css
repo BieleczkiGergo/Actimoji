@@ -31,6 +31,10 @@
   align-items: center;
 }
 
+.sidebarSpacer {
+  height: 150px; /* Ez a fixed tartalom magassága */
+}
+
 .sidebarHeader {
   position: absolute;
   top: 0;
@@ -58,7 +62,7 @@
 }
 
 .sidebarButton {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   background-color: #36454F;
   color: white;
@@ -78,6 +82,7 @@
   flex: 1;
   padding: 20px;
   background-color: #f4f4f4;
+  margin-left: 20%; /* hogy ne menjen a sidebar alá */
 }
 
 .reviewList {
