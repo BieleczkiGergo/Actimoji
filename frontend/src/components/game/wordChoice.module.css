@@ -9,13 +9,20 @@
 
 .wordChoice {
     background-color: #6ba9e8;
-    color: white;
     padding: 10px 16px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
     font-weight: 600;
     transition: all 0.2s ease-in-out;
+
+}
+
+.wordChoice span,
+.wordChoice p,
+.wordChoice h2
+{
+    color: white;
+    font-size: 2rem;
 
 }
 

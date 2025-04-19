@@ -65,7 +65,7 @@ function Game(){
 
     return <div className={ styles.gameFrame }>
     <PlayersBar gridArea={ styles.players }/>
-    <CountDownTimer />
+    <CountDownTimer gridArea={ styles.timer }/>
     { gameBody }
     <ChatBar gridArea={ styles.chat }/>
 

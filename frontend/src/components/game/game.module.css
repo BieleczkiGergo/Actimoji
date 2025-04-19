@@ -1,7 +1,9 @@
 /* Alap konténer */
 .gameFrame {
   width: 100%;
-  max-width: 900px;
+  max-width: 1300px;
+  height: min( 80%, 600px );
+
   margin: 0 auto;
   padding: 24px;
   background-color: #f1f5f2;
@@ -11,12 +13,17 @@
   box-sizing: border-box;
 
   display: grid;
-  grid-template-rows: auto 40%;
-  grid-template-columns: 30% auto;
+  grid-template-rows: 100%;
+  grid-template-columns: max( 15%, 225px ) auto max( 20%, 300px );
   grid-template-areas:
-    "players game"
-    "players chat"
+    "players game chat"
+    /*"players chat"*/
   ;
+  column-gap: 20px;
+
+  position: relative;
+  top: 0px;
+  left: 0px;
 
 }
 
@@ -27,6 +34,15 @@
 
 .chat {
   grid-area: chat;
+
+}
+
+.timer {
+  grid-area: game;
+  z-index: 1;
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
 
 }
 
@@ -43,7 +59,16 @@
   font-size: 18px;
 
   grid-area: game;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
+}
+
+.roundover, .gameover {
+  display: block;
+
 }
 
 /* Reszponzívitás */

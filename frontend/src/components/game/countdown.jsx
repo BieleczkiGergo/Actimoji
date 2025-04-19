@@ -13,7 +13,7 @@ function formatCountdown(targetTimestamp) {
 
 }
 
-function CountDownTimer() {
+function CountDownTimer({ gridArea }) {
     const { roundEnd, cycle } = useContext(GameCtx);
     const [timeStr, setTimeStr] = useState("");
 
@@ -35,7 +35,7 @@ function CountDownTimer() {
     if( "waiting" === cycle )
         return <></>;
 
-    return <p>{ timeStr }</p>;
+    return <p className={ styles.countdown + " " + gridArea } >{ timeStr }</p>;
 
 }
 

@@ -9,7 +9,7 @@ function PlayersBar({ gridArea }){
 
     return <div className={ styles.playersBar + " " + gridArea }>
         
-        {players.map( ({name, isWriting, hasGuessed}) =>
+        {players.map( ({name, isWriting, hasGuessed}, index) => <>
             <p 
                 className={(hasGuessed ? styles.hasGuessed : "") + " " + styles.player}
                 key={name}
@@ -19,7 +19,10 @@ function PlayersBar({ gridArea }){
             
             </p>
 
-        )}
+            { ( index < players.length-1 ) ? <hr /> : <></> }
+            
+
+        </>)}
 
     </div>;
 

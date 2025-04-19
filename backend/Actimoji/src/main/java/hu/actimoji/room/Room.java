@@ -49,6 +49,8 @@ public class Room {
     private List<WordRead> wordChoice;
     private final WordService wordService;
     private WordRead placeholder; // TODO: implement placeholder
+    private Timer helperTimer;
+    private Instant nextHelp;
 
     public Room( WordService wordService ) {
         this.players = new LinkedList<>();
@@ -155,13 +157,30 @@ public class Room {
                 this.currentPrompt = this.wordChoice.getFirst();
 
             }
-            this.placeholder = new WordRead("_".repeat(this.currentPrompt.getWord().length()), new ArrayList<>());
+            this.placeholder = new WordRead(this.makePlaceholder(), new ArrayList<>());
             this.players.get( currentWriter ).setHasGuessed( true );
 
         }
 
         this.broadcastPlayerUpdate();
         this.broadCastStateUpdate();
+
+    }
+
+    private String makePlaceholder(){
+        return this.currentPrompt.getWord().replaceAll( "[^ ]", "_" );
+
+    }
+
+    private void updateHelper(){
+        if (this.helperTimer != null){
+            this.helperTimer.cancel();
+            this.helperTimer = null;
+
+        }
+        this.helperTimer = new Timer();
+
+
 
     }
 

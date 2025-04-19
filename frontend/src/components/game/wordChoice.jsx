@@ -11,16 +11,16 @@ function WordChoice(){
 
     return <div className={ styles.wordChooser }>
         { wordChoice.map( ({word, bannedIcons}) =>
-            <h2 
+            <p 
                 key={ word }
                 className={ styles.wordChoice }
                 onClick={ () => chooseWord( word ) }
             >
-                <p>{ word }</p>
+                <span>{ word }</span>
                 <br />
-                <p>{ bannedIcons }</p>
+                <span>{ bannedIcons }</span>
 
-            </h2>
+            </p>
 
         )}
     </div>

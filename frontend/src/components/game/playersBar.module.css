@@ -10,39 +10,42 @@
 
 }
 
-.playersBar .player {
+.playersBar hr {
+    margin: 0px;
+
+}
+
+.player {
     display: block;
     background-color: #f0f8ff;
-    padding: 6px 12px;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
     color: #2f3e46;
     margin: 0px;
 
 }
 
-.playersBar .player:hover {
+.player:hover {
     background-color: rgba(225, 238, 248, 0.9);
 
 }
 
 .hasGuessed {
-    background-color: #70eb9b !important;
-    color: #000000 !important;
+    box-shadow: 0 0 0 1000px rgba(0, 255, 0, 0.3) inset;
 
 }
 
 
 @media (max-width: 768px) {
     .playersBar {
-        flex-direction: column;
-        align-items: center;
         font-size: 14px;
         padding: 10px;
     
     }
     
-    .playersBar .player {
+    .player {
         font-size: 13px;
         padding: 5px 10px;
     
