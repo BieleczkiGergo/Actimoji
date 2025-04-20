@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import BecomeMod from "../src/components/BecomeMod/BecomeMod";
-import { useAuth } from "../src/components/Context/AuthContext";
+import { AuthContext } from "../src/components/Context/AuthContext";
 import axios from "axios";
 import { backendApi } from "../src/backendApi";
 
@@ -18,7 +18,7 @@ describe("BecomeMod Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    useAuth.mockReturnValue({
+    AuthContext.mockReturnValue({
       user: mockUser,
       token: mockToken,
 

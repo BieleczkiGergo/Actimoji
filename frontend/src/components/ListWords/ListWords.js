@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Modal from "@mui/material/Modal";
 import styles from "./ListWords.module.css";
-import { useAuth } from "../Context/AuthContext"; // AuthContext importálása
-import { backendApi } from "../../backendApi";
+import { AuthContext } from "../Context/AuthContext"; // AuthContext importálása
 
 function ListWords({ open, onClose, onSelect }) {
-  const { token } = useAuth(); // Token lekérése az AuthContext-ből
+  const { token, backendApi } = useContext( AuthContext ); // Token lekérése az AuthContext-ből
   const [words, setWords] = useState([]);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ function ListWords({ open, onClose, onSelect }) {
           console.error("Hiba történt az adatok lekérésekor:", error);
         });
     }
-  }, [open, token]); // Ha a modal nyitás vagy a token változik, újraindul a kérés
+  }, [open, token, backendApi]); // Ha a modal nyitás vagy a token változik, újraindul a kérés
 
   const handleWordClick = (word) => {
     onSelect(word); // A kiválasztott szó átadása a parent komponensnek

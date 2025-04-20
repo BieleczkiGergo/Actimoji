@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./BecomeMod.module.css";
-import { useAuth } from "../Context/AuthContext";
-import { backendApi } from "../../backendApi";
+import { AuthContext } from "../Context/AuthContext";
 
 function BecomeMod({ onRequestSubmitted, handleCloseModal }) {
-  const { user, token } = useAuth();
+  const { user, token, backendApi } = useContext( AuthContext );
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 

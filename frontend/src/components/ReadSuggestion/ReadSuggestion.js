@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ReadSuggestion.module.css";
-import { useAuth } from "../Context/AuthContext";
-import { backendApi } from "../../backendApi";
+import { AuthContext } from "../Context/AuthContext";  // AuthContext importálása
 
 function ReadSuggestion() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, backendApi } = useContext( AuthContext );  // A user adatokat lekérjük az AuthContext-ből
   const [userId, setUserId] = useState(1);
   const [reviews, setReviews] = useState([]);
 

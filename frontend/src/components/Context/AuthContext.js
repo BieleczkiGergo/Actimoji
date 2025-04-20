@@ -1,12 +1,26 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { backendApi } from "../../backendApi";
+import React, { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+
+const localDomain = "localhost:8080";
+//const ddnsDomain = "actimoji.duckdns.org:8080";
+
+const backendDomain = localDomain;
+
+const backendUrlHttp = `http://${backendDomain}`;
+const backendUrlWs = `ws://${backendDomain}`;
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const backendApi = axios.create({
+    baseURL: backendUrlHttp
+    
+  });
 
   const login = (newToken) => {
     setToken(newToken);
@@ -36,8 +50,9 @@ export const AuthProvider = ({ children }) => {
       delete backendApi.defaults.headers.common["Authorization"];
       setUser(null);
 
+      setLoading( false );
     }
-  }, [token]);
+  }, [ token ]);
 
   useEffect(() => {
     const resInterceptor = backendApi.interceptors.response.use(
@@ -57,11 +72,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
+    <AuthContext.Provider value={{ token, user, login, logout, backendApi, loading }}>
       {children}
     </AuthContext.Provider>
 
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export { 
+  AuthContext, backendUrlHttp, backendUrlWs, backendDomain
+
+};

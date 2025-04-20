@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Context/AuthContext";
+import { AuthContext } from "../Context/AuthContext";
 import "./LoginModal.css";
-import { backendApi } from "../../backendApi";
 
 function LoginModal({ handleClose }) {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  const { login } = useAuth();
+  const { login, backendApi } = useContext( AuthContext );
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");

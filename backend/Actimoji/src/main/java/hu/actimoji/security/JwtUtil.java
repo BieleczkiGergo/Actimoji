@@ -28,7 +28,7 @@ public class JwtUtil {
                 .claim("userId", account.getId())
                 .claim("roles", roles)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date( System.currentTimeMillis() + validity))
+                .setExpiration(new Date( System.currentTimeMillis() + validity ))
                 .signWith( key )
                 .compact();
 
