@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ReadSuggestion.module.css";
-import { AuthContext } from "../Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
+import { backendApi } from "../../backendApi";
 
 function ReadSuggestion() {
   const navigate = useNavigate();
-  const { user, backendApi } = useContext( AuthContext );
+  const { user } = useAuth();
   const [userId, setUserId] = useState(1);
   const [reviews, setReviews] = useState([]);
 

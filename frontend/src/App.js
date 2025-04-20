@@ -7,12 +7,12 @@ import SignUpModal from "./components/SignUp/SignUpModal";
 import MakeSuggestion from "./components/MakeSuggestion/MakeSuggestion";
 import ListWords from "./components/ListWords/ListWords";
 import BecomeMod from "./components/ModRequest/BecomeMod";
-import { AuthContext } from "./components/Context/AuthContext";
+import { useAuth } from "./components/Context/AuthContext";
 import { Game } from "./components/game/game.jsx";
-import { GameCtx } from "./components/Context/gameCtx.jsx";
+import { findRandomGame, GameCtx } from "./components/Context/gameCtx.jsx";
 
 function App() {
-  const { token, logout, user } = useContext( AuthContext );
+  const { token, logout, user } = useAuth();
   const isMod = user?.roles?.includes("ROLE_MODERATOR");
 
   const [activeModal, setActiveModal] = useState(null);
@@ -27,8 +27,6 @@ function App() {
   const [nickname, setNickname] = useState("");
 
   const game = useContext(GameCtx);
-
-  const findRandomGame = game.findRandomGame;
 
   const handleSuggestionClick = () => {
     if (token) setActiveModal("suggestion");

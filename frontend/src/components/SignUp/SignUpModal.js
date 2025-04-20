@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./SignUpModal.css";
-import { AuthContext } from "../Context/AuthContext";
+import { backendApi } from "../../backendApi";
 
 function SignUpModal({ handleClose }) {
   const navigate = useNavigate();
@@ -11,8 +11,6 @@ function SignUpModal({ handleClose }) {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const password = watch("password", "");
-
-  const { backendApi } = useContext( AuthContext );
 
   const onSubmit = async (data) => {
     try {

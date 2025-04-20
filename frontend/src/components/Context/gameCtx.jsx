@@ -1,7 +1,17 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { AuthContext, backendUrlWs } from "./AuthContext";
+import { createContext, useState, useEffect } from "react";
+import { backendApi, backendUrlWs } from "../../backendApi";
 
 let GameCtx = createContext({});
+
+/**
+ * 
+ * @returns The ID of the game room
+ */
+async function findRandomGame(){
+    const roomResponse = await backendApi.get("/game/random");
+    return roomResponse.data;
+    
+}
 
 
 let socket = null;
@@ -29,18 +39,6 @@ function GameProvider({ children }){
         console.log("word choice: ", wordChoice);
 
     }, [ wordChoice ]);
-
-    const { backendApi } = useContext( AuthContext );
-
-    /**
-     * 
-     * @returns The ID of the game room
-     */
-    async function findRandomGame(){
-        const roomResponse = await backendApi.get("/game/random");
-        return roomResponse.data;
-
-    }
 
     function sendChatMessage( message ){
         socket.send( message );
@@ -199,8 +197,7 @@ function GameProvider({ children }){
             players, chat, cycle, description, helper, roundEnd, writing,
             wordChoice, error, inGame, playerPoints, bannedIcons,
 
-            sendChatMessage, sendDescription, chooseWord, disconnect, joinGame,
-            findRandomGame
+            sendChatMessage, sendDescription, chooseWord, disconnect, joinGame
 
         }}>
         { children }
@@ -214,4 +211,4 @@ function GameProvider({ children }){
 
 */
 
-export { GameCtx, GameProvider };
+export { GameCtx, GameProvider, findRandomGame };

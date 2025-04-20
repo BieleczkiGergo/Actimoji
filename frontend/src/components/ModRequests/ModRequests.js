@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../Context/AuthContext";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../Context/AuthContext";
 import './ModRequest.css';
+import { backendApi } from "../../backendApi";
 
 const ModRequests = () => {
-  const { token, user, backendApi } = useContext( AuthContext );
+  const { token, user } = useAuth();
   const [modRequests, setModRequests] = useState([]);
 
   useEffect(() => {

@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import styles from "./MakeSuggestion.module.css";
 import ListWords from "../ListWords/ListWords";
 import { EmojiKeyboard, removeLastEmoji } from "../Keyboard/EmojiKeyboard.jsx";
+import { backendApi } from "../../backendApi.js";
 
 function MakeSuggestion() {
-    const { token, user, backendApi } = useContext( AuthContext );
+    const { token, user } = useAuth();
     const [activeTab, setActiveTab] = useState("Create");
     const [type, setType] = useState(0);
     const [poster] = useState(user?.id || 1);
