@@ -12,7 +12,6 @@ function BecomeMod({ onRequestSubmitted, handleCloseModal }) {
   const onSubmit = async (data) => {
     try {
       if (!user || !user.userId) {
-        alert("Missing user ID.");
         return;
       }
 
@@ -32,10 +31,9 @@ function BecomeMod({ onRequestSubmitted, handleCloseModal }) {
       );
 
       console.log("Mod request submitted:", response.data);
-      alert("Your mod request has been successfully submitted!");
-      onRequestSubmitted(); // Update parent state to indicate the request is submitted
+      onRequestSubmitted();
       reset();
-      handleCloseModal(); // Close the modal
+      handleCloseModal();
     } catch (error) {
       console.error("Error submitting the request:", error);
     } finally {

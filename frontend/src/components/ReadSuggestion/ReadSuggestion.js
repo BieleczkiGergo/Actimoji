@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ReadSuggestion.module.css";
-import { useAuth } from "../Context/AuthContext";  // AuthContext importálása
+import { useAuth } from "../Context/AuthContext";
 import { backendApi } from "../../backendApi";
-
-// TODO: a backend műveleteket át kell rakni egy context-be
 
 function ReadSuggestion() {
   const navigate = useNavigate();
-  const { user } = useAuth();  // A user adatokat lekérjük az AuthContext-ből
+  const { user } = useAuth();
   const [userId, setUserId] = useState(1);
   const [reviews, setReviews] = useState([]);
 
@@ -30,7 +28,6 @@ function ReadSuggestion() {
     backendApi
       .post(`/review/${action}/${suggestionId}?userId=${userId}`)
       .then(() => {
-        alert(`Suggestion ${suggestionId} ${action}ed by user ${userId}!`);
         setReviews((prev) => prev.filter((r) => r.suggestionId !== suggestionId));
       })
       .catch((error) => console.error(`Error ${action}ing suggestion:`, error));
@@ -51,7 +48,6 @@ function ReadSuggestion() {
 
   return (
     <div className={styles.container}>
-      {/* Sidebar */}
       <div className={styles.sidebar}>
         <div className={styles.sidebarFixed}>
           <div className={styles.sidebarProfile}>
@@ -64,7 +60,6 @@ function ReadSuggestion() {
         </div>
       </div>
 
-      {/* Main content */}
       <div className={styles.mainContent}>
         <div className={styles.sidebarSpacer}></div>
         <div className={styles.reviewList}>
@@ -74,8 +69,14 @@ function ReadSuggestion() {
                 {review.operation !== 0 && (
                   <p className={styles.p}><strong>Old word:</strong> {review.old_word}</p>
                 )}
+                {review.old_icons && review.old_icons.trim() !== "" && (
+                  <p className={styles.p}><strong>Old emojis:</strong> {review.old_icons}</p>
+                )}
                 {review.operation !== 2 && (
                   <p className={styles.p}><strong>New word:</strong> {review.new_word}</p>
+                )}
+                {review.new_icons && review.new_icons.trim() !== "" && (
+                  <p className={styles.p}><strong>New emojis:</strong> {review.new_icons}</p>
                 )}
                 <p className={styles.p}><strong>Operation:</strong> {getOperationText(review.operation)}</p>
                 <p className={styles.p}><strong>Reason:</strong> {review.reason}</p>
