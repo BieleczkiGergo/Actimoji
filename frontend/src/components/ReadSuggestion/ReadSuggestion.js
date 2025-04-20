@@ -4,6 +4,8 @@ import styles from "./ReadSuggestion.module.css";
 import { useAuth } from "../Context/AuthContext";  // AuthContext importálása
 import { backendApi } from "../../backendApi";
 
+// TODO: a backend műveleteket át kell rakni egy context-be
+
 function ReadSuggestion() {
   const navigate = useNavigate();
   const { user } = useAuth();  // A user adatokat lekérjük az AuthContext-ből
