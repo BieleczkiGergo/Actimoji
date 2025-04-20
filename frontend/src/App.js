@@ -106,7 +106,7 @@ function App() {
               onChange={(e) => setNickname(e.target.value)}
             />
             <button className="button" onClick={handleJoinRandomGame}>Play</button>
-            <button className="joinButton" onClick={() => game.joinGame(1, nickname)}>Join Party 🎉</button>
+            {/*<button className="joinButton" onClick={() => game.joinGame(1, nickname)}>Join Party 🎉</button>*/}
           </>
         )}
       </div>

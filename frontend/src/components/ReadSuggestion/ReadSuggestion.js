@@ -14,22 +14,31 @@ function ReadSuggestion() {
       .get("/review")
       .then((response) => setReviews(response.data))
       .catch((error) => console.error("An error occurred:", error));
+
   }
 
   useEffect(() => {
     if (user?.id) {
       setUserId(user.id);
+
     }
     loadData();
   }, [user]);
 
   function handleSuggestion(suggestionId, action) {
+    console.log("action:", action, "suggestionId:", suggestionId, "userId:", userId);
+
     backendApi
       .post(`/review/${action}/${suggestionId}?userId=${userId}`)
       .then(() => {
         setReviews((prev) => prev.filter((r) => r.suggestionId !== suggestionId));
+
       })
-      .catch((error) => console.error(`Error ${action}ing suggestion:`, error));
+      .catch((error) => {
+        console.error(`Error ${action}ing suggestion:`, error)
+      
+      });
+
   }
 
   function getOperationText(operation) {

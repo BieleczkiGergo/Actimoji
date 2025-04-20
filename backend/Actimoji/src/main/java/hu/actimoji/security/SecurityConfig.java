@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests( auth -> auth
                         .requestMatchers("/profile/*").permitAll()
                         .requestMatchers(
-                                "/review/*"
+                                "/review/**"
                                 , "/mod/review/**"
                         ).hasRole("MODERATOR")
                         .requestMatchers(

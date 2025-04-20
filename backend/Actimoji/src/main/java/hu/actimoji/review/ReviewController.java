@@ -26,6 +26,7 @@ public class ReviewController {
     @PostMapping("/accept/{suggestionId}")
     @Operation(summary = "Accept a suggestion")
     public void acceptReview(@PathVariable Long suggestionId, @RequestParam Integer userId) {
+        System.out.println("accept review");
         reviewService.acceptSuggestion( suggestionId, userId );
 
     }
@@ -33,6 +34,7 @@ public class ReviewController {
     @PostMapping("/reject/{suggestionId}")
     @Operation(summary = "Reject a suggestion")
     public void rejectReview(@PathVariable Long suggestionId, @RequestParam Integer userId) {
+        System.out.println("reject review");
         reviewService.rejectSuggestion( suggestionId, userId );
 
     }

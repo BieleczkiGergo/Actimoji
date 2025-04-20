@@ -82,7 +82,7 @@
   flex: 1;
   padding: 20px;
   background-color: #f4f4f4;
-  margin-left: 20%; /* hogy ne menjen a sidebar alá */
+  
 }
 
 .reviewList {

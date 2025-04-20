@@ -33,6 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         //System.out.println(authHeader);
 
         if( authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("Authorization header not found");
             filterChain.doFilter(request, response);
             return;
 
