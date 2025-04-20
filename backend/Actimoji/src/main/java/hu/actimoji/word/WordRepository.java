@@ -17,4 +17,8 @@ public interface WordRepository extends JpaRepository<Word, Integer> {
 
     @Query(value = "SELECT * FROM word ORDER BY RAND() LIMIT :limit", nativeQuery = true)
     List<Word> getRandomWords( @Param("limit") int limit );
+
+    @Query(value = "SELECT * FROM word LIMIT :limit OFFSET :off", nativeQuery = true)
+    List<Word> getWordsPaged( @Param("limit") int limit, @Param("off") int offset );
+
 }

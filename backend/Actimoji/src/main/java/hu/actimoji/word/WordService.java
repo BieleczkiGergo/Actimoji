@@ -9,11 +9,18 @@ import java.util.stream.Collectors;
 @Service
 public class WordService {
 
+    private static final int pageSize = 20;
+
     @Autowired
     private WordRepository wordRepository;
 
     public List<Word> getWords() {
         return wordRepository.findAll();
+
+    }
+
+    public List<Word> getWordsPaged( Integer page ){
+        return wordRepository.getWordsPaged( pageSize, page * pageSize );
 
     }
 
