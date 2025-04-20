@@ -103,13 +103,13 @@ const handleReject = (requestId) => {
                     <>
                       <button
                         className="actionBtn approve"
-                        onClick={() => handleAccept(request.id)} // Elfogadás
+                        onClick={() => handleAccept(request.id)}
                       >
                         ✅
                       </button>
                       <button
                         className="actionBtn reject"
-                        onClick={() => handleReject(request.id)} // Elutasítás
+                        onClick={() => handleReject(request.id)}
                       >
                         ❌
                       </button>

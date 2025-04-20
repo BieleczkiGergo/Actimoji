@@ -145,10 +145,34 @@ function App() {
 
       <ListWords open={false} onClose={() => {}} />
 
-      <Snackbar open={openAlert} autoHideDuration={6000} onClose={() => setOpenAlert(false)} message={alertMessage} />
-      <Snackbar open={openModAlert} autoHideDuration={6000} onClose={() => setOpenModAlert(false)} message="You must be a mod to view suggestions." />
-      <Snackbar open={openBecomeModAlert} autoHideDuration={6000} onClose={() => setOpenBecomeModAlert(false)} message="You must be logged in to access Become Mod." />
-      <Snackbar open={openModAlreadyAlert} autoHideDuration={6000} onClose={() => setOpenModAlreadyAlert(false)} message="You are already a mod!" />
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenAlert(false)}
+        message={alertMessage}
+
+      />
+      <Snackbar
+        open={openModAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenModAlert(false)}
+        message="You must be a mod to view suggestions."
+
+      />
+      <Snackbar
+        open={openBecomeModAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenBecomeModAlert(false)}
+        message="You must be logged in to access Become Mod."
+
+      />
+      <Snackbar
+        open={openModAlreadyAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenModAlreadyAlert(false)}
+        message="You are already a mod!"
+      
+      />
 
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
         <Alert onClose={handleCloseSnackbar} severity="info">

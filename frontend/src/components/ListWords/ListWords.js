@@ -1,20 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
 import Modal from "@mui/material/Modal";
 import styles from "./ListWords.module.css";
-import { AuthContext } from "../Context/AuthContext"; // AuthContext importálása
+import { AuthContext } from "../Context/AuthContext";
 
 function ListWords({ open, onClose, onSelect }) {
-  const { token, backendApi } = useContext( AuthContext ); // Token lekérése az AuthContext-ből
+  const { token, backendApi } = useContext( AuthContext );
   const [words, setWords] = useState([]);
 
   useEffect(() => {
-    if (open && token) { // Ha a modal nyitva van és van token
+    if (open && token) {
 
-      // TODO: ezt újra lehetne írni async-el
+      // TODO: we should rewrite this with async
       
       backendApi
         .get("/words/query", {
-          headers: { Authorization: `Bearer ${token}` },  // Auth header hozzáadása
+          headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
           setWords(response.data);
@@ -23,11 +23,12 @@ function ListWords({ open, onClose, onSelect }) {
           console.error("Hiba történt az adatok lekérésekor:", error);
         });
     }
-  }, [open, token, backendApi]); // Ha a modal nyitás vagy a token változik, újraindul a kérés
+  }, [open, token, backendApi]);
 
   const handleWordClick = (word) => {
-    onSelect(word); // A kiválasztott szó átadása a parent komponensnek
-    onClose(); // Modal bezárása
+    onSelect(word);
+    onClose();
+
   };
 
   return (
