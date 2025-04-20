@@ -1,0 +1,5 @@
+jwt:
+  secret:
+    asd123
+
+# TODO: change this before running the app in a production environment

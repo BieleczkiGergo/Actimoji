@@ -15,7 +15,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState( 0 );
 
   const backendApi = axios.create({
     baseURL: backendUrlHttp
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       delete backendApi.defaults.headers.common["Authorization"];
       setUser(null);
 
-      setLoading( false );
+      setLoading( loading => loading | 1 );
     }
   }, [ token ]);
 
@@ -67,6 +67,8 @@ export const AuthProvider = ({ children }) => {
         return Promise.reject(error);
       }
     );
+
+    setLoading( loading => loading | 2 );
 
     return () => backendApi.interceptors.response.eject(resInterceptor);
   }, []);

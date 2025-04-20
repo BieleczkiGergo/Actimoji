@@ -29,7 +29,7 @@ function EmojiProvider({children}){
     // Premature abstraction because I want to look smart
 
     useEffect( () => {
-        if( !loading ){
+        if( loading == 3 ){
             reloadEmojis();
 
         }

@@ -1,20 +1,34 @@
 package hu.actimoji.security;
 
 import hu.actimoji.account.Account;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
 @Component
 public class JwtUtil {
 
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    @Value("${jwt.secret}")
+    private String raw_key;
+
+    private Key key;
     private final long validity = 1000 * 60 * 60;
+
+    @PostConstruct
+    public void init() {
+        final String padded_key = String.format("%64s", raw_key).replace(' ', '0');
+        this.key = Keys.hmacShaKeyFor( padded_key.getBytes( StandardCharsets.UTF_8 ) );
+
+    }
 
     public String generateToken(Account account) {
         System.out.println("generating token");
