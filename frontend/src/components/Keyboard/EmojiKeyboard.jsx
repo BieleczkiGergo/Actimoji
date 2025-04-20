@@ -25,6 +25,9 @@ const EmojiKeyboard = ({ onEmojiSelect, onEmojiDelete }) => {
         onEmojiDelete();
         break;
 
+      default:
+        break;
+
     }
 
   }

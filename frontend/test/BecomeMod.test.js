@@ -3,6 +3,9 @@ import { render, screen, fireEvent, waitFor, act } from "@testing-library/react"
 import BecomeMod from "../src/components/BecomeMod/BecomeMod";
 import { useAuth } from "../src/components/Context/AuthContext";
 import axios from "axios";
+import { backendApi } from "../src/backendApi";
+
+// TODO: ezeket az axios hívásokat is ki kéne cserélni backendApi-val
 
 jest.mock("../src/components/Context/AuthContext");
 jest.mock("axios");
@@ -18,6 +21,7 @@ describe("BecomeMod Component", () => {
     useAuth.mockReturnValue({
       user: mockUser,
       token: mockToken,
+
     });
   });
 
@@ -27,6 +31,7 @@ describe("BecomeMod Component", () => {
     expect(screen.getByText("Become a Mod")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Why would you like to become a mod?")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Submit" })).toBeInTheDocument();
+
   });
 
   it("shows an error if the reason is not provided", async () => {
@@ -36,6 +41,7 @@ describe("BecomeMod Component", () => {
     fireEvent.click(submitButton);
     
     await waitFor(() => expect(screen.getByText("The reason field is mandatory!")).toBeInTheDocument());
+
   });
 
   it("shows an error if the reason is too short", async () => {
@@ -48,6 +54,7 @@ describe("BecomeMod Component", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(screen.getByText("The reason must be at least 5 characters long")).toBeInTheDocument());
+
   });
 
   it("submits the form successfully", async () => {
@@ -65,8 +72,8 @@ describe("BecomeMod Component", () => {
     expect(submitButton).toHaveTextContent("Submitting...");
     
     await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledWith(
-        "http://localhost:8080/mod/request",
+      expect( backendApi.post ).toHaveBeenCalledWith(
+        "/mod/request",
         {
           reason: "I want to help manage the community!",
           requestedId: 1,
@@ -80,6 +87,7 @@ describe("BecomeMod Component", () => {
       
       expect(mockOnRequestSubmitted).toHaveBeenCalled();
       expect(mockHandleCloseModal).toHaveBeenCalled();
+
     });
   });
 
@@ -99,6 +107,7 @@ describe("BecomeMod Component", () => {
 
     await waitFor(() => {
       expect(console.error).toHaveBeenCalledWith("Error submitting the request:", mockError);
+      
     });
   });
 });

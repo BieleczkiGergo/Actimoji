@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./BecomeMod.module.css";
-import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
+import { backendApi } from "../../backendApi";
 
 function BecomeMod({ onRequestSubmitted, handleCloseModal }) {
   const { user, token } = useAuth();
@@ -18,8 +18,8 @@ function BecomeMod({ onRequestSubmitted, handleCloseModal }) {
 
       setIsSubmitting(true);
 
-      const response = await axios.post(
-        "http://localhost:8080/mod/request",
+      const response = await backendApi.post(
+        "/mod/request",
         {
           reason: data.reason,
           requestedId: user.userId,

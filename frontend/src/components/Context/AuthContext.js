@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import { backendApi } from "../../backendApi";
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
@@ -17,44 +17,50 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     setUser(null);
     localStorage.removeItem("token");
-    delete axios.defaults.headers.common["Authorization"];
+    delete backendApi.defaults.headers.common["Authorization"];
   };
 
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      backendApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       try {
         const decodedUser = jwtDecode(token);
         setUser(decodedUser);
+
       } catch (error) {
         console.error("Token decoding error:", error);
         logout();
+
       }
     } else {
-      delete axios.defaults.headers.common["Authorization"];
+      delete backendApi.defaults.headers.common["Authorization"];
       setUser(null);
+
     }
   }, [token]);
 
   useEffect(() => {
-    const resInterceptor = axios.interceptors.response.use(
+    const resInterceptor = backendApi.interceptors.response.use(
       response => response,
       error => {
         if (error.response?.status === 401 || error.response?.status === 403) {
           console.warn("Token lejárt vagy érvénytelen, automatikus logout");
           logout();
+
         }
+
         return Promise.reject(error);
       }
     );
 
-    return () => axios.interceptors.response.eject(resInterceptor);
+    return () => backendApi.interceptors.response.eject(resInterceptor);
   }, []);
 
   return (
     <AuthContext.Provider value={{ token, user, login, logout }}>
       {children}
     </AuthContext.Provider>
+
   );
 };
 

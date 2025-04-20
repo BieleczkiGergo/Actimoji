@@ -1,10 +1,10 @@
-import axios from "axios";
+import { backendApi } from "../../backendApi";
 import { createContext, useEffect, useState } from "react";
 
 const EmojiCtx = createContext([]);
 
 async function getAllEmojis(){
-    return (await axios.get("http://localhost:8080/emoji/getAll")).data
+    return (await backendApi.get("/emoji/getAll")).data
     .map( (emojiread => {
         return {
             "emoji" : emojiread.emoji,

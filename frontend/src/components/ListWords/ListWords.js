@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
-import axios from "axios";
 import styles from "./ListWords.module.css";
 import { useAuth } from "../Context/AuthContext"; // AuthContext importálása
+import { backendApi } from "../../backendApi";
 
 function ListWords({ open, onClose, onSelect }) {
   const { token } = useAuth(); // Token lekérése az AuthContext-ből
@@ -10,8 +10,11 @@ function ListWords({ open, onClose, onSelect }) {
 
   useEffect(() => {
     if (open && token) { // Ha a modal nyitva van és van token
-      axios
-        .get("http://localhost:8080/words/query", {
+
+      // TODO: ezt újra lehetne írni async-el
+      
+      backendApi
+        .get("/words/query", {
           headers: { Authorization: `Bearer ${token}` },  // Auth header hozzáadása
         })
         .then((response) => {

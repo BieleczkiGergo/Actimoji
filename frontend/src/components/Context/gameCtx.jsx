@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import { backendApi, backendUrlWs } from "../../backendApi";
 
 let GameCtx = createContext({});
 
@@ -8,7 +8,7 @@ let GameCtx = createContext({});
  * @returns The ID of the game room
  */
 async function findRandomGame(){
-    const roomResponse = await axios.get("http://localhost:8080/game/random");
+    const roomResponse = await backendApi.get("/game/random");
     return roomResponse.data;
     
 }
@@ -73,7 +73,7 @@ function GameProvider({ children }){
 
         disconnect();
 
-        socket = new WebSocket(`ws://localhost:8080/game/room/${roomId}?username=${uname}`);
+        socket = new WebSocket(`${backendUrlWs}/game/room/${roomId}?username=${uname}`);
 
         socket.onopen = (e) => {
             setInGame( true );

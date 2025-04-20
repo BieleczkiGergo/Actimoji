@@ -6,6 +6,9 @@ import { AuthContext } from "../Context/AuthContext";
 // Mock axios to prevent actual HTTP requests
 jest.mock("axios");
 
+// MESSAGE: nem néztem meg itt mire kell az axios de ha lehet ki kéne cserélni
+//    a backendApi-val ( src/backendApi.js )
+
 const renderWithAuth = (ui, { providerProps }) => {
   return render(
     <AuthContext.Provider value={providerProps}>

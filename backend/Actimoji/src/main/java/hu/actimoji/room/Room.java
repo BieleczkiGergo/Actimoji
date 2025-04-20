@@ -172,18 +172,6 @@ public class Room {
 
     }
 
-    private void updateHelper(){
-        if (this.helperTimer != null){
-            this.helperTimer.cancel();
-            this.helperTimer = null;
-
-        }
-        this.helperTimer = new Timer();
-
-
-
-    }
-
     private int getPoints(){
         long remainingMillis = Duration.between( Instant.now(), stateEnd ).toMillis();
 

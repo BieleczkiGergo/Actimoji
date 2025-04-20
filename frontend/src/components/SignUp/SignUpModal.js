@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./SignUpModal.css";
+import { backendApi } from "../../backendApi";
 
 function SignUpModal({ handleClose }) {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function SignUpModal({ handleClose }) {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post("http://localhost:8080/profile/register", {
+      await backendApi.post("/profile/register", {
         username: data.username,
         email: data.email,
         password: data.password,

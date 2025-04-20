@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ReadSuggestion.module.css";
-import axios from "axios";
 import { useAuth } from "../Context/AuthContext";  // AuthContext importálása
+import { backendApi } from "../../backendApi";
 
 function ReadSuggestion() {
   const navigate = useNavigate();
@@ -11,8 +11,8 @@ function ReadSuggestion() {
   const [reviews, setReviews] = useState([]);
 
   function loadData() {
-    axios
-      .get("http://localhost:8080/review")
+    backendApi
+      .get("/review")
       .then((response) => setReviews(response.data))
       .catch((error) => console.error("An error occurred:", error));
   }
@@ -25,8 +25,8 @@ function ReadSuggestion() {
   }, [user]);
 
   function handleSuggestion(suggestionId, action) {
-    axios
-      .post(`http://localhost:8080/review/${action}/${suggestionId}?userId=${userId}`)
+    backendApi
+      .post(`/review/${action}/${suggestionId}?userId=${userId}`)
       .then(() => {
         alert(`Suggestion ${suggestionId} ${action}ed by user ${userId}!`);
         setReviews((prev) => prev.filter((r) => r.suggestionId !== suggestionId));

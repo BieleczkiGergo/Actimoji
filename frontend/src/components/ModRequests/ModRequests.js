@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 import './ModRequest.css';
+import { backendApi } from "../../backendApi";
 
 const ModRequests = () => {
   const { token, user } = useAuth();
@@ -19,8 +19,8 @@ const ModRequests = () => {
 
   const fetchModRequests = () => {
     console.log("Fetching mod requests...");
-    axios
-      .get("http://localhost:8080/mod/review", {
+    backendApi
+      .get("/mod/review", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,9 +38,10 @@ const handleAccept = (requestId) => {
   console.log("Accepting request with ID:", requestId); 
   console.log("User object in decision handler:", user);
 
-  const url = `http://localhost:8080/mod/review/accept/${requestId}?moderatorId=${user?.userId}`;
+  // TODO: ezt egy sorba lehetne rakni olvashatóság érdekében
+  const url = `/mod/review/accept/${requestId}?moderatorId=${user?.userId}`;
   
-  axios
+  backendApi
     .post(url, null, { 
       headers: {
         Authorization: `Bearer ${token}`,
@@ -59,9 +60,10 @@ const handleReject = (requestId) => {
   console.log("Rejecting request with ID:", requestId);
   console.log("User object in decision handler:", user);
 
-  const url = `http://localhost:8080/mod/review/reject/${requestId}?moderatorId=${user?.userId}`;
+  // TODO: ezt egy sorba lehetne rakni olvashatóság érdekében
+  const url = `/mod/review/reject/${requestId}?moderatorId=${user?.userId}`;
   
-  axios
+  backendApi
     .post(url, null, {
       headers: {
         Authorization: `Bearer ${token}`,

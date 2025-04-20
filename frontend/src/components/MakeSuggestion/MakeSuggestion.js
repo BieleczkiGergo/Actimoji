@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 import styles from "./MakeSuggestion.module.css";
 import ListWords from "../ListWords/ListWords";
 import { EmojiKeyboard, removeLastEmoji } from "../Keyboard/EmojiKeyboard.jsx";
+import { backendApi } from "../../backendApi.js";
 
 function MakeSuggestion() {
     const { token, user } = useAuth();
@@ -45,7 +45,7 @@ function MakeSuggestion() {
             payload.new_icons = emojiValue;
         }
 
-        axios.post("http://localhost:8080/suggest/", payload, {
+        backendApi.post("/suggest/", payload, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {

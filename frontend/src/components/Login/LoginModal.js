@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import "./LoginModal.css";
+import { backendApi } from "../../backendApi";
 
 function LoginModal({ handleClose }) {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function LoginModal({ handleClose }) {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://localhost:8080/profile/login", {
+      const response = await backendApi.post("/profile/login", {
         username: data.username,
         password: data.password,
       });
