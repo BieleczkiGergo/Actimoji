@@ -19,7 +19,7 @@ function PlayersBar({ gridArea }){
             
             </p>
 
-            { ( index < players.length-1 ) ? <hr /> : <></> }
+            { ( index < players.length-1 ) ? <hr key={name + "hr"} /> : <></> }
             
 
         </>)}

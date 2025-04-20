@@ -17,7 +17,16 @@ function Description(){
 
     }
 
-    const desc_pad = (description == "") ? " " : description;
+    const desc_pad = (description === "") ? " " : description;
+
+    const helper_transformed = helper.split(" ").map( (val, i, arr) => 
+        <>
+            <span key={val}>{val}</span>
+            <sup key={val + "len"}>{val.length}</sup>
+
+            { i < arr.length-1 ? <>&nbsp;</> : <></>}
+        </>
+    );
 
     useEffect( () => {
         sendDesc();
@@ -52,7 +61,7 @@ function Description(){
             </>)
             :
             (<>
-                <h2 className={ styles.helper }>{ helper }</h2>
+                <h2 className={ styles.helper }>{ helper_transformed }</h2>
                 <h2 className={ styles.writerDesc }>{ desc_pad }</h2>
 
             </>)
