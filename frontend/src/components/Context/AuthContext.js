@@ -53,8 +53,6 @@ export const AuthProvider = ({ children }) => {
       }
     );
 
-    setLoading( loading => loading | 2 );
-
     return () => backendApi.interceptors.response.eject(resInterceptor);
   }, []);
 

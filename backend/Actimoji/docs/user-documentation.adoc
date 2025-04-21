@@ -53,7 +53,7 @@ image:static/frontend/waitingForPlayers.png[Waiting for players]
 image:static/frontend/writer.png[Writer]
 5. If you are a guesser, guess the word based on the emoji clues.
 image:static/frontend/guesser.png[Guesser]
-6. Points are awarded based on speed and accuracy.
+6. Points are awarded based on how quickly you guessed the prompt
 image:static/frontend/points.png[Points]
 
 === Chat Feature

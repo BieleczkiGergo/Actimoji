@@ -4,6 +4,8 @@ import styles from "./ListWords.module.css";
 import { useAuth } from "../Context/AuthContext"; // AuthContext importálása
 import { backendApi } from "../../backendApi";
 
+const max_words = 20;
+
 function ListWords({ open, onClose, onSelect }) {
   const { token } = useAuth(); // Token lekérése az AuthContext-ből
   const [words, setWords] = useState([]);
