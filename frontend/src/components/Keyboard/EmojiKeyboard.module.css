@@ -1,6 +1,6 @@
 .keyboard {
   padding: 10px;
-  background-color: #EEF4ED; /* Új háttérszín */
+  background-color: #EEF4ED;
   border: 2px solid #3B7080;
   border-radius: 8px;
   width: 20rem;
@@ -11,11 +11,11 @@
 }
 
 .emoji {
-  font-size: 30px; /* Nagyobb emojik */
+  font-size: 30px;
   cursor: pointer;
   margin: 5px;
   transition: transform 0.2s ease-in-out;
-  color: #3B7080; /* Emeléssel kiemelt szín */
+  color: #3B7080;
 
 }
 
@@ -34,15 +34,23 @@
 }
 
 .emojiNameInput {
-  display: block;
   width: 100%;
-
   padding-bottom: 10px;
   margin: auto;
+
+  display: flex;
+  flex-flow: row nowrap;
 
 }
 
 .emojiNameInput input {
-  width: 100%;
+  flex-grow: 1;
   
+}
+
+.backspaceIcon{
+  height: 2rem;
+  width: auto;
+  flex-shrink: 0;
+
 }

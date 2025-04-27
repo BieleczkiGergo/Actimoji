@@ -29,9 +29,10 @@ public class SuggestionConverter {
         suggestion.setHandlerMod( null );
         suggestion.setHandledAt( null );
 
-        Account poster = accountRepository.findById(suggestionSave.getPoster()).get();
+        Account poster = accountRepository.findById( suggestionSave.getPoster() ).get();
         suggestion.setPoster( poster );
 
+        // TODO: Implement default actions if word is null
         Word word = wordRepository.findById( suggestionSave.getWord_id() ).get();
         suggestion.setWord( word );
 

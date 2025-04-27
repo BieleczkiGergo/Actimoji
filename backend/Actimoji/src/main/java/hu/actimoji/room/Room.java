@@ -19,7 +19,7 @@ import java.util.*;
  * Event handling methods are prefixed with "handle" such as: handlePlayerMessage, handlePlayerLeave etc...
  * Methods that directly affect all players are prefixed with "broadcast" such as:  broadcastPlayerUpdate
  * <br>
- * Future developers: please give very clear names to everything in this file.
+ * Future developers, please give very clear names to everything in this file.
  */
 public class Room {
     // TODO: implement room closing

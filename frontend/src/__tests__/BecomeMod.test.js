@@ -1,14 +1,14 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
-import BecomeMod from "../src/components/BecomeMod/BecomeMod";
-import { useAuth } from "../src/components/Context/AuthContext";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import BecomeMod from "../components/ModRequest/BecomeMod";
+import { useAuth } from "../components/Context/AuthContext";
 import axios from "axios";
-import { backendApi } from "../src/backendApi";
+import { backendApi } from "../backendApi";
 
 // TODO: ezeket az axios hívásokat is ki kéne cserélni backendApi-val
 
-jest.mock("../src/components/Context/AuthContext");
-jest.mock("axios");
+//jest.mock("../src/components/Context/AuthContext");
+//jest.mock("axios");
 
 describe("BecomeMod Component", () => {
   const mockOnRequestSubmitted = jest.fn();

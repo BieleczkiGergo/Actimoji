@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
 import styles from "./EmojiKeyboard.module.css";
 import { EmojiCtx } from "../Context/emojiCtx";
+import { ReactComponent as BackspaceIcon } from "../../assets/backspace.svg";
+
+// TODO: give credit to the artist
 
 const EmojiKeyboard = ({ onEmojiSelect, onEmojiDelete }) => {
   const emojis = useContext( EmojiCtx );
@@ -37,12 +40,20 @@ const EmojiKeyboard = ({ onEmojiSelect, onEmojiDelete }) => {
       <div className={ styles.emojiNameInput }>
         <input
           type="text"
+          title="enter emoji to find it (alt + enter: insert)"
           onInput={ e => setSearchTerm(e.target.value) }
           onKeyUp={ e => {
             handleAltActions(e);
             e.target.focus();
             
           }}
+        />
+
+        <BackspaceIcon
+          className={ styles.backspaceIcon }
+          title="delete last emoji (alt + backspace)"
+          onClick={ onEmojiDelete }
+
         />
 
       </div>

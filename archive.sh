@@ -1,8 +1,14 @@
 #!/bin/sh
 
-rm Actimoji.zip
+#rm Actimoji.zip
 
-zip -r Actimoji.zip .git* README.md \
+current_date=$(date +"%Y_%b_%d")
+
+outfile="archives/Actimoji_${current_date}.zip"
+
+echo $outfile
+
+zip -r "$outfile" .git* README.md \
   frontend/.git* frontend/public frontend/README.md \
   frontend/package* frontend/src frontend/test \
   backend/Actimoji/docs \

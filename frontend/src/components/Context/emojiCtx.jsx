@@ -1,5 +1,6 @@
 import { backendApi } from "../../backendApi";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
 
 const EmojiCtx = createContext([]);
 
@@ -18,6 +19,7 @@ async function getAllEmojis(){
 
 function EmojiProvider({children}){
     const [emojis, setEmojis] = useState([]);
+    const { loaded } = useAuth();
 
     async function reloadEmojis(){
         setEmojis( await getAllEmojis() );
@@ -26,9 +28,12 @@ function EmojiProvider({children}){
     // Premature abstraction because I want to look smart
 
     useEffect( () => {
-        reloadEmojis();
+        if( 3 === loaded ){
+            reloadEmojis();
 
-    }, []);
+        }
+
+    }, [ loaded ]);
 
     return <EmojiCtx.Provider value={emojis}>
         {children}

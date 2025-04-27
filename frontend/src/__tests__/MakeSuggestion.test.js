@@ -1,10 +1,11 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import MakeSuggestion from "./MakeSuggestion";
-import { AuthContext } from "../Context/AuthContext";
+import MakeSuggestion from "../components/MakeSuggestion/MakeSuggestion";
+import { AuthContext } from "../components/Context/AuthContext";
 
 // Mock axios to prevent actual HTTP requests
-jest.mock("axios");
+//jest.mock("axios");
+// Mi lenne ha nem
 
 // MESSAGE: nem néztem meg itt mire kell az axios de ha lehet ki kéne cserélni
 //    a backendApi-val ( src/backendApi.js )

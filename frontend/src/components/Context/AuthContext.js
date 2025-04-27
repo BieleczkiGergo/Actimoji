@@ -7,6 +7,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
+  const [loaded, setLoaded] = useState(0);
 
   const login = (newToken) => {
     setToken(newToken);
@@ -37,6 +38,8 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
 
     }
+    setLoaded( loaded => loaded | 1 );
+
   }, [token]);
 
   useEffect(() => {
@@ -53,15 +56,20 @@ export const AuthProvider = ({ children }) => {
       }
     );
 
+    setLoaded( loaded => loaded | 2 );
+
     return () => backendApi.interceptors.response.eject(resInterceptor);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
+    <AuthContext.Provider value={{ token, user, loaded, login, logout }}>
       {children}
     </AuthContext.Provider>
 
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+//TODO: Ezeket ki kell cserélni sima AuthContext-re hogy olvashatóbb legyen a kód
+const useAuth = () => useContext(AuthContext)
+
+export { useAuth, AuthContext };
