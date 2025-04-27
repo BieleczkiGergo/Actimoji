@@ -23,7 +23,6 @@ image:static/frontend/mainPage.png[main Page]
 4. After registration, log in to start using the features or if you just want to play, you don't need to have an account.
 
 image:static/frontend/signUp.png[Sign up]
-== User Roles and Permissions
 
 === Logging into your account
 1. Click on the Login button
@@ -76,12 +75,13 @@ image:static/frontend/createSuggestion.png[Create suggestion]
 2. Update the word or its associated emojis.
 3. Add an optional reason.
 4. Press the modify button to submit your changes for review.
+
 image:static/frontend/modifySuggestion.png[Modify suggestion]
 
 === Deleting a Word
 
 1. Select the word to delete.
-2. Optionally provide a reason.
+2. You have to provide a reason.
 3. Press the delete button to submit the deletion request.
 image:static/frontend/deleteSuggestion.png[Delete suggestion]
 
@@ -111,9 +111,6 @@ Submit a request via the “Become mod” option. Moderators will review your re
 
 === How are scores calculated?
 Scores depend on how quickly and accurately you guess words.
-
-=== Can I play with friends?
-Yes! Create a room and share the name with your friends so they can join.
 
 
 link:README.adoc[Back to Main Documentation]
