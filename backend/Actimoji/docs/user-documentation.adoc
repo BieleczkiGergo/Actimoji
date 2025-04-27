@@ -58,6 +58,8 @@ image:static/frontend/points.png[Points]
 === Chat Feature
 
 - You can chat with other players during the game.
+- This is also where you will have to type your guesses.
+
 image:static/frontend/chat.png[Chat]
 
 == Word Proposals
@@ -84,6 +86,27 @@ image:static/frontend/modifySuggestion.png[Modify suggestion]
 2. You have to provide a reason.
 3. Press the delete button to submit the deletion request.
 image:static/frontend/deleteSuggestion.png[Delete suggestion]
+
+=== The Emoji keyboard
+
+We made an emoji keyboard to assist you with some tasks, such as:
+
+- when typing in banned icons for a suggestion:
+image:static/frontend/keyboard_suggestion.png[Keyboard in suggestion]
+- when you're describing a word ( in-game )
+image:static/frontend/keyboard_ingame.png[Keyboard in-game]
+
+Just start typing the emoji and it will show you only the emojis that fit your keywords:
+
+image:static/frontend/keyboard_search.png[Searching with the keyboard]
+
+To choose an emoji, click on it, or alternatively, press alt+enter
+
+image:static/frontend/keyboard_insert.png[Inserting an emoji with the keyboard]
+
+To delete the last emoji, either click the delete button, or press alt+backspace
+
+image:static/frontend/keyboard_delete.png[Deleting the last emoji with the keyboard]
 
 === Applying for moderator
 1. Press the become mod button
