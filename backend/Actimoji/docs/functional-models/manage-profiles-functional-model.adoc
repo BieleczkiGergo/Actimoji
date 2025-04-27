@@ -25,7 +25,7 @@ This functional module handles user account management, including registration, 
 
     The user navigates to the registration interface
 
-    The user enters their email, password, and optional username
+    The user enters their email, password, and username
 
     The system validates the input and creates the account
 

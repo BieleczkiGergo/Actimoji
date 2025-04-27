@@ -23,7 +23,7 @@ The project is organized under the base package: `hu.actimoji`. Each feature is 
 - `moderatorRequest`: Handling user requests for moderator actions.
 - `player`: Player-related models and logic.
 - `review`: Word review process.
-- `room`: Game room creation, joining, and management.
+- `room`: Game room joining.
 - `security`: Web security configuration.
 - `suggestion`: User word suggestion logic.
 - `word`: Word entities and retrieval logic.
@@ -102,7 +102,7 @@ They are handled in `@ControllerAdvice` classes like `AccountExceptionHandler`.
 == 9. Security
 
 - Basic CORS configuration in `CorsConfig.java`.
-- Authentication logic is currently minimal; future improvements possible.
+- Authentication logic is currently minimal.
 
 == 10. Configuration
 

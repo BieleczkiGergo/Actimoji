@@ -1,10 +1,6 @@
 = Word Management - Functional Model
 
-====== Created by: Bieleczki Gergő Péter, Kocsis Ákos, Molnár Dávid,
-
 == Description
-
-An unauthenticated user can view the words stored in the database.
 
 An authenticated user can propose the creation of new words, as well as modify or delete existing words.
 
@@ -14,41 +10,6 @@ An authenticated user can propose the creation of new words, as well as modify o
 image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 
 === Use Case Descriptions
-
-[cols="1h,4"]
-|===
-| Use Case
-| Listing Words
-
-| Identifier
-| UC_W_List
-
-| Triggering Event
-| The user wants to list the words
-
-| Users
-| General user, Authenticated user, Moderator
-
-| Primary Flow
-|
-
-    The user clicks on the "List Words" menu option,
-
-    The system filters the words
-
-| Exceptions and Alternatives
-| -
-
-| Post condition
-| The system has generated the word list
-
-| Result
-| The user sees the list of words and can select one from them.
-
-| Use Case Realization
-| Technical model
-
-|===
 
 [cols="1h,4"]
 |===
@@ -67,13 +28,13 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 | Primary Flow
 |
 
-    The user clicks on the "Propose a Word" menu option
+    The user clicks on the "Make suggestion" menu option
 
     The user selects the option to create a new word in the popup window
 
     The user enters the new word, the associated restricted symbols, and optionally a brief justification for creating the word
 
-    The user clicks the "Submit Proposal" button
+    The user clicks the "Create" button
 
     The proposal is stored in the database, and moderators can either approve or reject it.
 
@@ -108,13 +69,13 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 | Primary Flow
 |
 
-    The user clicks on the "Propose a Word" menu option
+    The user clicks on the "Make suggestion" menu option
 
     The user selects the option to modify the word in the popup window
 
     The user selects the word to be modified from the existing words, enters the new word and/or its associated restricted symbols, and provides a brief justification for modifying the word and/or the restricted symbols
 
-    The user clicks the "Submit Proposal" button
+    The user clicks the "Modify" button
 
     The proposal is stored in the database, and moderators can either approve or reject it.
 
@@ -149,13 +110,13 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 | Primary Flow
 |
 
-    The user clicks on the "Propose a Word" menu option
+    The user clicks on the "Make suggestion" menu option
 
     The user selects the option to delete a word in the popup window
 
     The user selects the word to be deleted from the existing words and provides a brief justification for its deletion
 
-    The user clicks the "Submit Proposal" button
+    The user clicks the "Delete" button
 
     The proposal is stored in the database, and moderators can either approve or reject it.
 
@@ -190,7 +151,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 | Primary Flow
 |
 
-    The moderator clicks on the "Proposals" menu option,
+    The moderator clicks on the "Read suggestions" menu option,
 
     The system retrieves the proposals
 
@@ -225,7 +186,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 | Primary Flow
 |
 
-    The moderator clicks the "Accept" icon next to the selected proposal,
+    The moderator clicks the "Approve" icon next to the selected proposal,
 
     The system executes the corresponding action based on the proposal type (create, update, delete).
 
@@ -236,7 +197,7 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 | A word has been created, modified, or deleted in the system.
 
 | Result
-| When listing words, the new or modified word appears, or the deleted word no longer appears.
+| When playing the game, the new or modified word appears, or the deleted word no longer appears.
 
 | Use Case Realization
 | Technical model
@@ -284,9 +245,6 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 |===
 | Use Case | Permission | Roles
 
-| Listing Words
-| WORD_LIST
-| General User, Authenticated User, Moderator
 
 | Proposing a New Word
 | WORD_CREATE
@@ -315,64 +273,6 @@ image::../static/UC_diagrams/manageWordsUseCases.jpg[Use Case Diagram]
 |===
 
 == UI Design
-
-=== Word Listing Interface
-
-=== Layout
-
-image::../static/frontend_plans/list_words.png[Word Listing Layout]
-
-=== Fields on the Interface
-
-[cols="1,1,1,1"]
-
-|===
-| Name | Type | Required? | Editable?
-
-| Search
-| Text input field
-| N
-| Y
-
-| Words Header
-| Text field
-| N
-| N
-
-| Restricted Icons Header
-| Text field
-| N
-| N
-
-| Word List Item
-| Button
-| N
-| N
-
-| Word
-| Text field
-| N
-| N
-
-| Icons
-| Text field
-| N
-| N
-
-|===
-
-
-
-==== Actions Available on the Interface
-
-[cols="1,1,1"]
-|===
-| Event | Description | Permission
-
-| Clicking on a Word List Item
-| The word is selected in the popup window. In the proposal windows, the word details can be viewed.
-| WORD_LIST
-|===
 
 === Proposing a New Word Interface
 
@@ -409,7 +309,7 @@ Fields on the Interface
 |===
 | Event | Description | Permission
 
-| Clicking the Send button
+| Clicking the Create button
 | The proposal for introducing the new word is sent. Moderators can view the proposal when listing the suggestions.
 | WORD_CREATE
 |===
@@ -453,7 +353,7 @@ Actions Available on the Interface
 |===
 | Event | Description | Permission
 
-| Clicking the Send button
+| Clicking the Modify button
 | The proposal for modifying the word is sent. Moderators can view the proposal when listing the suggestions.
 | WORD_UPDATE
 |===
@@ -489,14 +389,14 @@ image::../static/frontend_plans/delete_word_suggest.png[Proposal to Delete an Ex
 |===
 | Event | Description | Permission
 
-| Clicking the Send button
+| Clicking the Delete button
 | The proposal for deleting the word is sent. Moderators can view the proposal when listing the suggestions.
 | WORD_DELETE
 |===
 
 === Proposals Listing Interface
 
-The blue, green, and red boxes appearing on the interface actually all represent the same object, the "suggestion" object. The blue represents a modification, the green represents a creation, and the red represents a deletion. For these objects, two common operations are defined: acceptance and rejection.
+For these objects, two common operations are defined: acceptance and rejection.
 
 ==== Layout
 
@@ -575,11 +475,11 @@ image::../static/frontend_plans/list_suggestions.png[View Proposals Layout]
 | Clicking the "play" button
 | Returns to the homepage, where we can continue playing. |
 
-| Clicking the "Make Proposal" button
+| Clicking the "Make suggestion" button
 | The New Word Proposal interface appears. A proposal can be made for a New Word. | WORD_CREATE
 
-| Clicking the "Apply as Moderator" button
-| The "apply as moderator" popup window appears. | SUGGESTION_LIST
+| Clicking the "Become mod" button
+| The "become mod" popup window appears. | SUGGESTION_LIST
 
 | Clicking the "Accept" (checkmark) button
 | The proposal is accepted. In the case of a creation proposal, the new word appears in the system; in the case of a modification proposal, the modified word becomes available with the new restricted symbols; in the case of a deletion proposal, the word is deleted from the system. | SUGGESTION_ACCEPT
@@ -587,8 +487,11 @@ image::../static/frontend_plans/list_suggestions.png[View Proposals Layout]
 | Clicking the "Reject" (X) button
 | The proposal is rejected. Everything remains unchanged in the system. | SUGGESTION_REJECT
 
-| Clicking the "name" button
-| The "login" popup window appears, and we can switch accounts (or log in if we haven't done so yet). |
+| Clicking the "login" button
+| The "login" popup window appears, and we can log in if we haven't done so yet. |
+
+| Clicking the "sign up" button
+| The "sign up" popup window appears, and we can registrate.
 
 |===
 
