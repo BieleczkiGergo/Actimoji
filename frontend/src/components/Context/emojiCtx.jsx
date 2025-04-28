@@ -19,10 +19,17 @@ async function getAllEmojis(){
 
 function EmojiProvider({children}){
     const [emojis, setEmojis] = useState([]);
-    const { loaded } = useAuth();
+    const { loaded, logout } = useAuth();
 
     async function reloadEmojis(){
-        setEmojis( await getAllEmojis() );
+        try {
+            const allEmojis = await getAllEmojis();
+            setEmojis( allEmojis );
+            
+        } catch (e) {
+            logout();
+            
+        }
 
     }
     // Premature abstraction because I want to look smart

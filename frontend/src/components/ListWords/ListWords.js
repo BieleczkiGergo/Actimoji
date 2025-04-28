@@ -27,7 +27,7 @@ function ListWords({ open, onClose, onSelect }) {
           console.error("Hiba történt az adatok lekérésekor:", error);
         });
     }
-  }, [open, token]); // Ha a modal nyitás vagy a token változik, újraindul a kérés
+  }, [open, token, page]); // Ha a modal nyitás vagy a token változik, újraindul a kérés
 
   const handleWordClick = (word) => {
     onSelect(word);
@@ -78,7 +78,7 @@ function ListWords({ open, onClose, onSelect }) {
 
           </div>
         ) : (
-          <p>No words available.</p>
+          <p>No more words available.</p>
 
         )}
 

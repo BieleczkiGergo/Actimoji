@@ -103,7 +103,9 @@ VALUES
     (97, 'compass', '🧭'),
     (98, 'tent', '⛺'),
     (99, 'mountain', '🏔️ ⛰️'),
-    (100, 'desert', '🏜️');
+    (100, 'desert', '🏜️'),
+    (101, 'index', '')
+;
 
 INSERT INTO `modrequest` (requested_id, approved_id, reason, approved)
 VALUES

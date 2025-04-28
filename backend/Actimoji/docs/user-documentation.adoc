@@ -87,6 +87,16 @@ image:static/frontend/modifySuggestion.png[Modify suggestion]
 3. Press the delete button to submit the deletion request.
 image:static/frontend/deleteSuggestion.png[Delete suggestion]
 
+=== Selecting the word
+
+To select the word you want to perform the action on, click the `Select Old Word` button. Then the `List words` panel will open up.
+
+image:static/frontend/listWords_button.png[List Words button]
+
+To select the word, click on it in the panel that opens up. You can also navigate to the next and previous page to find more words. Click on the close button to close the panel without choosing the word.
+
+image:static/frontend/listWords_panel.png[List Words panel]
+
 === The Emoji keyboard
 
 We made an emoji keyboard to assist you with some tasks, such as:
