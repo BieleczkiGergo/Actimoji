@@ -14,7 +14,7 @@ const EmojiKeyboard = ({ onEmojiSelect, onEmojiDelete }) => {
 
   );
 
-  function handleAltActions(e){
+  const handleAltActions = (e) => {
     if( !( e.altKey && e.key !== "Alt" ) )
       return;
     

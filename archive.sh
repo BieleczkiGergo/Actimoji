@@ -8,6 +8,8 @@ outfile="archives/Actimoji_${current_date}.zip"
 
 echo $outfile
 
+rm "$outfile"
+
 zip -r "$outfile" .git* README.md \
   frontend/.git* frontend/public frontend/README.md \
   frontend/package* frontend/src frontend/test \

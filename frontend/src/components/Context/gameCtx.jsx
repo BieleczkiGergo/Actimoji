@@ -40,14 +40,14 @@ function GameProvider({ children }){
 
     }, [ wordChoice ]);
 
-    function sendChatMessage( message ){
+    const sendChatMessage = ( message ) => {
         socket.send( message );
 
     }
     
     // the sendDescription and chooseWord functions are only there to provide clean code
-    async function sendDescription( desc ){
-        await sendChatMessage( desc );
+    const sendDescription = ( desc ) => {
+        sendChatMessage( desc );
 
     }
 
@@ -55,12 +55,12 @@ function GameProvider({ children }){
      * 
      * @param {String} chosenWord The chosen word string that the writer will have to describe
      */
-    async function chooseWord( chosenWord ){
-        await sendChatMessage( chosenWord );
+    const chooseWord = ( chosenWord ) => {
+        sendChatMessage( chosenWord );
 
     }
 
-    function disconnect(){
+    const disconnect = () => {
         if (socket instanceof WebSocket) {
             socket.close();
 

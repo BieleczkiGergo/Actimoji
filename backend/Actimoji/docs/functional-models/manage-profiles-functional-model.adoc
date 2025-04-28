@@ -103,7 +103,7 @@ This functional module handles user account management, including registration, 
 
     A request is sent to the backend
 
-    Admin can review and approve or reject the request
+    Other moderators can review and approve or reject the request
 
 | Exceptions and Alternatives
 | User is already a moderator
@@ -116,6 +116,80 @@ This functional module handles user account management, including registration, 
 
 | Use Case Realization
 | ModeratorRequestController.request()
+
+|===
+
+[cols="1h,4"]
+|===
+| Use Case
+| Accepting a moderator request
+
+| Identifier
+| UC_A_AcceptModerator
+
+| Triggering Event
+| A moderator want to allow someone else to become a moderator
+
+| Users
+| Moderator
+
+| Primary Flow
+|
+
+    A moderator sees a moderator request
+
+    They click the accept button
+
+    A request is sent to the backend and the regular user is now also a moderator.
+
+| Exceptions and Alternatives
+| User doesn't exist
+
+| Post condition
+| The regular user is now a moderator and the request disappears from the UI.
+
+| Result
+| The approved user can now approve or reject word suggestions and moderator requests.
+
+| Use Case Realization
+| ModeratorRequestController.acceptModeratorRequest()
+
+|===
+
+[cols="1h,4"]
+|===
+| Use Case
+| Rejecting a moderator request
+
+| Identifier
+| UC_A_RejectModerator
+
+| Triggering Event
+| A moderator wants to reject a moderator request
+
+| Users
+| Moderator
+
+| Primary Flow
+|
+
+    A moderator sees a moderator request
+
+    They click the reject button
+
+    A request is sent to the backend and the regular user is still a regular user.
+
+| Exceptions and Alternatives
+| User doesn't exist
+
+| Post condition
+| The regular user is still a regular user and the request disappears from the UI.
+
+| Result
+| The user stays as a regular user and can't approve or reject word suggestions or moderator requests.
+
+| Use Case Realization
+| ModeratorRequestController.rejectModeratorRequest()
 
 |===
 
@@ -136,6 +210,14 @@ This functional module handles user account management, including registration, 
 | Applying for Moderator
 | MODERATOR_APPLY
 | Authenticated User
+
+| Accepting a moderator request
+| MODERATOR_ACCEPT
+| Moderator
+
+| Rejecting a moderator request
+| MODERATOR_REJECT
+| Moderator
 
 |===
 

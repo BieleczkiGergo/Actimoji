@@ -7,6 +7,7 @@ This chapter provides a detailed technical insight into the backend system of th
 The backend application follows a layered architecture:
 
 - **Controller layer**: Handles HTTP requests and responses.
+- **Handler layer**: Like controller layer, but for websockets
 - **Service layer**: Contains business logic.
 - **Repository layer**: Interfaces with the database using Spring Data JPA.
 - **Domain/Model layer**: Defines data structures and relationships.
@@ -19,11 +20,11 @@ The project is organized under the base package: `hu.actimoji`. Each feature is 
 
 - `account`: User accounts, authentication, registration.
 - `emoji`: Emoji parsing and storage.
-- `game`: Game logic and state management.
+- `game`: Game room joining.
 - `moderatorRequest`: Handling user requests for moderator actions.
 - `player`: Player-related models and logic.
 - `review`: Word review process.
-- `room`: Game room joining.
+- `room`: Room management and game logic.
 - `security`: Web security configuration.
 - `suggestion`: User word suggestion logic.
 - `word`: Word entities and retrieval logic.
@@ -54,11 +55,19 @@ All entities use JPA annotations, and most are linked via `@OneToMany`, `@ManyTo
 - Uses **MariaDB** as the database engine.
 - ORM provided via Spring Data JPA.
 - Each repository interface extends `JpaRepository`.
-- Schema is auto-generated based on entities (DDL auto).
+//- Schema is auto-generated based on entities (DDL auto).
 
-== 5. Services
+== 5. Repositories
 
-Each module has a `Service` class (e.g., `AccountService`, `EmojiService`) containing business logic.
+Most modules have a repository interface
+
+- each of them extends `JpaRepository`
+
+- Apart from the game logic handlers and some miscellaneous services, every service class has repository class
+
+== 6. Services
+
+Most modules have a `Service` class (e.g., `AccountService`, `EmojiService`) containing business logic.
 
 [source,java]
 ----
@@ -73,7 +82,7 @@ public class AccountService {
 }
 ----
 
-== 6. REST API Endpoints
+== 7. REST API Endpoints
 
 Controllers handle HTTP endpoints. Example from `AccountController`:
 
@@ -82,42 +91,43 @@ Controllers handle HTTP endpoints. Example from `AccountController`:
 
 All endpoints return JSON and use `@RestController` annotation.
 
-== 7. WebSocket Communication
+== 8. WebSocket Communication
 
 Real-time game interaction uses WebSocket. Configuration class:
 
 - `WebSocketConfig.java` – Registers endpoint `/ws/game`.
 
 Messages handled in `GameHandler.java`:
+
 - Player joins
 - Game state updates
 - New word submissions
 
-== 8. Exception Handling
+== 9. Exception Handling
 
 Custom exceptions are defined, e.g., `AccountNotFoundException`, `ExistingAccountException`.
 
 They are handled in `@ControllerAdvice` classes like `AccountExceptionHandler`.
 
-== 9. Security
+== 10. Security
 
 - Basic CORS configuration in `CorsConfig.java`.
-- Authentication logic is currently minimal.
+- Authentication is done via jwt.
 
-== 10. Configuration
+== 11. Configuration
 
 - `application.properties` defines DB config.
 - Spring Boot auto-configures most components.
 
-== 11. Dependencies
+== 12. Dependencies
 
-- Java 17
+- Java 21
 - Spring Boot 3.x
 - Spring Web, Spring Data JPA, WebSocket
 - MariaDB Connector
 - Lombok
 
-== 12. Build Tool
+== 13. Build Tool
 
 - Uses Maven (`pom.xml`)
 - Includes plugin configurations for build and dependency management

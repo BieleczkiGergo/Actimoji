@@ -4,7 +4,7 @@ import { useAuth } from "./AuthContext";
 
 const EmojiCtx = createContext([]);
 
-async function getAllEmojis(){
+const getAllEmojis = async () => {
     return (await backendApi.get("/emoji/getAll")).data
     .map( (emojiread => {
         return {
@@ -21,7 +21,7 @@ function EmojiProvider({children}){
     const [emojis, setEmojis] = useState([]);
     const { loaded, logout } = useAuth();
 
-    async function reloadEmojis(){
+    const reloadEmojis = async () => {
         try {
             const allEmojis = await getAllEmojis();
             setEmojis( allEmojis );

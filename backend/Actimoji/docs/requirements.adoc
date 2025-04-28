@@ -66,43 +66,47 @@ The system will provide an interactive word game where users need to guess the w
 - Moderator reviews the word and either accepts or rejects the proposal.
 ====
 
-=== 5. Game Mechanics
-
-[NOTE]
-====
-**Description:** The application will provide an interactive word game, where users must guess the correct word from a series of emojis or they must write the emojis for a word. Users will take turns proposing words and guessing based on the emojis shown.
-
-- **Precondition:** Users must join a room to play the game.
-- **Post-condition:** The game progresses, either a new word is revealed, or a turn ends.
-
-**Use Case:**
-- A user enters the game room.
-- Another user displays a word represented by emojis.
-- The user attempts to guess the word.
-- If the user guesses the word correctly, the round ends and another player becomes the writer.
-- If the user guesses incorrectly, the system allows another attempts until the time is up.
-====
-
-=== 6. Game Room Management
+=== 5. Game Room Management
 
 [NOTE]
 ====
 **Description:** Players can join a game room. A game room will allow a fixed number of players and will track the game's progress, including the number of rounds and the current word being guessed.
 
-- **Precondition:** The user must be registered and authenticated to join a game room.
-- **Post-condition:** The user joins an existing room, and the game begins.
+- **Precondition:** The user doesn't have to be authenticated or registered at all, they just have to provide a temporary nickname that will be used in the game.
+- **Post-condition:** The user joins an existing room, or a new one is created, and if enough people are in the room, the game begins.
 
 **Use Case:**
+
 - Players join the game.
 - The game begins when the required number of players have joined.
 - Players take turns proposing and guessing words until the game ends or reaches its set limit.
+====
+
+=== 6. Game Mechanics
+
+[NOTE]
+====
+Because games require custom and non-standard logic, the game mechanics will be the most complicated part.
+
+**Description:** The application will provide an interactive word game, where users must guess the correct word from a series of emojis, or they must describe the word with emojis only. Users will take turns proposing words and guessing based on the emojis shown.
+
+- **Precondition:** Users must join a room to play the game.
+- **Post-condition:** The game progresses
+
+**Use Case:**
+
+- A user enters the game room.
+- Another user describes a word with only emojis.
+- The other users attempts to guess the word.
+- If all users guess the word correctly, the round ends and another player becomes the writer.
+- If the user guesses incorrectly, the system allows another attempts until the time is up.
 ====
 
 === 7. Player Interaction
 
 [NOTE]
 ====
-**Description:** Players in the game can interact with each other via chat messages, either to discuss the current word, ask for hints, or engage in friendly banter.
+**Description:** Players in the game can interact with each other via chat messages, either to discuss the current word or engage in friendly banter.
 
 - **Precondition:** The user must be in an active game room.
 - **Post-condition:** Players can communicate via a chat interface during the game.
@@ -116,13 +120,13 @@ The system will provide an interactive word game where users need to guess the w
 
 [NOTE]
 ====
-**Description:** The game will assign scores based on the time taken to guess and the accuracy of guesses.
+**Description:** The game will assign scores based on the time taken to guess.
 
 - **Precondition:** Players must join a room and actively participating in the game.
-- **Post-condition:** Scores are calculated.
+- **Post-condition:** Scores are calculated at the end of each round.
 
 **Use Case:**
-- Players earn points for correctly guessing a word in fewer attempts or within a limited time frame.
+- Players earn points for correctly guessing a word within a limited time frame.
 ====
 
 == Non-Functional Requirements
@@ -131,7 +135,9 @@ The system will provide an interactive word game where users need to guess the w
 
 [NOTE]
 ====
-**Description:** The system must handle up to 1,000 concurrent users without significant performance degradation.
+Because we're running the server on a laptop and not a mainframe computer, our performance expectations are low. Still, we will try and make the system optimized and performant.
+
+**Description:** The system must handle up to 100 concurrent users without significant performance degradation.
 
 - **Precondition:** The server must be capable of handling the expected load.
 - **Post-condition:** User requests are processed efficiently.

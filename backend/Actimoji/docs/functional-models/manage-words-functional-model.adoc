@@ -492,6 +492,7 @@ image::../static/frontend_plans/list_suggestions.png[View Proposals Layout]
 
 | Clicking the "sign up" button
 | The "sign up" popup window appears, and we can registrate.
+|
 
 |===
 
