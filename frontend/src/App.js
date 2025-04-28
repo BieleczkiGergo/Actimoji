@@ -11,6 +11,8 @@ import { useAuth } from "./components/Context/AuthContext";
 import { Game } from "./components/game/game.jsx";
 import { findRandomGame, GameCtx } from "./components/Context/gameCtx.jsx";
 
+const docsUrl = "https://github.com/BieleczkiGergo/Actimoji/tree/main/backend/Actimoji/docs";
+
 function App() {
   const { token, logout, user } = useAuth();
   const isMod = user?.roles?.includes("ROLE_MODERATOR");
@@ -68,6 +70,11 @@ function App() {
     game.joinGame(rid, nickname);
   };
 
+  const handleDocsOpen = () => {
+    window.open(docsUrl, '_blank', 'noopener,noreferrer');
+
+  };
+
   return (
     <div className="container">
       <div className="sidebar">
@@ -80,6 +87,7 @@ function App() {
         <button className="sidebarButton" onClick={handleReadSuggestionClick}>Read suggestions</button>
         <button className="sidebarButton" onClick={handleModRequestClick}>View Mod Requests</button>
         <button className="sidebarButton" onClick={handleBecomeModClick}>Become Mod</button>
+        <button className="sidebarButton" onClick={handleDocsOpen}>Docs</button>
 
         {token ? (
           <button className="sidebarButton" onClick={logout}>Logout</button>

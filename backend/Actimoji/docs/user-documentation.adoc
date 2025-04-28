@@ -13,7 +13,15 @@ You can access the game through your web browser or mobile device. No installati
 === Main page
 
 This is the main page, which you will see when you want to play the game.
+
 image:static/frontend/mainPage.png[main Page]
+
+To access the documentation on GitHub, just click on the Docs button
+
+image:static/frontend/docsButton.png[Docs button]
+
+But you might have already done that.
+
 
 === Creating an Account
 
@@ -69,6 +77,7 @@ image:static/frontend/chat.png[Chat]
 1. Navigate to the “Make suggestion” menu.
 2. If you want to create a new word, enter the word, emojis (symbols), and an optional reason.
 3. Press the Create button to submit your proposal for moderator review.
+
 image:static/frontend/createSuggestion.png[Create suggestion]
 
 === Modifying a Word
@@ -85,6 +94,7 @@ image:static/frontend/modifySuggestion.png[Modify suggestion]
 1. Select the word to delete.
 2. You have to provide a reason.
 3. Press the delete button to submit the deletion request.
+
 image:static/frontend/deleteSuggestion.png[Delete suggestion]
 
 === Selecting the word
@@ -97,13 +107,16 @@ To select the word, click on it in the panel that opens up. You can also navigat
 
 image:static/frontend/listWords_panel.png[List Words panel]
 
-=== The Emoji keyboard
+== The Emoji keyboard
 
 We made an emoji keyboard to assist you with some tasks, such as:
 
 - when typing in banned icons for a suggestion:
+
 image:static/frontend/keyboard_suggestion.png[Keyboard in suggestion]
+
 - when you're describing a word ( in-game )
+
 image:static/frontend/keyboard_ingame.png[Keyboard in-game]
 
 Just start typing the emoji and it will show you only the emojis that fit your keywords:
@@ -121,6 +134,7 @@ image:static/frontend/keyboard_delete.png[Deleting the last emoji with the keybo
 === Applying for moderator
 1. Press the become mod button
 2. Write a reason why you want to be a moderator
+
 image:static/frontend/becomeMod.png[Become mod]
 
 == Moderator Actions

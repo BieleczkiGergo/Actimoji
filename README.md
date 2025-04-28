@@ -23,3 +23,17 @@ configurations. Run the configuration.
 To start the frontend server, navigate to /frontend in a terminal and run:
 `npm start`
 
+---
+
+# Documentation
+
+Documentation is accessible through this url:
+
+https://github.com/BieleczkiGergo/Actimoji/tree/main/backend/Actimoji/docs
+
+Or alternatively, you can click on the 'Docs' button in the application.
+
+# Archiving
+
+To create an archive of the project, run `archive.sh`.
+
